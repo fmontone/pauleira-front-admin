@@ -1,10 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { Wrapper } from './styles';
+import { Wrapper, Container } from './styles';
+
+import Header from './Header';
+import Footer from './Footer';
 
 function LayoutDefault({ children }) {
-  return <Wrapper>{children}</Wrapper>;
+  return (
+    <Wrapper>
+      <Header />
+      <Container>{children}</Container>
+      <Footer />
+    </Wrapper>
+  );
 }
 
 LayoutDefault.propTypes = {
