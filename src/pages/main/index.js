@@ -1,7 +1,7 @@
 import React from 'react';
 
-function main() {
-  return <h1>Pauleira Admin</h1>;
+function Main() {
+  return <h1>Main</h1>;
 }
 
-export default main;
+export default Main;

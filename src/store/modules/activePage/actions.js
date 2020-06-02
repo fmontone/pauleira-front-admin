@@ -1,6 +1,6 @@
-export function setActivePage(activePage) {
+export function setActivePage(page) {
   return {
     type: '@activePage/SET_ACTIVE_PAGE',
-    payload: { activePage },
+    payload: { page },
   };
 }
