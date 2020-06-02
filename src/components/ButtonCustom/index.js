@@ -40,7 +40,7 @@ export default function ButtonCustom({
       <span>{children}</span>
       <FeedBack
         className={feedback && 'animate'}
-        onAnimationEnd={() => handleClick(false)}
+        onAnimationEnd={() => handleClick()}
       />
     </Button>
   );
