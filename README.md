@@ -1,3 +1,5 @@
+**AS this is in front-end phase yet, you should change "signed" status on raw code to visualize internal or login pages on `~/src/routes/Route.js`**
+
 # GoMench - React Js CRA Template
 
 This package was created and bootstrapped with create-react-app with GoMench React Js template. If you wanna create a project on your own, just run:
