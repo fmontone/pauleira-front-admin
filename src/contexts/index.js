@@ -1,5 +1,5 @@
 import { createContext } from 'react';
 
-const ActivePageContext = createContext(null);
+const UsersDropContext = createContext(null);
 
-export { ActivePageContext };
+export { UsersDropContext };
