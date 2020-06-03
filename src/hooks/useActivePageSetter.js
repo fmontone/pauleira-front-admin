@@ -12,8 +12,6 @@ export default function useActivePageSetter() {
     const pathActive = pathname.split('/')[1];
     let pathString;
 
-    console.log(pathActive);
-
     switch (pathActive) {
       case 'dashboard':
         pathString = 'Dashboard';
