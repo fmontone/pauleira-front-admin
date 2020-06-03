@@ -6,6 +6,10 @@ import useActivePageSetter from '~/hooks/useActivePageSetter';
 
 import Login from '~/pages/Login';
 import Main from '~/pages/Main';
+import Users from '~/pages/Users';
+import Galleries from '~/pages/Galleries';
+import Courses from '~/pages/Courses';
+import Settings from '~/pages/Settings';
 
 export default function Routes() {
   useActivePageSetter();
@@ -16,16 +20,16 @@ export default function Routes() {
       <Redirect path="/login" to="/" />
 
       <Route path="/dashboard" exact component={Main} isPrivate />
-      <Route path="/users" exact component={Main} isPrivate />
-      <Route path="/users/new" exact component={Main} isPrivate />
-      <Route path="/users/:id" exact component={Main} isPrivate />
-      <Route path="/galleries" exact component={Main} isPrivate />
-      <Route path="/galleries/new" exact component={Main} isPrivate />
-      <Route path="/galleries/:id" exact component={Main} isPrivate />
-      <Route path="/courses" exact component={Main} isPrivate />
-      <Route path="/courses/new" exact component={Main} isPrivate />
-      <Route path="/courses/:id" exact component={Main} isPrivate />
-      <Route path="/settings" exact component={Main} isPrivate />
+      <Route path="/users" exact component={Users} isPrivate />
+      <Route path="/users/new" exact component={Users} isPrivate />
+      <Route path="/users/:id" exact component={Users} isPrivate />
+      <Route path="/galleries" exact component={Galleries} isPrivate />
+      <Route path="/galleries/new" exact component={Galleries} isPrivate />
+      <Route path="/galleries/:id" exact component={Galleries} isPrivate />
+      <Route path="/courses" exact component={Courses} isPrivate />
+      <Route path="/courses/new" exact component={Courses} isPrivate />
+      <Route path="/courses/:id" exact component={Courses} isPrivate />
+      <Route path="/settings" exact component={Settings} isPrivate />
     </Switch>
   );
 }

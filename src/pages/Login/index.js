@@ -6,6 +6,8 @@ import { signInRequest } from '~/store/modules/auth/actions';
 import { Container, Logo, Title, MyForm, MyInput, MyButton } from './styles';
 import colors from '~/styles/colors';
 
+import Icon from '~/components/Icon';
+
 function Login() {
   const dispatch = useDispatch();
   const loading = useSelector((state) => state.auth.loading);
@@ -28,7 +30,9 @@ function Login() {
 
   return (
     <Container>
-      <Logo />
+      <Logo>
+        <Icon name="logo-flying-p" size="72" color={colors.greyLighter} />
+      </Logo>
       <Title>Login</Title>
       <MyForm onSubmit={handleSubmit} onInput={(e) => handleInputUpdate(e)}>
         <MyInput name="email" type="text" placeholder="Seu email..." />

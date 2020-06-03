@@ -37,6 +37,13 @@ export const StyledLink = styled(Link)`
   display: flex;
   justify-content: center;
   align-items: center;
+  opacity: 1;
+  transition: opacity 0.3s ease;
+  transition-delay: ${(props) => `${props.delay}s`};
+
+  &.animate {
+    opacity: 0;
+  }
 
   :active {
     transform: translate(1px, 1px);

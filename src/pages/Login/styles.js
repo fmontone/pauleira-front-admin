@@ -19,7 +19,9 @@ export const Logo = styled.div`
   width: 64px;
   height: 70px;
   margin-bottom: 16px;
-  background-color: lightgrey;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 export const Title = styled.h2`
