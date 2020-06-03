@@ -1,4 +1,4 @@
-**AS this is in front-end phase yet, you should change "signed" status on raw code to visualize internal or login pages on `~/src/routes/Route.js`**
+***Atention: as this is in front-end phase yet, you should change "signed" status on raw code to visualize internal or login pages on `~/src/routes/Route.js`**
 
 # GoMench - React Js CRA Template
 
