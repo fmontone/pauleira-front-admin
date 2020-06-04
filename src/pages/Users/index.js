@@ -13,16 +13,15 @@ import {
   DropDownWrapper,
   IconDisplayWrapper,
   StyledIconButton,
-  TabsWrapper,
-  TabsCustom,
-  TabOption,
+  Tabs,
 } from './styles';
 
 function Users() {
+  const tabOptions = ['Todos', 'Alunos', 'Instrutores'];
+  const [tabActive, setTabActive] = useState(tabOptions[0]);
   // const [users, setUsers] = useState([]);
   const [searchQuery, setSearchQuery] = useState(null);
   const [settingsType, setSettingsType] = useState('block');
-  const [settingsTab, setSettingsTab] = useState('todos');
   const [dropActive, setDropActive] = useState(undefined);
 
   const dropOptions = ['Mais Recentes', 'Mais Antigos', 'A a Z', 'Z a A'];
@@ -82,30 +81,10 @@ function Users() {
         </Settings>
       </HeadlineContainer>
 
-      <TabsWrapper>
-        <TabsCustom>
-          <TabOption>
-            <button
-              type="button"
-              className={settingsTab === 'todos' ? 'active' : ''}
-              onClick={() => setSettingsTab('todos')}
-            >
-              Todos
-            </button>
-            <span className={settingsTab === 'todos' ? 'active' : ''} />
-          </TabOption>
-          <TabOption>
-            <button
-              type="button"
-              className={settingsTab === 'alunos' ? 'active' : ''}
-              onClick={() => setSettingsTab('alunos')}
-            >
-              Alunos
-            </button>
-            <span className={settingsTab === 'alunos' ? 'active' : ''} />
-          </TabOption>
-        </TabsCustom>
-      </TabsWrapper>
+      <Tabs
+        tabOptions={tabOptions}
+        onClick={(e) => setTabActive(e.target.innerText)}
+      />
     </Container>
   );
 }
