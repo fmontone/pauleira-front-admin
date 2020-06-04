@@ -15,11 +15,11 @@ import {
 } from './styles';
 
 function Users() {
-  const [searchQuery, setSearchQuery] = useState(null);
+  const [searchQuery, setSearchQuery] = useState(null); // eslint-disable-line
   const tabOptions = ['Todos', 'Alunos', 'Instrutores'];
-  const [tabActive, setTabActive] = useState(tabOptions[0]);
+  const [tabActive, setTabActive] = useState(tabOptions[0]); // eslint-disable-line
   const [displayList, setDisplayList] = useState(true);
-  const [dropActive, setDropActive] = useState(undefined);
+  const [dropActive, setDropActive] = useState(undefined); // eslint-disable-line
   // const [users, setUsers] = useState([]);
 
   const dropOptions = ['Mais Recentes', 'Mais Antigos', 'A-z', 'z-A'];
