@@ -1,7 +1,14 @@
 import React from 'react';
 
+import colors from '~/styles/colors';
+import { Container, ButtonAdd } from './styles';
+
 function Courses() {
-  return <h1>Courses</h1>;
+  return (
+    <Container>
+      <ButtonAdd color={colors.statusInfo}>Adicionar Curso</ButtonAdd>
+    </Container>
+  );
 }
 
 export default Courses;
