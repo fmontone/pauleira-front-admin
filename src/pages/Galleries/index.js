@@ -14,6 +14,8 @@ import {
   Tabs,
 } from './styles';
 
+import GalleriesList from './GalleriesList';
+
 function Galleries() {
   const [searchQuery, setSearchQuery] = useState(null); // eslint-disable-line
   const tabOptions = ['Todos', 'Alunos', 'Instrutores'];
@@ -59,6 +61,8 @@ function Galleries() {
         tabOptions={tabOptions}
         onClick={(e) => setTabActive(e.target.innerText)}
       />
+
+      <GalleriesList />
     </Container>
   );
 }

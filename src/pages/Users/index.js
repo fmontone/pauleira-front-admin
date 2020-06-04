@@ -14,6 +14,8 @@ import {
   Tabs,
 } from './styles';
 
+import UsersList from './UsersList';
+
 function Users() {
   const [searchQuery, setSearchQuery] = useState(null); // eslint-disable-line
   const tabOptions = ['Todos', 'Alunos', 'Instrutores'];
@@ -59,6 +61,8 @@ function Users() {
         tabOptions={tabOptions}
         onClick={(e) => setTabActive(e.target.innerText)}
       />
+
+      <UsersList />
     </Container>
   );
 }

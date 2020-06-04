@@ -14,6 +14,8 @@ import {
   Tabs,
 } from './styles';
 
+import CoursesList from './CoursesList';
+
 function Courses() {
   const [searchQuery, setSearchQuery] = useState(null); // eslint-disable-line
   const tabOptions = ['Todos', 'Online', 'Presencial'];
@@ -59,6 +61,8 @@ function Courses() {
         tabOptions={tabOptions}
         onClick={(e) => setTabActive(e.target.innerText)}
       />
+
+      <CoursesList />
     </Container>
   );
 }
