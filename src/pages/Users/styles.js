@@ -7,7 +7,7 @@ import ButtonCustom from '~/components/ButtonCustom';
 import SearchForm from '~/components/SearchForm';
 import { Select } from '~/components/Form';
 import TabFilter from '~/components/TabFilter';
-import IconButton from '~/components/IconButton';
+import DisplaySelector from '~/components/DisplaySelector';
 
 export const Container = styled(ContainerCustom)`
   display: flex;
@@ -52,31 +52,7 @@ export const SelectFilter = styled(Select)`
   margin-bottom: 16px;
 `;
 
-export const IconDisplayWrapper = styled.div`
-  width: auto;
-  height: auto;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-`;
-
-export const StyledIconButton = styled(IconButton)`
-  :last-child {
-    margin-left: 8px;
-  }
-`;
-
-export const Block = styled.div`
-  width: 100%;
-  height: auto;
-`;
-
-export const DisplaySettings = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-`;
+export const StyledDisplaySelector = styled(DisplaySelector)``;
 
 export const Tabs = styled(TabFilter)`
   margin-bottom: 16px;

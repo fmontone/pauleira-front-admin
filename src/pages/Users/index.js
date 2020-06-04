@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 
 import colors from '~/styles/colors';
 
-import Icon from '~/components/Icon';
 import {
   Container,
   HeadlineContainer,
@@ -11,31 +10,23 @@ import {
   Settings,
   SelectFilter,
   DropDownWrapper,
-  IconDisplayWrapper,
-  StyledIconButton,
+  StyledDisplaySelector,
   Tabs,
 } from './styles';
 
 function Users() {
+  const [searchQuery, setSearchQuery] = useState(null);
   const tabOptions = ['Todos', 'Alunos', 'Instrutores'];
   const [tabActive, setTabActive] = useState(tabOptions[0]);
-  // const [users, setUsers] = useState([]);
-  const [searchQuery, setSearchQuery] = useState(null);
-  const [settingsType, setSettingsType] = useState('block');
+  const [displayList, setDisplayList] = useState(true);
   const [dropActive, setDropActive] = useState(undefined);
+  // const [users, setUsers] = useState([]);
 
-  const dropOptions = ['Mais Recentes', 'Mais Antigos', 'A a Z', 'Z a A'];
+  const dropOptions = ['Mais Recentes', 'Mais Antigos', 'A-z', 'z-A'];
 
   function handleSearchFormSubmit(e) {
     e.preventDefault();
-    console.log('SUBMIT: ', searchQuery);
-  }
-  function handleSearchFormChange(e) {
-    setSearchQuery(e.target.value);
-  }
-
-  function handleDropDownChange(e) {
-    console.log(e.target.value);
+    // console.log('SUBMIT: ', searchQuery);
   }
 
   return (
@@ -45,39 +36,22 @@ function Users() {
 
         <Search
           onSubmit={(e) => handleSearchFormSubmit(e)}
-          onChange={(e) => handleSearchFormChange(e)}
+          onChange={(e) => setSearchQuery(e.target.value)}
+          placeholder="Procurar Usuário..."
         />
 
         <Settings>
           <DropDownWrapper>
             <SelectFilter
               dropOptions={dropOptions}
-              onChange={() => console.log('CHANGE')}
+              onChange={(e) => setDropActive(e.target.value)}
             />
           </DropDownWrapper>
 
-          <IconDisplayWrapper>
-            <StyledIconButton>
-              <Icon
-                name="settings-block"
-                color={
-                  settingsType === 'block' ? colors.primary : colors.greyLight
-                }
-              />
-            </StyledIconButton>
-            <StyledIconButton
-              onClick={() => {
-                setSettingsType('list');
-              }}
-            >
-              <Icon
-                name="settings-list"
-                color={
-                  settingsType === 'list' ? colors.primary : colors.greyLight
-                }
-              />
-            </StyledIconButton>
-          </IconDisplayWrapper>
+          <StyledDisplaySelector
+            displayList={displayList}
+            onClick={() => setDisplayList(!displayList)}
+          />
         </Settings>
       </HeadlineContainer>
 

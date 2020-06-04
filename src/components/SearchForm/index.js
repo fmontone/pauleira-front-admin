@@ -8,10 +8,10 @@ import { Form, ButtonSubmit } from './styles';
 
 import colors from '~/styles/colors';
 
-function SearchForm({ ...rest }) {
+function SearchForm({ placeholder, ...rest }) {
   return (
     <Form {...rest}>
-      <Input />
+      <Input placeholder={placeholder} />
       <ButtonSubmit>
         <MdSearch color={colors.greyLight} size="24" />
       </ButtonSubmit>
@@ -20,7 +20,10 @@ function SearchForm({ ...rest }) {
 }
 
 SearchForm.propTypes = {
-  onSubmit: PropTypes.func.isRequired,
+  placeholder: PropTypes.string,
+};
+SearchForm.defaultProps = {
+  placeholder: '',
 };
 
 export default SearchForm;
