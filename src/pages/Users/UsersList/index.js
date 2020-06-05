@@ -180,10 +180,10 @@ function UsersList({ displayList }) {
 }
 
 UsersList.propTypes = {
-  displayList: PropTypes.bool,
+  displayList: PropTypes.string,
 };
 UsersList.defaultProps = {
-  displayList: true,
+  displayList: 'list',
 };
 
 export default UsersList;

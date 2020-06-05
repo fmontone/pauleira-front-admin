@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { CardContainer, BlockContainer, List } from './styles';
 
 function ListLayout({ displayList, children, ...rest }) {
-  const Layout = displayList ? CardContainer : BlockContainer;
+  const Layout = displayList === 'list' ? CardContainer : BlockContainer;
 
   return (
     <Layout {...rest}>
@@ -19,11 +19,11 @@ ListLayout.propTypes = {
     PropTypes.func,
     PropTypes.node,
   ]).isRequired,
-  displayList: PropTypes.bool,
+  displayList: PropTypes.string,
 };
 
 ListLayout.defaultProps = {
-  displayList: true,
+  displayList: 'list',
 };
 
 export default ListLayout;

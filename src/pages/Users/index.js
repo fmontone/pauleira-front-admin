@@ -20,7 +20,7 @@ function Users() {
   const [searchQuery, setSearchQuery] = useState(null); // eslint-disable-line
   const tabOptions = ['Todos', 'Alunos', 'Instrutores'];
   const [tabActive, setTabActive] = useState(tabOptions[0]); // eslint-disable-line
-  const [displayList, setDisplayList] = useState(true);
+  const [displayList, setDisplayList] = useState('list');
   const [dropActive, setDropActive] = useState(undefined); // eslint-disable-line
   // const [users, setUsers] = useState([]);
 
@@ -33,6 +33,7 @@ function Users() {
 
   function handleDisplayListSelect(e) {
     e.persist();
+    setDisplayList(e.target.dataset.selector);
   }
 
   return (

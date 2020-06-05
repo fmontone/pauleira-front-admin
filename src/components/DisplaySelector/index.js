@@ -13,13 +13,13 @@ function DisplaySelector({ onClick, displayList, ...rest }) {
       <StyledIconButton data-selector="list" onClick={onClick}>
         <Icon
           name="settings-list"
-          color={displayList ? colors.primary : colors.greyLight}
+          color={displayList === 'list' ? colors.primary : colors.greyLight}
         />
       </StyledIconButton>
       <StyledIconButton data-selector="block" onClick={onClick}>
         <Icon
           name="settings-block"
-          color={!displayList ? colors.primary : colors.greyLight}
+          color={displayList !== 'list' ? colors.primary : colors.greyLight}
         />
       </StyledIconButton>
     </Container>
@@ -27,8 +27,12 @@ function DisplaySelector({ onClick, displayList, ...rest }) {
 }
 
 DisplaySelector.propTypes = {
-  displayList: PropTypes.bool.isRequired,
+  displayList: PropTypes.string,
   onClick: PropTypes.func.isRequired,
+};
+
+DisplaySelector.defaultProps = {
+  displayList: 'list',
 };
 
 export default DisplaySelector;
