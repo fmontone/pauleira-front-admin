@@ -6,9 +6,9 @@ import colors from '~/styles/colors';
 
 /**
  * @param {String('button'|'submit')} type
- * @param {String}  model
+ * @param {String('regular*'|'CallToAction'|'Outline'|'Inactive'|'inactiveOutline')}  model
  * @param {String('small'|'regular'|'large')}  size
- * @param {String}  color
+ * @param {String}  color // as in '~/src/styles/colors'
  * @param {String('auto'|'stretch')}  width
  */
 

@@ -7,16 +7,16 @@ import { Container, StyledIconButton } from './styles';
 
 import colors from '~/styles/colors';
 
-function DisplaySelector({ displayList, ...rest }) {
+function DisplaySelector({ onClick, displayList, ...rest }) {
   return (
     <Container {...rest}>
-      <StyledIconButton>
+      <StyledIconButton data-selector="list" onClick={onClick}>
         <Icon
           name="settings-list"
           color={displayList ? colors.primary : colors.greyLight}
         />
       </StyledIconButton>
-      <StyledIconButton>
+      <StyledIconButton data-selector="block" onClick={onClick}>
         <Icon
           name="settings-block"
           color={!displayList ? colors.primary : colors.greyLight}
@@ -28,6 +28,7 @@ function DisplaySelector({ displayList, ...rest }) {
 
 DisplaySelector.propTypes = {
   displayList: PropTypes.bool.isRequired,
+  onClick: PropTypes.func.isRequired,
 };
 
 export default DisplaySelector;

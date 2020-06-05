@@ -31,6 +31,10 @@ function Users() {
     // console.log('SUBMIT: ', searchQuery);
   }
 
+  function handleDisplayListSelect(e) {
+    e.persist();
+  }
+
   return (
     <Container>
       <HeadlineContainer>
@@ -52,7 +56,7 @@ function Users() {
 
           <StyledDisplaySelector
             displayList={displayList}
-            onClick={() => setDisplayList(!displayList)}
+            onClick={(e) => handleDisplayListSelect(e)}
           />
         </Settings>
       </HeadlineContainer>
@@ -62,7 +66,7 @@ function Users() {
         onClick={(e) => setTabActive(e.target.innerText)}
       />
 
-      <UsersList />
+      <UsersList displayList={displayList} />
     </Container>
   );
 }

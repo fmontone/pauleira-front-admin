@@ -12,6 +12,10 @@ export const Container = styled.div`
 `;
 
 export const StyledIconButton = styled(IconButton)`
+  & > * {
+    pointer-events: none;
+  }
+
   :last-child {
     margin-left: 4px;
   }
