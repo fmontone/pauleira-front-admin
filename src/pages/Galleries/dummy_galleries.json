@@ -1,0 +1,101 @@
+[
+  {
+    "id": 2,
+    "title": "Galeria 2 Guitarra dahora",
+    "description": "Sapiente dolorum beatae eius pariatur animi. Accusamus consequuntur reiciendis est consequatur illum eveniet et. Neque voluptatem dicta sequi facere voluptas nam praesentium error quia. Odit necessitatibus aut excepturi eligendi. Ea ut iusto recusandae libero repellendus culpa quo odit.\n \rVoluptatem sit pariatur laudantium culpa officiis temporibus nisi autem neque. Exercitationem et tempore at ipsa voluptatem. Distinctio eius accusamus soluta omnis. Aliquid qui quod ea eveniet facilis voluptatem.\n \rUt nobis eveniet porro necessitatibus odit eum. Reiciendis iste velit cupiditate alias qui quisquam labore qui molestias. Tempore aliquid non quod quas sit quaerat assumenda inventore. Culpa eius sit sed assumenda ducimus quisquam autem assumenda nesciunt.",
+    "likes": 0,
+    "status": "Draft",
+    "createdAt": "2020-04-14T00:07:27.268Z",
+    "updatedAt": "2020-04-14T00:07:27.268Z",
+    "user_id": 1,
+    "made_by": 1
+  },
+  {
+    "id": 3,
+    "title": "Galeria 3 Outro Usuário",
+    "description": "Sapiente dolorum beatae eius pariatur animi. Accusamus consequuntur reiciendis est consequatur illum eveniet et. Neque voluptatem dicta sequi facere voluptas nam praesentium error quia. Odit necessitatibus aut excepturi eligendi. Ea ut iusto recusandae libero repellendus culpa quo odit.\n \rVoluptatem sit pariatur laudantium culpa officiis temporibus nisi autem neque. Exercitationem et tempore at ipsa voluptatem. Distinctio eius accusamus soluta omnis. Aliquid qui quod ea eveniet facilis voluptatem.\n \rUt nobis eveniet porro necessitatibus odit eum. Reiciendis iste velit cupiditate alias qui quisquam labore qui molestias. Tempore aliquid non quod quas sit quaerat assumenda inventore. Culpa eius sit sed assumenda ducimus quisquam autem assumenda nesciunt.",
+    "likes": 0,
+    "status": "Draft",
+    "createdAt": "2020-04-14T00:07:56.564Z",
+    "updatedAt": "2020-04-14T00:07:56.564Z",
+    "user_id": 1,
+    "made_by": 2
+  },
+  {
+    "id": 4,
+    "title": "Galeria 4 Outro Usuário",
+    "description": "Sapiente dolorum beatae eius pariatur animi. Accusamus consequuntur reiciendis est consequatur illum eveniet et. Neque voluptatem dicta sequi facere voluptas nam praesentium error quia. Odit necessitatibus aut excepturi eligendi. Ea ut iusto recusandae libero repellendus culpa quo odit.\n \rVoluptatem sit pariatur laudantium culpa officiis temporibus nisi autem neque. Exercitationem et tempore at ipsa voluptatem. Distinctio eius accusamus soluta omnis. Aliquid qui quod ea eveniet facilis voluptatem.\n \rUt nobis eveniet porro necessitatibus odit eum. Reiciendis iste velit cupiditate alias qui quisquam labore qui molestias. Tempore aliquid non quod quas sit quaerat assumenda inventore. Culpa eius sit sed assumenda ducimus quisquam autem assumenda nesciunt.",
+    "likes": 0,
+    "status": "Draft",
+    "createdAt": "2020-04-14T00:08:18.024Z",
+    "updatedAt": "2020-04-14T00:08:18.024Z",
+    "user_id": 1,
+    "made_by": 3
+  },
+  {
+    "id": 5,
+    "title": "Galeria 5 Mais Outra",
+    "description": "Sapiente dolorum beatae eius pariatur animi. Accusamus consequuntur reiciendis est consequatur illum eveniet et. Neque voluptatem dicta sequi facere voluptas nam praesentium error quia. Odit necessitatibus aut excepturi eligendi. Ea ut iusto recusandae libero repellendus culpa quo odit.\n \rVoluptatem sit pariatur laudantium culpa officiis temporibus nisi autem neque. Exercitationem et tempore at ipsa voluptatem. Distinctio eius accusamus soluta omnis. Aliquid qui quod ea eveniet facilis voluptatem.\n \rUt nobis eveniet porro necessitatibus odit eum. Reiciendis iste velit cupiditate alias qui quisquam labore qui molestias. Tempore aliquid non quod quas sit quaerat assumenda inventore. Culpa eius sit sed assumenda ducimus quisquam autem assumenda nesciunt.",
+    "likes": 0,
+    "status": "Draft",
+    "createdAt": "2020-04-14T00:08:41.324Z",
+    "updatedAt": "2020-04-14T00:08:41.324Z",
+    "user_id": 1,
+    "made_by": 4
+  },
+  {
+    "id": 6,
+    "title": "Galeria 6",
+    "description": "Sapiente dolorum beatae eius pariatur animi. Accusamus consequuntur reiciendis est consequatur illum eveniet et. Neque voluptatem dicta sequi facere voluptas nam praesentium error quia. Odit necessitatibus aut excepturi eligendi. Ea ut iusto recusandae libero repellendus culpa quo odit.\n \rVoluptatem sit pariatur laudantium culpa officiis temporibus nisi autem neque. Exercitationem et tempore at ipsa voluptatem. Distinctio eius accusamus soluta omnis. Aliquid qui quod ea eveniet facilis voluptatem.\n \rUt nobis eveniet porro necessitatibus odit eum. Reiciendis iste velit cupiditate alias qui quisquam labore qui molestias. Tempore aliquid non quod quas sit quaerat assumenda inventore. Culpa eius sit sed assumenda ducimus quisquam autem assumenda nesciunt.",
+    "likes": 0,
+    "status": "Draft",
+    "createdAt": "2020-04-14T00:08:54.672Z",
+    "updatedAt": "2020-04-14T00:08:54.672Z",
+    "user_id": 1,
+    "made_by": 4
+  },
+  {
+    "id": 7,
+    "title": "Galeria 7",
+    "description": "Sapiente dolorum beatae eius pariatur animi. Accusamus consequuntur reiciendis est consequatur illum eveniet et. Neque voluptatem dicta sequi facere voluptas nam praesentium error quia. Odit necessitatibus aut excepturi eligendi. Ea ut iusto recusandae libero repellendus culpa quo odit.\n \rVoluptatem sit pariatur laudantium culpa officiis temporibus nisi autem neque. Exercitationem et tempore at ipsa voluptatem. Distinctio eius accusamus soluta omnis. Aliquid qui quod ea eveniet facilis voluptatem.\n \rUt nobis eveniet porro necessitatibus odit eum. Reiciendis iste velit cupiditate alias qui quisquam labore qui molestias. Tempore aliquid non quod quas sit quaerat assumenda inventore. Culpa eius sit sed assumenda ducimus quisquam autem assumenda nesciunt.",
+    "likes": 0,
+    "status": "Draft",
+    "createdAt": "2020-04-14T00:09:01.986Z",
+    "updatedAt": "2020-04-14T00:09:01.986Z",
+    "user_id": 1,
+    "made_by": 1
+  },
+  {
+    "id": 8,
+    "title": "Galeria 8",
+    "description": "Sapiente dolorum beatae eius pariatur animi. Accusamus consequuntur reiciendis est consequatur illum eveniet et. Neque voluptatem dicta sequi facere voluptas nam praesentium error quia. Odit necessitatibus aut excepturi eligendi. Ea ut iusto recusandae libero repellendus culpa quo odit.\n \rVoluptatem sit pariatur laudantium culpa officiis temporibus nisi autem neque. Exercitationem et tempore at ipsa voluptatem. Distinctio eius accusamus soluta omnis. Aliquid qui quod ea eveniet facilis voluptatem.\n \rUt nobis eveniet porro necessitatibus odit eum. Reiciendis iste velit cupiditate alias qui quisquam labore qui molestias. Tempore aliquid non quod quas sit quaerat assumenda inventore. Culpa eius sit sed assumenda ducimus quisquam autem assumenda nesciunt.",
+    "likes": 0,
+    "status": "Draft",
+    "createdAt": "2020-04-14T00:09:14.319Z",
+    "updatedAt": "2020-04-14T00:09:14.319Z",
+    "user_id": 1,
+    "made_by": 2
+  },
+  {
+    "id": 10,
+    "title": "Galeria 10",
+    "description": "Sapiente dolorum beatae eius pariatur animi. Accusamus consequuntur reiciendis est consequatur illum eveniet et. Neque voluptatem dicta sequi facere voluptas nam praesentium error quia. Odit necessitatibus aut excepturi eligendi. Ea ut iusto recusandae libero repellendus culpa quo odit.\n \rVoluptatem sit pariatur laudantium culpa officiis temporibus nisi autem neque. Exercitationem et tempore at ipsa voluptatem. Distinctio eius accusamus soluta omnis. Aliquid qui quod ea eveniet facilis voluptatem.\n \rUt nobis eveniet porro necessitatibus odit eum. Reiciendis iste velit cupiditate alias qui quisquam labore qui molestias. Tempore aliquid non quod quas sit quaerat assumenda inventore. Culpa eius sit sed assumenda ducimus quisquam autem assumenda nesciunt.",
+    "likes": 0,
+    "status": "Draft",
+    "createdAt": "2020-04-14T00:09:37.193Z",
+    "updatedAt": "2020-04-14T00:09:37.193Z",
+    "user_id": 1,
+    "made_by": 2
+  },
+  {
+    "id": 1,
+    "title": "Esta é a Galeria 1",
+    "description": "Sapiente dolorum beatae eius pariatur animi. Accusamus consequuntur reiciendis est consequatur illum eveniet et. Neque voluptatem dicta sequi facere voluptas nam praesentium error quia. Odit necessitatibus aut excepturi eligendi. Ea ut iusto recusandae libero repellendus culpa quo odit.\n \rVoluptatem sit pariatur laudantium culpa officiis temporibus nisi autem neque. Exercitationem et tempore at ipsa voluptatem. Distinctio eius accusamus soluta omnis. Aliquid qui quod ea eveniet facilis voluptatem.\n \rUt nobis eveniet porro necessitatibus odit eum. Reiciendis iste velit cupiditate alias qui quisquam labore qui molestias. Tempore aliquid non quod quas sit quaerat assumenda inventore. Culpa eius sit sed assumenda ducimus quisquam autem assumenda nesciunt.",
+    "likes": 1,
+    "status": "Draft",
+    "createdAt": "2020-04-14T00:07:15.392Z",
+    "updatedAt": "2020-04-14T00:11:22.420Z",
+    "user_id": 1,
+    "made_by": 1
+  }
+]

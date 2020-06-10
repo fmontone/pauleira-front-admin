@@ -5,22 +5,24 @@ import colors from '~/styles/colors';
 import {
   Container,
   HeadlineContainer,
+  ButtonLine,
   ButtonAdd,
+  SettingsLine,
   Search,
-  Settings,
   SelectFilter,
   DropDownWrapper,
-  StyledDisplaySelector,
   Tabs,
+  ButtonLoadMore,
 } from './styles';
 
 import GalleriesList from './GalleriesList';
+
+import data from './dummy_galleries.json';
 
 function Galleries() {
   const [searchQuery, setSearchQuery] = useState(null); // eslint-disable-line
   const tabOptions = ['Todos', 'Alunos', 'Instrutores'];
   const [tabActive, setTabActive] = useState(tabOptions[0]); // eslint-disable-line
-  const [displayList, setDisplayList] = useState(true);
   const [dropActive, setDropActive] = useState(undefined); // eslint-disable-line
   // const [Galleries, setGalleries] = useState([]);
 
@@ -34,27 +36,24 @@ function Galleries() {
   return (
     <Container>
       <HeadlineContainer>
-        <ButtonAdd color={colors.statusInfo}>Adicionar Galeria</ButtonAdd>
+        <ButtonLine>
+          <ButtonAdd color={colors.statusInfo}>Adicionar Galeria</ButtonAdd>
+        </ButtonLine>
 
-        <Search
-          onSubmit={(e) => handleSearchFormSubmit(e)}
-          onChange={(e) => setSearchQuery(e.target.value)}
-          placeholder="Procurar Galeria..."
-        />
+        <SettingsLine>
+          <Search
+            onSubmit={(e) => handleSearchFormSubmit(e)}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            placeholder="Procurar Usuário..."
+          />
 
-        <Settings>
           <DropDownWrapper>
             <SelectFilter
               dropOptions={dropOptions}
               onChange={(e) => setDropActive(e.target.value)}
             />
           </DropDownWrapper>
-
-          <StyledDisplaySelector
-            displayList={displayList}
-            onClick={() => setDisplayList(!displayList)}
-          />
-        </Settings>
+        </SettingsLine>
       </HeadlineContainer>
 
       <Tabs
@@ -62,7 +61,9 @@ function Galleries() {
         onClick={(e) => setTabActive(e.target.innerText)}
       />
 
-      <GalleriesList />
+      <GalleriesList payload={data} />
+
+      <ButtonLoadMore>Carregar Mais</ButtonLoadMore>
     </Container>
   );
 }
