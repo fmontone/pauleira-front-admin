@@ -11,6 +11,7 @@ export const Wrapper = styled.footer`
   height: 64px;
   bottom: 0;
   background-color: ${colors.white};
+  box-shadow: 0px -4px 10px rgba(0, 0, 0, 0.04);
 `;
 
 export const Container = styled(ContainerCustom)`
