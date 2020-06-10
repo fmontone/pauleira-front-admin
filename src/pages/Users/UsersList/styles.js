@@ -1,16 +1,30 @@
 import styled from 'styled-components';
 
-import ButtonCustom from '~/components/ButtonCustom';
+import { MdEdit } from 'react-icons/md';
 
 import colors from '~/styles/colors';
 
+export const List = styled.ul`
+  width: 100%;
+  padding: none;
+  list-style: none;
+  margin-bottom: 16px;
+`;
+
 export const ListItem = styled.li`
+  width: 100%;
+  height: auto;
+  margin-bottom: 16px;
+  background-color: ${colors.white};
+  border-radius: 6px;
+  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.07);
+
   & + li {
     border-top: 1px solid ${colors.greyLighter};
   }
 `;
 
-export const ButtonWrapp = styled.button`
+export const ButtonWrapp = styled.div`
   width: 100%;
   height: 100%;
   padding: 8px;
@@ -55,15 +69,17 @@ export const Aka = styled.span`
   color: ${colors.greyHeavy};
 `;
 
-export const GoIcon = styled.div`
+export const IconWrapper = styled.button`
   width: 24px;
   height: 100%;
   margin-left: 8px;
 `;
 
-export const ButtonLoadMore = styled(ButtonCustom).attrs({
-  model: 'outline',
-  color: colors.terceary,
+export const EditIcon = styled(MdEdit).attrs({
+  color: colors.statusInfo,
+  size: '20',
 })`
-  margin-bottom: 16px;
+  :active {
+    transform: translate(1px, 1px);
+  }
 `;

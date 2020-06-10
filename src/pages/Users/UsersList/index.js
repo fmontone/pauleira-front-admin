@@ -1,11 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
-import { MdChevronRight } from 'react-icons/md';
-
-import ListLayout from '~/components/ListLayout';
-
 import {
+  List,
   ListItem,
   ButtonWrapp,
   ProfilePicWrapper,
@@ -13,177 +9,46 @@ import {
   TitlesWrapper,
   Name,
   Aka,
-  GoIcon,
-  ButtonLoadMore,
+  IconWrapper,
+  EditIcon,
 } from './styles';
 
-import colors from '~/styles/colors';
+import ProfilePlaceholder from '~/assets/pauleira_profile_pic_placeholder.jpg';
 
-function UsersList({ displayList }) {
+function UsersList({ payload }) {
   return (
-    <>
-      <ListLayout displayList={displayList}>
-        <ListItem>
+    <List>
+      {payload.map((item) => (
+        <ListItem key={item.id.toString()}>
           <ButtonWrapp>
             <ProfilePicWrapper>
-              <ProfilePic src="https://lefunky.files.wordpress.com/2008/05/bbking.jpg" />
+              <ProfilePic src={item.profile_image || ProfilePlaceholder} />
             </ProfilePicWrapper>
 
             <TitlesWrapper>
-              <Name>Riley Ben King</Name>
-              <Aka>Lucile Guitar Shop</Aka>
+              <Name>{item.name}</Name>
+              <Aka>{item.a_k_a}</Aka>
             </TitlesWrapper>
-            <GoIcon>
-              <MdChevronRight size="24" color={colors.grey} />
-            </GoIcon>
+            <IconWrapper>
+              <EditIcon />
+            </IconWrapper>
           </ButtonWrapp>
         </ListItem>
-        <ListItem>
-          <ButtonWrapp>
-            <ProfilePicWrapper>
-              <ProfilePic src="https://lefunky.files.wordpress.com/2008/05/bbking.jpg" />
-            </ProfilePicWrapper>
-
-            <TitlesWrapper>
-              <Name>Riley Ben King</Name>
-            </TitlesWrapper>
-            <GoIcon>
-              <MdChevronRight size="24" color={colors.grey} />
-            </GoIcon>
-          </ButtonWrapp>
-        </ListItem>
-        <ListItem>
-          <ButtonWrapp>
-            <ProfilePicWrapper>
-              <ProfilePic src="https://lefunky.files.wordpress.com/2008/05/bbking.jpg" />
-            </ProfilePicWrapper>
-
-            <TitlesWrapper>
-              <Name>Riley Ben King</Name>
-              <Aka>Lucile Guitar Shop</Aka>
-            </TitlesWrapper>
-            <GoIcon>
-              <MdChevronRight size="24" color={colors.grey} />
-            </GoIcon>
-          </ButtonWrapp>
-        </ListItem>
-        <ListItem>
-          <ButtonWrapp>
-            <ProfilePicWrapper>
-              <ProfilePic src="https://lefunky.files.wordpress.com/2008/05/bbking.jpg" />
-            </ProfilePicWrapper>
-
-            <TitlesWrapper>
-              <Name>Riley Ben King</Name>
-              <Aka>Lucile Guitar Shop</Aka>
-            </TitlesWrapper>
-            <GoIcon>
-              <MdChevronRight size="24" color={colors.grey} />
-            </GoIcon>
-          </ButtonWrapp>
-        </ListItem>
-        <ListItem>
-          <ButtonWrapp>
-            <ProfilePicWrapper>
-              <ProfilePic src="https://lefunky.files.wordpress.com/2008/05/bbking.jpg" />
-            </ProfilePicWrapper>
-
-            <TitlesWrapper>
-              <Name>Riley Ben King</Name>
-              <Aka>Lucile Guitar Shop</Aka>
-            </TitlesWrapper>
-            <GoIcon>
-              <MdChevronRight size="24" color={colors.grey} />
-            </GoIcon>
-          </ButtonWrapp>
-        </ListItem>
-        <ListItem>
-          <ButtonWrapp>
-            <ProfilePicWrapper>
-              <ProfilePic src="https://lefunky.files.wordpress.com/2008/05/bbking.jpg" />
-            </ProfilePicWrapper>
-
-            <TitlesWrapper>
-              <Name>Riley Ben King</Name>
-              <Aka>Lucile Guitar Shop</Aka>
-            </TitlesWrapper>
-            <GoIcon>
-              <MdChevronRight size="24" color={colors.grey} />
-            </GoIcon>
-          </ButtonWrapp>
-        </ListItem>
-        <ListItem>
-          <ButtonWrapp>
-            <ProfilePicWrapper>
-              <ProfilePic src="https://lefunky.files.wordpress.com/2008/05/bbking.jpg" />
-            </ProfilePicWrapper>
-
-            <TitlesWrapper>
-              <Name>Riley Ben King</Name>
-              <Aka>Lucile Guitar Shop</Aka>
-            </TitlesWrapper>
-            <GoIcon>
-              <MdChevronRight size="24" color={colors.grey} />
-            </GoIcon>
-          </ButtonWrapp>
-        </ListItem>
-        <ListItem>
-          <ButtonWrapp>
-            <ProfilePicWrapper>
-              <ProfilePic src="https://lefunky.files.wordpress.com/2008/05/bbking.jpg" />
-            </ProfilePicWrapper>
-
-            <TitlesWrapper>
-              <Name>Riley Ben King</Name>
-              <Aka>Lucile Guitar Shop</Aka>
-            </TitlesWrapper>
-            <GoIcon>
-              <MdChevronRight size="24" color={colors.grey} />
-            </GoIcon>
-          </ButtonWrapp>
-        </ListItem>
-        <ListItem>
-          <ButtonWrapp>
-            <ProfilePicWrapper>
-              <ProfilePic src="https://lefunky.files.wordpress.com/2008/05/bbking.jpg" />
-            </ProfilePicWrapper>
-
-            <TitlesWrapper>
-              <Name>Riley Ben King</Name>
-              <Aka>Lucile Guitar Shop</Aka>
-            </TitlesWrapper>
-            <GoIcon>
-              <MdChevronRight size="24" color={colors.grey} />
-            </GoIcon>
-          </ButtonWrapp>
-        </ListItem>
-        <ListItem>
-          <ButtonWrapp>
-            <ProfilePicWrapper>
-              <ProfilePic src="https://lefunky.files.wordpress.com/2008/05/bbking.jpg" />
-            </ProfilePicWrapper>
-
-            <TitlesWrapper>
-              <Name>Riley Ben King</Name>
-              <Aka>Lucile Guitar Shop</Aka>
-            </TitlesWrapper>
-            <GoIcon>
-              <MdChevronRight size="24" color={colors.grey} />
-            </GoIcon>
-          </ButtonWrapp>
-        </ListItem>
-      </ListLayout>
-
-      <ButtonLoadMore>Carregar Mais</ButtonLoadMore>
-    </>
+      ))}
+    </List>
   );
 }
 
 UsersList.propTypes = {
-  displayList: PropTypes.string,
-};
-UsersList.defaultProps = {
-  displayList: 'list',
+  payload: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number,
+      name: PropTypes.string,
+      email: PropTypes.string,
+      a_k_a: PropTypes.string,
+      profile_image: PropTypes.string,
+    })
+  ).isRequired,
 };
 
 export default UsersList;

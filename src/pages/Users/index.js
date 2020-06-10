@@ -5,22 +5,24 @@ import colors from '~/styles/colors';
 import {
   Container,
   HeadlineContainer,
+  ButtonLine,
   ButtonAdd,
+  SettingsLine,
   Search,
-  Settings,
   SelectFilter,
   DropDownWrapper,
-  StyledDisplaySelector,
   Tabs,
+  ButtonLoadMore,
 } from './styles';
 
 import UsersList from './UsersList';
+
+import data from './dummy_users.json';
 
 function Users() {
   const [searchQuery, setSearchQuery] = useState(null); // eslint-disable-line
   const tabOptions = ['Todos', 'Alunos', 'Instrutores'];
   const [tabActive, setTabActive] = useState(tabOptions[0]); // eslint-disable-line
-  const [displayList, setDisplayList] = useState('list');
   const [dropActive, setDropActive] = useState(undefined); // eslint-disable-line
   // const [users, setUsers] = useState([]);
 
@@ -31,35 +33,27 @@ function Users() {
     // console.log('SUBMIT: ', searchQuery);
   }
 
-  function handleDisplayListSelect(e) {
-    e.persist();
-    setDisplayList(e.target.dataset.selector);
-  }
-
   return (
     <Container>
       <HeadlineContainer>
-        <ButtonAdd color={colors.statusInfo}>Adicionar Usuário</ButtonAdd>
+        <ButtonLine>
+          <ButtonAdd color={colors.statusInfo}>Adicionar Usuário</ButtonAdd>
+        </ButtonLine>
 
-        <Search
-          onSubmit={(e) => handleSearchFormSubmit(e)}
-          onChange={(e) => setSearchQuery(e.target.value)}
-          placeholder="Procurar Usuário..."
-        />
+        <SettingsLine>
+          <Search
+            onSubmit={(e) => handleSearchFormSubmit(e)}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            placeholder="Procurar Usuário..."
+          />
 
-        <Settings>
           <DropDownWrapper>
             <SelectFilter
               dropOptions={dropOptions}
               onChange={(e) => setDropActive(e.target.value)}
             />
           </DropDownWrapper>
-
-          <StyledDisplaySelector
-            displayList={displayList}
-            onClick={(e) => handleDisplayListSelect(e)}
-          />
-        </Settings>
+        </SettingsLine>
       </HeadlineContainer>
 
       <Tabs
@@ -67,7 +61,9 @@ function Users() {
         onClick={(e) => setTabActive(e.target.innerText)}
       />
 
-      <UsersList displayList={displayList} />
+      <UsersList payload={data} />
+
+      <ButtonLoadMore>Carregar Mais</ButtonLoadMore>
     </Container>
   );
 }

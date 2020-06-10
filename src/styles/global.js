@@ -18,6 +18,8 @@ export default createGlobalStyle`
 
  html, body, #root {
    min-height: 100vh;
+   display: flex;
+   flex-direction: column;
  }
 
  body {
@@ -112,5 +114,11 @@ export default createGlobalStyle`
 
 }
  }
+
+  /* BUTTONS */
+
+  button {
+    background-color: unset;
+  }
 
 `;
