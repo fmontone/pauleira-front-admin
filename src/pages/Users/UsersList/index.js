@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import {
   List,
   ListItem,
-  ButtonWrapp,
   ProfilePicWrapper,
   ProfilePic,
   TitlesWrapper,
@@ -20,19 +19,17 @@ function UsersList({ payload }) {
     <List>
       {payload.map((item) => (
         <ListItem key={item.id.toString()}>
-          <ButtonWrapp>
-            <ProfilePicWrapper>
-              <ProfilePic src={item.profile_image || ProfilePlaceholder} />
-            </ProfilePicWrapper>
+          <ProfilePicWrapper>
+            <ProfilePic src={item.profile_image || ProfilePlaceholder} />
+          </ProfilePicWrapper>
 
-            <TitlesWrapper>
-              <Name>{item.name}</Name>
-              <Aka>{item.a_k_a}</Aka>
-            </TitlesWrapper>
-            <IconWrapper>
-              <EditIcon />
-            </IconWrapper>
-          </ButtonWrapp>
+          <TitlesWrapper>
+            <Name>{item.name}</Name>
+            <Aka>{item.a_k_a}</Aka>
+          </TitlesWrapper>
+          <IconWrapper>
+            <EditIcon />
+          </IconWrapper>
         </ListItem>
       ))}
     </List>

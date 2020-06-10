@@ -14,24 +14,18 @@ export const List = styled.ul`
 export const ListItem = styled.li`
   width: 100%;
   height: auto;
+  padding: 8px;
   margin-bottom: 16px;
-  background-color: ${colors.white};
   border-radius: 6px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background-color: ${colors.white};
   box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.07);
 
   & + li {
     border-top: 1px solid ${colors.greyLighter};
   }
-`;
-
-export const ButtonWrapp = styled.div`
-  width: 100%;
-  height: 100%;
-  padding: 8px;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  background: unset;
 `;
 
 export const ProfilePicWrapper = styled.div`
