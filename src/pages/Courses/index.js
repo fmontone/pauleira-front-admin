@@ -18,6 +18,7 @@ import {
 import CoursesList from './CoursesList';
 
 import data from './dummy_courses.json';
+// import data from './dummy_empty.json';
 
 function Users() {
   const [searchQuery, setSearchQuery] = useState(null); // eslint-disable-line
@@ -63,7 +64,7 @@ function Users() {
 
       <CoursesList payload={data} />
 
-      <ButtonLoadMore>Carregar Mais</ButtonLoadMore>
+      {data.length >= 10 && <ButtonLoadMore>Carregar Mais</ButtonLoadMore>}
     </Container>
   );
 }

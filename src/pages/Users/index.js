@@ -63,7 +63,7 @@ function Users() {
 
       <UsersList payload={data} />
 
-      <ButtonLoadMore>Carregar Mais</ButtonLoadMore>
+      {data.length >= 10 && <ButtonLoadMore>Carregar Mais</ButtonLoadMore>}
     </Container>
   );
 }
