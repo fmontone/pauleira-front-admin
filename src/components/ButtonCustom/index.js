@@ -26,7 +26,7 @@ export default function ButtonCustom({
 
   function handleClick() {
     setFeedback(false);
-    onClick();
+    if (onClick) onClick();
   }
 
   return (

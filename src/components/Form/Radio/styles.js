@@ -21,7 +21,7 @@ export const Container = styled.div`
 
   &.check {
     color: ${colors.white};
-    background-color: ${colors.statusSuccess};
+    background-color: ${colors.statusInfo};
   }
 `;
 

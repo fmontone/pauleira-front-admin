@@ -41,4 +41,5 @@ export const ButtonCancel = styled(ButtonCustom).attrs({
 
 export const ButtonSubmit = styled(ButtonCustom).attrs({
   color: colors.statusSuccess,
+  type: 'submit',
 })``;

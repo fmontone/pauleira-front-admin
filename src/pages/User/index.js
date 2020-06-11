@@ -19,7 +19,7 @@ function User() {
     <Container>
       <h2>Adicionar Usuário</h2>
 
-      <Form>
+      <Form onSubmit={(data) => console.log(data)}>
         <StyledFieldset title="Dados Básicos">
           <StyledInput name="name" label="Nome" isRequired />
           <StyledInput name="a_k_a" label="Apelido / Nome da Oficina" />
