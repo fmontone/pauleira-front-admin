@@ -25,6 +25,7 @@ export const StyledSelect = styled.select`
   background-color: rgba(0, 0, 0, 0);
   appearance: none;
   z-index: 10;
+  transform: translateY(-1px);
 `;
 
 export const Arrow = styled.div`

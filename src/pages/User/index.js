@@ -1,9 +1,20 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 import { Form } from '@unform/web';
 
-import { Container, StyledFieldset, StyledInput, StyledRadio } from './styles';
+import {
+  Container,
+  StyledFieldset,
+  StyledInput,
+  StyledRadio,
+  ButtonWrapper,
+  ButtonCancel,
+  ButtonSubmit,
+} from './styles';
 
 function User() {
+  const history = useHistory();
+
   return (
     <Container>
       <h2>Adicionar Usuário</h2>
@@ -21,6 +32,13 @@ function User() {
             options={['Aluno', 'Instrutor', 'Administrador']}
           />
         </StyledFieldset>
+
+        <ButtonWrapper>
+          <ButtonCancel onClick={() => history.push('/users')}>
+            Cancelar
+          </ButtonCancel>
+          <ButtonSubmit>Adicionar</ButtonSubmit>
+        </ButtonWrapper>
       </Form>
     </Container>
   );

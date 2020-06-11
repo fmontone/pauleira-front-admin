@@ -40,13 +40,12 @@ function Input({ label, name, isRequired, ...rest }) {
 
 Input.propTypes = {
   label: PropTypes.string,
-  name: PropTypes.string,
+  name: PropTypes.string.isRequired,
   isRequired: PropTypes.bool,
 };
 
 Input.defaultProps = {
   label: '',
-  name: '',
   isRequired: false,
 };
 

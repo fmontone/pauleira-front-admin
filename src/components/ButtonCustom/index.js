@@ -19,12 +19,14 @@ export default function ButtonCustom({
   color,
   width,
   size,
+  onClick,
   ...props
 }) {
   const [feedback, setFeedback] = useState(false);
 
   function handleClick() {
     setFeedback(false);
+    onClick();
   }
 
   return (
@@ -63,7 +65,7 @@ ButtonCustom.propTypes = {
   size: PropTypes.oneOf(['regular', 'small', 'large']),
   color: PropTypes.string,
   width: PropTypes.oneOf(['auto', 'stretch']),
-  navTo: PropTypes.string,
+  onClick: PropTypes.func,
 };
 
 ButtonCustom.defaultProps = {
@@ -72,5 +74,5 @@ ButtonCustom.defaultProps = {
   size: 'regular',
   color: colors.primary,
   width: 'auto',
-  navTo: null,
+  onClick: null,
 };
