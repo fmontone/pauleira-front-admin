@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 
 import colors from '~/styles/colors';
 
@@ -20,6 +21,8 @@ import UsersList from './UsersList';
 import data from './dummy_users.json';
 
 function Users() {
+  const history = useHistory();
+
   const [searchQuery, setSearchQuery] = useState(null); // eslint-disable-line
   const tabOptions = ['Todos', 'Alunos', 'Instrutores'];
   const [tabActive, setTabActive] = useState(tabOptions[0]); // eslint-disable-line
@@ -37,7 +40,12 @@ function Users() {
     <Container>
       <HeadlineContainer>
         <ButtonLine>
-          <ButtonAdd color={colors.statusInfo}>Adicionar Usuário</ButtonAdd>
+          <ButtonAdd
+            color={colors.statusInfo}
+            onClick={() => history.push('/users/new')}
+          >
+            Adicionar Usuário
+          </ButtonAdd>
         </ButtonLine>
 
         <SettingsLine>

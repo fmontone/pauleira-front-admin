@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Form, Input } from 'unform';
+import { Form } from '@unform/core';
 
 import ContainerCustom from '~/components/ContainerCustom';
 import ButtonCustom from '~/components/ButtonCustom';
@@ -34,7 +34,7 @@ export const MyForm = styled(Form)`
   max-width: 500px;
 `;
 
-export const MyInput = styled(Input)`
+export const MyInput = styled.input`
   margin-bottom: 16px;
 `;
 
