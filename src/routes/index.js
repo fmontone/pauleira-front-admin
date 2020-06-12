@@ -23,7 +23,7 @@ export default function Routes() {
       <Route path="/dashboard" exact component={Main} isPrivate />
       <Route path="/users" exact component={Users} isPrivate />
       <Route path="/users/new" exact component={User} isPrivate />
-      <Route path="/users/:id" exact component={Users} isPrivate />
+      <Route path="/users/:id" exact component={User} isPrivate />
       <Route path="/galleries" exact component={Galleries} isPrivate />
       <Route path="/galleries/new" exact component={Galleries} isPrivate />
       <Route path="/galleries/:id" exact component={Galleries} isPrivate />
