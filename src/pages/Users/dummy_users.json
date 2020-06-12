@@ -4,27 +4,31 @@
     "name": "Paula Bifulco",
     "email": "pauleira@gmail.com",
     "a_k_a": null,
-    "profile_image": null
+    "profile_image": null,
+    "role": "administrator"
   },
   {
     "id": 4,
     "name": "André Souza",
     "email": "andre@mail.com",
     "a_k_a": "6 Fingers Luthieria",
-    "profile_image": null
+    "profile_image": null,
+    "role": "student"
   },
   {
     "id": 1,
     "name": "Fabio Montone",
     "email": "montone@gmail.com",
     "a_k_a": null,
-    "profile_image": null
+    "profile_image": null,
+    "role": "administrator"
   },
   {
     "id": 3,
     "name": "Erwin Shmidt",
     "email": "erwin@mail.com",
     "a_k_a": "E.S.W. Luthieria",
-    "profile_image": null
+    "profile_image": null,
+    "role": "instructor"
   }
 ]
