@@ -63,7 +63,15 @@ export const Aka = styled.span`
   color: ${colors.greyHeavy};
 `;
 
-export const IconWrapper = styled.button`
+export const Role = styled.span`
+  display: block;
+  font-size: 12px;
+  color: ${colors.greyHeavy};
+`;
+
+export const ButtonEdit = styled.button.attrs({
+  type: 'button',
+})`
   width: 24px;
   height: 100%;
   margin-left: 8px;

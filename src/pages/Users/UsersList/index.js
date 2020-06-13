@@ -1,5 +1,8 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
+
 import PropTypes from 'prop-types';
+
 import {
   List,
   ListItem,
@@ -8,28 +11,34 @@ import {
   TitlesWrapper,
   Name,
   Aka,
-  IconWrapper,
+  Role,
+  ButtonEdit,
   EditIcon,
 } from './styles';
 
 import ProfilePlaceholder from '~/assets/pauleira_profile_pic_placeholder.jpg';
 
 function UsersList({ payload }) {
+  const history = useHistory();
+
   return (
     <List>
-      {payload.map((item) => (
-        <ListItem key={item.id.toString()}>
+      {payload.map(({ id, profile_image, name, a_k_a, transRole }) => (
+        <ListItem key={id.toString()}>
           <ProfilePicWrapper>
-            <ProfilePic src={item.profile_image || ProfilePlaceholder} />
+            <ProfilePic src={profile_image || ProfilePlaceholder} />
           </ProfilePicWrapper>
 
           <TitlesWrapper>
-            <Name>{item.name}</Name>
-            <Aka>{item.a_k_a}</Aka>
+            <Name>{name}</Name>
+            <Aka>{a_k_a}</Aka>
+            <Role>{transRole}</Role>
           </TitlesWrapper>
-          <IconWrapper>
+          <ButtonEdit
+            onClick={() => history.push({ pathname: `/users/${id}` })}
+          >
             <EditIcon />
-          </IconWrapper>
+          </ButtonEdit>
         </ListItem>
       ))}
     </List>

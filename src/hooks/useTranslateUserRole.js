@@ -1,7 +1,7 @@
 function useTranslateUserRole(payload) {
   function translateRole(role) {
     switch (role) {
-      case 'administrator':
+      case 'admin':
         return 'administrador';
       case 'student':
         return 'aluno';
