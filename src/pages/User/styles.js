@@ -35,6 +35,7 @@ export const ButtonWrapper = styled.div`
 export const ButtonCancel = styled(ButtonCustom).attrs({
   color: colors.grey,
   model: 'outline',
+  width: window.innerWidth <= 400 ? 'stretch' : 'auto',
 })`
   margin-right: 8px;
 `;
@@ -42,4 +43,5 @@ export const ButtonCancel = styled(ButtonCustom).attrs({
 export const ButtonSubmit = styled(ButtonCustom).attrs({
   color: colors.statusSuccess,
   type: 'submit',
+  width: window.innerWidth <= 400 ? 'stretch' : 'auto',
 })``;

@@ -1,6 +1,8 @@
-import React from 'react';
-import { useHistory } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useHistory, useParams } from 'react-router-dom';
 import { Form } from '@unform/web';
+
+import dummyData from '../Users/dummy_users.json';
 
 import {
   Container,
@@ -14,12 +16,22 @@ import {
 
 function User() {
   const history = useHistory();
+  const { id } = useParams();
+  const [editUser, setEditUser] = useState(false);
+  const [userData, setUserData] = useState({});
+
+  useEffect(() => {
+    if (id) {
+      setEditUser(true);
+      setUserData(dummyData.find((item) => item.id.toString() === id));
+    }
+  }, [id]);
 
   return (
     <Container>
-      <h2>Adicionar Usuário</h2>
+      <h2>{editUser ? 'Editar Usuário' : 'Adicionar Usuário'}</h2>
 
-      <Form onSubmit={(data) => console.log(data)}>
+      <Form onSubmit={(data) => console.log(data)} initialData={userData}>
         <StyledFieldset title="Dados Básicos">
           <StyledInput name="name" label="Nome" isRequired />
           <StyledInput name="a_k_a" label="Apelido / Nome da Oficina" />
@@ -29,7 +41,7 @@ function User() {
         <StyledFieldset title="Tipo de Perfil">
           <StyledRadio
             name="profile_type"
-            options={['Aluno', 'Instrutor', 'Administrador']}
+            options={['aluno', 'instrutor', 'administrador']}
           />
         </StyledFieldset>
 
@@ -37,7 +49,7 @@ function User() {
           <ButtonCancel onClick={() => history.push('/users')}>
             Cancelar
           </ButtonCancel>
-          <ButtonSubmit>Adicionar</ButtonSubmit>
+          <ButtonSubmit>{editUser ? 'Salvar' : 'Adicionar'}</ButtonSubmit>
         </ButtonWrapper>
       </Form>
     </Container>
