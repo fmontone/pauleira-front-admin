@@ -14,7 +14,7 @@ function useTranslateUserRole(payload) {
 
   const translate = payload.map((item) => ({
     ...item,
-    transRole: translateRole(item.role),
+    role_translated: translateRole(item.role),
   }));
 
   return translate;

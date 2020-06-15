@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom';
 
 import useTranslateUserRole from '~/hooks/useTranslateUserRole';
 import useSortList from '~/hooks/useSortList';
+import useListFilter from '~/hooks/useListFilter';
 
 import colors from '~/styles/colors';
 
@@ -26,15 +27,20 @@ import data from './dummy_users.json';
 function Users() {
   const history = useHistory();
 
+  // Content Data
   const [users, setUsers] = useState([]);
-  const [searchQuery, setSearchQuery] = useState(null); // eslint-disable-line
-  const tabOptions = ['Todos', 'Alunos', 'Instrutores'];
-  const [tabActive, setTabActive] = useState(tabOptions[0]); // eslint-disable-line
+  const [searchQuery, setSearchQuery] = useState(null);
+
+  // Filters and Sorting
+  const tabOptions = ['Todos', 'Alunos', 'Instrutores', 'Administradores'];
+  const dropOptions = ['Mais Recentes', 'Mais Antigos', 'A-z', 'z-A'];
+
+  const [tabActive, setTabActive] = useState(tabOptions[0]);
   const [sortProperty, setSortProperty] = useState(null);
   const [order, setOrder] = useState(null);
-
   const translated = useTranslateUserRole(users);
   const sorted = useSortList(translated, sortProperty, order);
+  const filtered = useListFilter(sorted, 'role_translated', tabActive);
 
   useEffect(() => {
     setUsers(data);
@@ -44,8 +50,6 @@ function Users() {
     e.preventDefault();
     // console.log('SUBMIT: ', searchQuery);
   }
-
-  const dropOptions = ['Mais Recentes', 'Mais Antigos', 'A-z', 'z-A'];
 
   function handleSortSelect(e) {
     let selectSortProperty;
@@ -111,7 +115,7 @@ function Users() {
         onClick={(e) => setTabActive(e.target.innerText)}
       />
 
-      <UsersList payload={sorted} />
+      <UsersList payload={filtered} />
 
       {sorted.length >= 10 && <ButtonLoadMore>Carregar Mais</ButtonLoadMore>}
     </Container>

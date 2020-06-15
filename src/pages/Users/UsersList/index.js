@@ -23,7 +23,7 @@ function UsersList({ payload }) {
 
   return (
     <List>
-      {payload.map(({ id, profile_image, name, a_k_a, transRole }) => (
+      {payload.map(({ id, profile_image, name, a_k_a, role_translated }) => (
         <ListItem key={id.toString()}>
           <ProfilePicWrapper>
             <ProfilePic src={profile_image || ProfilePlaceholder} />
@@ -32,7 +32,7 @@ function UsersList({ payload }) {
           <TitlesWrapper>
             <Name>{name}</Name>
             <Aka>{a_k_a}</Aka>
-            <Role>{transRole}</Role>
+            <Role>{role_translated}</Role>
           </TitlesWrapper>
           <ButtonEdit
             onClick={() => history.push({ pathname: `/users/${id}` })}
