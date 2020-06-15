@@ -82,6 +82,11 @@ function Users() {
     setOrder(selectOrder);
   }
 
+  function handleTabFilter(e) {
+    if (e.target.tagName !== 'BUTTON') return;
+    setTabActive(e.target.innerText);
+  }
+
   return (
     <Container>
       <HeadlineContainer>
@@ -110,10 +115,7 @@ function Users() {
         </SettingsLine>
       </HeadlineContainer>
 
-      <Tabs
-        tabOptions={tabOptions}
-        onClick={(e) => setTabActive(e.target.innerText)}
-      />
+      <Tabs tabOptions={tabOptions} onClick={(e) => handleTabFilter(e)} />
 
       <UsersList payload={filtered} />
 
