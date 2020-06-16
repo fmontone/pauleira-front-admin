@@ -6,7 +6,7 @@ import {
   MdPerson,
   MdPhotoLibrary,
   MdLocalLibrary,
-  MdSettings,
+  MdExitToApp,
 } from 'react-icons/md';
 
 import { Container, LinkWrapper, StyledLink } from './styles';
@@ -52,13 +52,13 @@ function Menu({ menuToggle, onClick }) {
           Cursos
         </StyledLink>
         <StyledLink
-          to="/settings"
+          to="/"
           className={menuToggle ? 'animate' : ''}
           delay={0}
           onClick={onClick}
         >
-          <MdSettings />
-          Configurações
+          <MdExitToApp />
+          Sair
         </StyledLink>
       </LinkWrapper>
     </Container>

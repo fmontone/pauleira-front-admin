@@ -10,7 +10,6 @@ import Users from '~/pages/Users';
 import User from '~/pages/User';
 import Galleries from '~/pages/Galleries';
 import Courses from '~/pages/Courses';
-import Settings from '~/pages/Settings';
 
 export default function Routes() {
   useActivePageSetter();
@@ -30,7 +29,6 @@ export default function Routes() {
       <Route path="/courses" exact component={Courses} isPrivate />
       <Route path="/courses/new" exact component={Courses} isPrivate />
       <Route path="/courses/:id" exact component={Courses} isPrivate />
-      <Route path="/settings" exact component={Settings} isPrivate />
     </Switch>
   );
 }

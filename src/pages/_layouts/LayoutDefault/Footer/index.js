@@ -6,7 +6,7 @@ import {
   MdPerson,
   MdPhotoLibrary,
   MdLocalLibrary,
-  MdSettings,
+  MdExitToApp,
 } from 'react-icons/md';
 import Menu from './Menu';
 
@@ -49,12 +49,8 @@ function Footer() {
         >
           <MdLocalLibrary color={colors.grey} size="24" />
         </StyledLink>
-        <StyledLink
-          to="/settings"
-          className={menuToggle ? 'animate' : ''}
-          delay={0.15}
-        >
-          <MdSettings color={colors.grey} size="24" />
+        <StyledLink to="/" className={menuToggle ? 'animate' : ''} delay={0.15}>
+          <MdExitToApp color={colors.grey} size="24" />
         </StyledLink>
 
         <Menu menuToggle={menuToggle} onClick={() => setMenuToggle(false)} />
