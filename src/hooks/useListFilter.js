@@ -11,6 +11,7 @@ function useListFilter(list, field, filterValue) {
       fieldValue = 'instructor';
       break;
     case 'Administradores':
+    case 'Pauleira':
       fieldValue = 'admin';
       break;
     default:

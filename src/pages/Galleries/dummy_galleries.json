@@ -8,7 +8,8 @@
     "createdAt": "2020-04-14T00:07:27.268Z",
     "updatedAt": "2020-04-14T00:07:27.268Z",
     "user_id": 1,
-    "made_by": 1
+    "made_by": 1,
+    "role": "admin"
   },
   {
     "id": 3,
@@ -19,7 +20,8 @@
     "createdAt": "2020-04-14T00:07:56.564Z",
     "updatedAt": "2020-04-14T00:07:56.564Z",
     "user_id": 1,
-    "made_by": 2
+    "made_by": 2,
+    "role": "admin"
   },
   {
     "id": 4,
@@ -30,7 +32,8 @@
     "createdAt": "2020-04-14T00:08:18.024Z",
     "updatedAt": "2020-04-14T00:08:18.024Z",
     "user_id": 1,
-    "made_by": 3
+    "made_by": 3,
+    "role": "student"
   },
   {
     "id": 5,
@@ -41,7 +44,8 @@
     "createdAt": "2020-04-14T00:08:41.324Z",
     "updatedAt": "2020-04-14T00:08:41.324Z",
     "user_id": 1,
-    "made_by": 4
+    "made_by": 4,
+    "role": "instructor"
   },
   {
     "id": 6,
@@ -52,7 +56,8 @@
     "createdAt": "2020-04-14T00:08:54.672Z",
     "updatedAt": "2020-04-14T00:08:54.672Z",
     "user_id": 1,
-    "made_by": 4
+    "made_by": 4,
+    "role": "instructor"
   },
   {
     "id": 7,
@@ -63,7 +68,8 @@
     "createdAt": "2020-04-14T00:09:01.986Z",
     "updatedAt": "2020-04-14T00:09:01.986Z",
     "user_id": 1,
-    "made_by": 1
+    "made_by": 1,
+    "role": "admin"
   },
   {
     "id": 8,
@@ -74,7 +80,8 @@
     "createdAt": "2020-04-14T00:09:14.319Z",
     "updatedAt": "2020-04-14T00:09:14.319Z",
     "user_id": 1,
-    "made_by": 2
+    "made_by": 2,
+    "role": "admin"
   },
   {
     "id": 10,
@@ -85,7 +92,8 @@
     "createdAt": "2020-04-14T00:09:37.193Z",
     "updatedAt": "2020-04-14T00:09:37.193Z",
     "user_id": 1,
-    "made_by": 2
+    "made_by": 2,
+    "role": "admin"
   },
   {
     "id": 1,
@@ -96,6 +104,7 @@
     "createdAt": "2020-04-14T00:07:15.392Z",
     "updatedAt": "2020-04-14T00:11:22.420Z",
     "user_id": 1,
-    "made_by": 1
+    "made_by": 1,
+    "role": "admin"
   }
 ]
