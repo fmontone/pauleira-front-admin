@@ -59,13 +59,6 @@ function Galleries() {
     let selectSortProperty;
     let selectOrder;
 
-    // 'Mais Recentes',
-    // 'Mais Antigos',
-    // 'Mais Curtidas',
-    // 'Menos Curtidas',
-    // 'A-z',
-    // 'z-A',
-
     switch (e.target.value) {
       case dropOptions[0]:
         selectSortProperty = 'createdAt';
