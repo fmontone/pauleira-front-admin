@@ -41,7 +41,8 @@ function User() {
         <StyledFieldset title="Tipo de Perfil">
           <StyledRadio
             name="profile_type"
-            options={['aluno', 'instrutor', 'administrador']}
+            options={['admin', 'student', 'instructor']}
+            selected={userData.role}
           />
         </StyledFieldset>
 

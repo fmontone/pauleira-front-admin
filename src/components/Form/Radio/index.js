@@ -10,14 +10,19 @@ import {
   IconChecked,
 } from './styles';
 
-function Radio({ options, name, ...rest }) {
+function Radio({ options, name, selected, ...rest }) {
   const allRefs = useRef([]);
   const [activeRef, setActiveRef] = useState(0);
+  const [hasChanged, setHasChanged] = useState(false);
   const { fieldName, registerField } = useField(name);
 
   useEffect(() => {
+    if (allRefs && selected && !hasChanged) {
+      setActiveRef(options.findIndex((item) => item === selected));
+    }
+
     allRefs.current[activeRef].checked = true;
-  }, [activeRef]);
+  }, [activeRef, options, selected, hasChanged]);
 
   useEffect(() => {
     registerField({
@@ -27,6 +32,11 @@ function Radio({ options, name, ...rest }) {
     });
   }, [fieldName, registerField, activeRef]);
 
+  function handleSelect(index) {
+    if (!hasChanged) setHasChanged(true);
+    setActiveRef(index);
+  }
+
   return (
     <Wrapper>
       {allRefs &&
@@ -34,7 +44,7 @@ function Radio({ options, name, ...rest }) {
           <Container
             {...rest}
             key={index.toString()}
-            onClick={() => setActiveRef(index)}
+            onClick={() => handleSelect(index)}
             className={activeRef === index ? 'check' : ''}
           >
             {activeRef === index ? <IconChecked /> : <IconIdle />}
@@ -54,6 +64,11 @@ function Radio({ options, name, ...rest }) {
 Radio.propTypes = {
   options: PropTypes.arrayOf(PropTypes.string).isRequired,
   name: PropTypes.string.isRequired,
+  selected: PropTypes.string,
+};
+
+Radio.defaultProps = {
+  selected: '',
 };
 
 export default Radio;
