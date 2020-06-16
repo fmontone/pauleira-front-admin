@@ -46,6 +46,8 @@ function Users() {
     setUsers(data);
   }, []);
 
+  useEffect(() => {}, []);
+
   function handleSearchFormSubmit(e) {
     e.preventDefault();
     // console.log('SUBMIT: ', searchQuery);
