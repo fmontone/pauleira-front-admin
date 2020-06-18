@@ -1,4 +1,5 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import {
   List,
@@ -12,13 +13,15 @@ import {
   IconPics,
   IconLikes,
   Status,
-  IconWrapper,
+  ButtonWrapper,
+  ButtonIcon,
   EditIcon,
 } from './styles';
 
 import ProfilePlaceholder from '~/assets/pauleira_profile_pic_placeholder.jpg';
 
 function GalleriesList({ payload }) {
+  const history = useHistory();
   return (
     <List>
       {payload.map((item) => (
@@ -39,9 +42,11 @@ function GalleriesList({ payload }) {
               <Status>Publicada</Status>
             </StatusInfoWrapper>
           </TitlesWrapper>
-          <IconWrapper>
-            <EditIcon />
-          </IconWrapper>
+          <ButtonWrapper>
+            <ButtonIcon onClick={() => history.push(`/galleries/${item.id}`)}>
+              <EditIcon />
+            </ButtonIcon>
+          </ButtonWrapper>
         </ListItem>
       ))}
     </List>

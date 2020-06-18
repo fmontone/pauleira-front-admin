@@ -41,6 +41,7 @@ function Gallery() {
             name="profile_type"
             options={['Rascunho', 'Publicado']}
             selected="Rascunho"
+            directionRow
           />
         </StyledFieldset>
 

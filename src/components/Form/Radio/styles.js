@@ -4,12 +4,14 @@ import { MdRadioButtonChecked, MdRadioButtonUnchecked } from 'react-icons/md';
 
 import colors from '~/styles/colors';
 
-export const Wrapper = styled.div`
+export const Wrapper = styled.ul`
   width: 100%;
   height: auto;
+  display: flex;
+  flex-direction: ${(props) => (props.directionRow ? 'row' : 'column')};
 `;
 
-export const Container = styled.div`
+export const Container = styled.li`
   width: 100%;
   min-height: 48px;
   padding: 8px;
@@ -18,6 +20,10 @@ export const Container = styled.div`
   display: flex;
   align-items: center;
   background-color: ${colors.white};
+
+  & + li {
+    margin-left: ${(props) => (props.directionRow ? '8px' : 'unset')};
+  }
 
   &.check {
     color: ${colors.white};

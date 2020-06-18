@@ -10,7 +10,7 @@ import {
   IconChecked,
 } from './styles';
 
-function Radio({ options, name, selected, ...rest }) {
+function Radio({ options, name, selected, directionRow, ...rest }) {
   const allRefs = useRef([]);
   const [activeRef, setActiveRef] = useState(0);
   const [hasChanged, setHasChanged] = useState(false);
@@ -38,7 +38,7 @@ function Radio({ options, name, selected, ...rest }) {
   }
 
   return (
-    <Wrapper>
+    <Wrapper directionRow={directionRow}>
       {allRefs &&
         options.map((item, index) => (
           <Container
@@ -46,6 +46,7 @@ function Radio({ options, name, selected, ...rest }) {
             key={index.toString()}
             onClick={() => handleSelect(index)}
             className={activeRef === index ? 'check' : ''}
+            directionRow
           >
             {activeRef === index ? <IconChecked /> : <IconIdle />}
             <label htmlFor={item}>{item}</label>
@@ -65,10 +66,12 @@ Radio.propTypes = {
   options: PropTypes.arrayOf(PropTypes.string).isRequired,
   name: PropTypes.string.isRequired,
   selected: PropTypes.string,
+  directionRow: PropTypes.bool,
 };
 
 Radio.defaultProps = {
   selected: '',
+  directionRow: false,
 };
 
 export default Radio;

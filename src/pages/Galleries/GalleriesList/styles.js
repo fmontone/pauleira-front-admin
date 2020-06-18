@@ -93,10 +93,20 @@ export const Status = styled.span`
   color: ${colors.statusSuccess};
 `;
 
-export const IconWrapper = styled.button`
-  width: 24px;
-  height: 100%;
+export const ButtonWrapper = styled.div`
+  width: auto;
+  height: auto;
   margin: 0 8px;
+  display: flex;
+  align-items: center;
+`;
+
+export const ButtonIcon = styled.button.attrs({ type: 'button' })`
+  width: 24px;
+  height: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 export const EditIcon = styled(MdEdit).attrs({
