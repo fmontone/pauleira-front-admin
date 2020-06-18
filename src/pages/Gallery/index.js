@@ -1,8 +1,11 @@
-import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useHistory, useParams } from 'react-router-dom';
 
 import { Form } from '~/components/Form';
 import colors from '~/styles/colors';
+import ImageList from './ImagesList';
+
+import dummyData from '../Galleries/dummy_galleries.json';
 
 import {
   Container,
@@ -16,17 +19,36 @@ import {
   StyledImageUploader,
 } from './styles';
 
+const STATUS_OPTIONS = ['rascunho', 'publicado'];
+
 function Gallery() {
   const history = useHistory();
 
+  const { id } = useParams();
+  const [galleryData, setGalleryData] = useState();
   const [loading, setLoading] = useState(false); /* eslint-disable-line */
-  const [hasImages, setHasImages] = useState(false); /* eslint-disable-line */
+  const [editGallery, setEditGallery] = useState(false);
   const [allowAddImages, setAllowAddImages] = useState(true); /* eslint-disable-line */
+  const [statusSelected, setStatusSelected] = useState(STATUS_OPTIONS[0]);
+
+  useEffect(() => {
+    if (id) {
+      setEditGallery(true);
+      setGalleryData(dummyData.find((i) => i.id.toString() === id.toString()));
+      // setStatusSelected(galleryData.status);
+    }
+  }, [id]);
+
+  useEffect(() => {
+    if (galleryData) setStatusSelected(galleryData.status);
+  }, [galleryData]);
+
+  console.log('DATA', galleryData);
 
   return (
     <Container>
       <h2>Adicionar Galeria</h2>
-      <Form onSubmit={(data) => console.log(data)}>
+      <Form onSubmit={(data) => console.log(data)} initialData={galleryData}>
         <StyledInput
           name="title"
           label="Título"
@@ -38,16 +60,16 @@ function Gallery() {
 
         <StyledFieldset title="Status">
           <StyledRadio
-            name="profile_type"
-            options={['Rascunho', 'Publicado']}
-            selected="Rascunho"
+            name="status"
+            options={STATUS_OPTIONS}
+            selected={statusSelected}
             directionRow
           />
         </StyledFieldset>
 
-        {hasImages && (
+        {editGallery && !!galleryData.images.length && (
           <StyledFieldset title="Imagens">
-            <h3>Imagens</h3>
+            <ImageList files={galleryData.images} />
           </StyledFieldset>
         )}
 
