@@ -8,6 +8,7 @@ import colors from '~/styles/colors';
 
 export const Container = styled(ContainerCustom)`
   margin-bottom: 16px;
+  padding: 0;
 
   h2 {
     margin-bottom: 32px;

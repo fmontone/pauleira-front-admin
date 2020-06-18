@@ -9,6 +9,7 @@ import Main from '~/pages/Main';
 import Users from '~/pages/Users';
 import User from '~/pages/User';
 import Galleries from '~/pages/Galleries';
+import Gallery from '~/pages/Gallery';
 import Courses from '~/pages/Courses';
 
 export default function Routes() {
@@ -24,8 +25,8 @@ export default function Routes() {
       <Route path="/users/new" exact component={User} isPrivate />
       <Route path="/users/:id" exact component={User} isPrivate />
       <Route path="/galleries" exact component={Galleries} isPrivate />
-      <Route path="/galleries/new" exact component={Galleries} isPrivate />
-      <Route path="/galleries/:id" exact component={Galleries} isPrivate />
+      <Route path="/galleries/new" exact component={Gallery} isPrivate />
+      <Route path="/galleries/:id" exact component={Gallery} isPrivate />
       <Route path="/courses" exact component={Courses} isPrivate />
       <Route path="/courses/new" exact component={Courses} isPrivate />
       <Route path="/courses/:id" exact component={Courses} isPrivate />

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 
 import useTranslateUserRole from '~/hooks/useTranslateUserRole';
 import useSortList from '~/hooks/useSortList';
@@ -24,6 +25,8 @@ import GalleriesList from './GalleriesList';
 import data from './dummy_galleries.json';
 
 function Galleries() {
+  const history = useHistory();
+
   // Content Data
   const [galleries, setGalleries] = useState([]);
   const [searchQuery, setSearchQuery] = useState(null); // eslint-disable-line
@@ -94,11 +97,21 @@ function Galleries() {
     setOrder(selectOrder);
   }
 
+  function handleTabFilter(e) {
+    if (e.target.tagName !== 'BUTTON') return;
+    setTabActive(e.target.innerText);
+  }
+
   return (
     <Container>
       <HeadlineContainer>
         <ButtonLine>
-          <ButtonAdd color={colors.statusInfo}>Adicionar Galeria</ButtonAdd>
+          <ButtonAdd
+            onClick={() => history.push('/galleries/new')}
+            color={colors.statusInfo}
+          >
+            Adicionar Galeria
+          </ButtonAdd>
         </ButtonLine>
 
         <SettingsLine>
@@ -117,10 +130,7 @@ function Galleries() {
         </SettingsLine>
       </HeadlineContainer>
 
-      <Tabs
-        tabOptions={tabOptions}
-        onClick={(e) => setTabActive(e.target.innerText)}
-      />
+      <Tabs tabOptions={tabOptions} onClick={(e) => handleTabFilter(e)} />
 
       <GalleriesList payload={filtered} />
 
