@@ -19,7 +19,7 @@ import {
   IconClose,
 } from './styles';
 
-function ImageList({ files }) {
+function UploaderList({ files }) {
   const [showPreview, setShowPreview] = useState(false);
   const [previewFile, setPreviewFile] = useState(null);
 
@@ -72,11 +72,11 @@ function ImageList({ files }) {
   );
 }
 
-// ImageList.propTypes = {
+// UploaderList.propTypes = {
 //   files: PropTypes.arrayOf([PropTypes.shape()]),
 // };
-// ImageList.defaultProps = {
+// UploaderList.defaultProps = {
 //   files: [],
 // };
 
-export default ImageList;
+export default UploaderList;

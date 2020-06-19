@@ -18,7 +18,7 @@ export const StyledLabel = styled.label`
 
 export const TextEditor = styled.textarea`
   width: 100%;
-  min-height: 227px;
+  height: ${(props) => props.height || '227px'};
   padding: 8px;
   position: relative;
   font-size: 16px;

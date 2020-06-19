@@ -13,7 +13,7 @@ export const Wrapper = styled.ul`
 
 export const Container = styled.li`
   width: 100%;
-  min-height: 48px;
+  min-height: 32px;
   padding: 8px;
   margin-bottom: 16px;
   border-radius: 3px;

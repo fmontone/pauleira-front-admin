@@ -4,6 +4,10 @@ import { CircularProgressbar } from 'react-circular-progressbar';
 
 import { MdEdit, MdDelete, MdClose } from 'react-icons/md';
 
+import Card from '~/components/Card';
+import { Form, Input, TextArea } from '~/components/Form';
+import ButtonCustom from '~/components/ButtonCustom';
+
 import colors from '~/styles/colors';
 
 export const Container = styled.ul`
@@ -79,13 +83,19 @@ export const StatusWrapper = styled.div`
 export const ButtonIcon = styled.button.attrs({ type: 'button' })`
   width: 24px;
   height: 24px;
+
+  & + button {
+    margin-left: 4px;
+  }
 `;
 
 export const IconDelete = styled(MdDelete).attrs({
+  size: 20,
   color: colors.grey,
 })``;
 
 export const IconEdit = styled(MdEdit).attrs({
+  size: 18,
   color: colors.statusInfo,
 })``;
 
@@ -132,3 +142,52 @@ export const IconClose = styled(MdClose).attrs({
   color: colors.white,
   size: 20,
 })``;
+
+export const CardContainer = styled(Card)`
+  width: 90%;
+  max-width: 700px;
+`;
+
+export const PreviewImage = styled.div`
+  width: 100%;
+  padding-top: 56.25%;
+  position: relative;
+
+  background-image: url(${(props) => props.src});
+  background-color: #000;
+`;
+
+export const StyledForm = styled(Form)`
+  padding: 8px;
+`;
+
+export const StyledInput = styled(Input)`
+  margin-bottom: 8px;
+`;
+
+export const StyledTextArea = styled(TextArea)`
+  margin-bottom: 8px;
+`;
+
+export const ButtonWrapper = styled.div`
+  width: 100%;
+  height: auto;
+  display: flex;
+  flex-direction: row;
+`;
+
+export const ButtonCancel = styled(ButtonCustom).attrs({
+  type: 'button',
+  color: colors.grey,
+  model: 'outline',
+})`
+  width: 100%;
+`;
+
+export const ButtonSubmit = styled(ButtonCustom).attrs({
+  type: 'submit',
+  color: colors.grey,
+})`
+  margin-left: 8px;
+  width: 100%;
+`;

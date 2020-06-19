@@ -28,14 +28,13 @@ function Gallery() {
   const [galleryData, setGalleryData] = useState();
   const [loading, setLoading] = useState(false); /* eslint-disable-line */
   const [editGallery, setEditGallery] = useState(false);
-  const [allowAddImages, setAllowAddImages] = useState(true); /* eslint-disable-line */
+  const [allowAddImages, setAllowAddImages] = useState(false); /* eslint-disable-line */
   const [statusSelected, setStatusSelected] = useState(STATUS_OPTIONS[0]);
 
   useEffect(() => {
     if (id) {
       setEditGallery(true);
       setGalleryData(dummyData.find((i) => i.id.toString() === id.toString()));
-      // setStatusSelected(galleryData.status);
     }
   }, [id]);
 
@@ -43,12 +42,17 @@ function Gallery() {
     if (galleryData) setStatusSelected(galleryData.status);
   }, [galleryData]);
 
-  console.log('DATA', galleryData);
+  function handleSubmitGallery(data) {
+    console.log(data);
+  }
 
   return (
     <Container>
-      <h2>Adicionar Galeria</h2>
-      <Form onSubmit={(data) => console.log(data)} initialData={galleryData}>
+      <h2>{editGallery ? 'Editar Galeria' : 'Adicionar Galeria'}</h2>
+      <Form
+        onSubmit={(data) => handleSubmitGallery(data)}
+        initialData={galleryData}
+      >
         <StyledInput
           name="title"
           label="Título"
@@ -67,21 +71,9 @@ function Gallery() {
           />
         </StyledFieldset>
 
-        {editGallery && !!galleryData.images.length && (
-          <StyledFieldset title="Imagens">
-            <ImageList files={galleryData.images} />
-          </StyledFieldset>
-        )}
-
-        {allowAddImages && (
-          <StyledFieldset title="Adicionar Imagens">
-            <StyledImageUploader />
-          </StyledFieldset>
-        )}
-
         <ButtonWrapper>
           <ButtonSave type="submit" color={colors.statusSuccess}>
-            Salvar Para Adicionar Imagens
+            {editGallery ? 'Salvar Alterações' : 'Criar Galeria'}
           </ButtonSave>
           <ButtonCancel
             onClick={() => history.push('/galleries')}
@@ -91,6 +83,18 @@ function Gallery() {
           </ButtonCancel>
         </ButtonWrapper>
       </Form>
+
+      {editGallery && !!galleryData.images.length && (
+        <StyledFieldset title="Imagens">
+          <ImageList files={galleryData.images} />
+        </StyledFieldset>
+      )}
+
+      {allowAddImages && (
+        <StyledFieldset title="Adicionar Imagens">
+          <StyledImageUploader />
+        </StyledFieldset>
+      )}
     </Container>
   );
 }

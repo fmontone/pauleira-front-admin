@@ -4,7 +4,7 @@ import { uniqueId } from 'lodash';
 
 import { Container, IconUpload, TextIdle, TextActive } from './styles';
 
-import ImageList from './ImageList';
+import UploaderList from './UploaderList';
 
 function ImageUploader() {
   const [imageFiles, setImageFiles] = useState([]);
@@ -13,8 +13,6 @@ function ImageUploader() {
     const data = new FormData();
 
     data.append('file', uploadedFile.file, uploadedFile.name);
-
-    console.log('uploadedFile', uploadedFile);
   }
 
   const {
@@ -83,7 +81,7 @@ function ImageUploader() {
         {renderDragMessage(isDragActive, isDragReject)}
       </Container>
 
-      {!!imageFiles.length && <ImageList files={imageFiles} />}
+      {!!imageFiles.length && <UploaderList files={imageFiles} />}
     </>
   );
 }
