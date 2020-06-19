@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import { CircularProgressbar } from 'react-circular-progressbar';
 
 import {
-  MdEdit,
   MdDelete,
   MdClose,
   MdErrorOutline,

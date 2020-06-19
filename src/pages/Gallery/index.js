@@ -39,7 +39,10 @@ function Gallery() {
   }, [id]);
 
   useEffect(() => {
-    if (galleryData) setStatusSelected(galleryData.status);
+    if (galleryData) {
+      setStatusSelected(galleryData.status);
+      setAllowAddImages(true);
+    }
   }, [galleryData]);
 
   function handleSubmitGallery(data) {

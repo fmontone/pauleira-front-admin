@@ -29,7 +29,7 @@ function Users() {
 
   // Content Data
   const [users, setUsers] = useState([]);
-  const [searchQuery, setSearchQuery] = useState(null);
+  const [searchQuery, setSearchQuery] = useState(null); /* eslint-disable-line */
 
   // Filters and Sorting
   const tabOptions = ['Todos', 'Alunos', 'Instrutores', 'Administradores'];

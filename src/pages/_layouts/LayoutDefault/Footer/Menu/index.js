@@ -5,7 +5,6 @@ import {
   MdDashboard,
   MdPerson,
   MdPhotoLibrary,
-  MdLocalLibrary,
   MdExitToApp,
 } from 'react-icons/md';
 
@@ -41,15 +40,6 @@ function Menu({ menuToggle, onClick }) {
         >
           <MdPhotoLibrary />
           Galerias
-        </StyledLink>
-        <StyledLink
-          to="/courses"
-          className={menuToggle ? 'animate' : ''}
-          delay={0.05}
-          onClick={onClick}
-        >
-          <MdLocalLibrary />
-          Cursos
         </StyledLink>
         <StyledLink
           to="/"

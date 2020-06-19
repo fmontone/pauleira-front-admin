@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import 'react-circular-progressbar/dist/styles.css';
 
 import {
@@ -72,11 +72,11 @@ function UploaderList({ files }) {
   );
 }
 
-// UploaderList.propTypes = {
-//   files: PropTypes.arrayOf([PropTypes.shape()]),
-// };
-// UploaderList.defaultProps = {
-//   files: [],
-// };
+UploaderList.propTypes = {
+  files: PropTypes.arrayOf(PropTypes.shape()),
+};
+UploaderList.defaultProps = {
+  files: [],
+};
 
 export default UploaderList;
