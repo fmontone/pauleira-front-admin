@@ -10,7 +10,7 @@ function useListFilter(list, field, filterValue) {
     case 'Instrutores':
       fieldValue = 'instructor';
       break;
-    case 'Administradores':
+    case 'Admin':
     case 'Pauleira':
       fieldValue = 'admin';
       break;

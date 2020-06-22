@@ -32,7 +32,7 @@ function Users() {
   const [searchQuery, setSearchQuery] = useState(null); /* eslint-disable-line */
 
   // Filters and Sorting
-  const tabOptions = ['Todos', 'Alunos', 'Instrutores', 'Administradores'];
+  const tabOptions = ['Todos', 'Alunos', 'Instrutores', 'Admin'];
   const dropOptions = ['Mais Recentes', 'Mais Antigos', 'A-z', 'z-A'];
 
   const [tabActive, setTabActive] = useState(tabOptions[0]);
