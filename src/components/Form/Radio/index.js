@@ -47,6 +47,7 @@ function Radio({ options, name, selected, directionRow, ...rest }) {
             onClick={() => handleSelect(index)}
             className={activeRef === index ? 'check' : ''}
             directionRow
+            data-testid={`option-${index + 1}`}
           >
             {activeRef === index ? <IconChecked /> : <IconIdle />}
             <label htmlFor={item}>{item}</label>

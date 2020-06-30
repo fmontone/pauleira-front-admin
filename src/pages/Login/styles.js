@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Form } from '@unform/core';
+import { Form } from '@unform/web';
 
 import ContainerCustom from '~/components/ContainerCustom';
 import ButtonCustom from '~/components/ButtonCustom';

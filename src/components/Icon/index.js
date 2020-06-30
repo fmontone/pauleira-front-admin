@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import LogoFlyingP from './LogoFlyingP';
 import SocialLikeHeavyMetal from './SocialLikeHeavyMetal';
@@ -49,5 +50,17 @@ export default function Icon({ name, color, size }) {
     case 'color-maps':
       return <ColorMaps name color={color} size={size} />;
     default:
+      return <span style={{ color: 'fuchsia' }}>icon-missing</span>;
   }
 }
+
+Icon.propTypes = {
+  name: PropTypes.string.isRequired,
+  color: PropTypes.string,
+  size: PropTypes.string,
+};
+
+Icon.defaultProps = {
+  color: '',
+  size: '24',
+};

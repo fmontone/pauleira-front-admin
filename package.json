@@ -2,7 +2,12 @@
   "name": "frontadmin",
   "version": "0.1.0",
   "private": true,
+
   "dependencies": {
+    "@testing-library/jest-dom": "^5.11.0",
+    "@testing-library/react": "^10.4.3",
+    "@testing-library/user-event": "^12.0.11",
+    "@types/jest": "^26.0.3",
     "@unform/core": "^2.1.0",
     "@unform/web": "^2.1.0",
     "axios": "^0.19.2",
@@ -19,6 +24,7 @@
     "eslint-plugin-react-hooks": "^4.0.2",
     "history": "^4.10.1",
     "immer": "^6.0.5",
+    "jest-environment-jsdom-sixteen": "^1.0.3",
     "lodash": "^4.17.15",
     "polished": "^3.6.5",
     "prettier": "^2.0.5",
@@ -41,15 +47,35 @@
     "styled-components": "^5.1.0",
     "yup": "^0.28.5"
   },
+
   "scripts": {
     "start": "react-app-rewired start",
     "build": "react-app-rewired build",
-    "test": "react-app-rewired test --roots __tests__",
+    "test": "react-app-rewired test --roots=__tests__ --watchAll --env=jest-environment-jsdom-sixteen",
     "eject": "react-scripts eject"
   },
+
+  "jest": {
+    "testMatch": [
+      "**/__tests__/**/*.test.js"
+    ],
+    "setupFilesAfterEnv": [
+      "@testing-library/jest-dom/extend-expect"
+    ],
+    "moduleNameMapper": {
+      "^~/(.*)": "<rootDir>/src/$1"
+    },
+    "collectCoverageFrom": [
+      "!src/index.js",
+      "!src/services/api.js"
+    ],
+    "coverageDirectory": "__tests__/coverage"
+  },
+
   "eslintConfig": {
     "extends": "react-app"
   },
+
   "browserslist": {
     "production": [
       ">0.2%",
@@ -61,28 +87,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "jest": {
-    "testMatch": [
-      "**/__tests__/**/*.test.js"
-    ],
-    "setupFilesAfterEnv": [
-      "@testing-library/jest-dom/extend-expect",
-      "jest-localstorage-mock"
-    ],
-    "moduleNameMapper": {
-      "^~/(.*)": "<rootDir>/src/$1"
-    },
-    "collectCoverageFrom": [
-      "!src/index.js",
-      "!src/services/api.js"
-    ],
-    "coverageDirectory": "__tests__/coverage"
-  },
-  "devDependencies": {
-    "@testing-library/jest-dom": "^5.10.1",
-    "@testing-library/react": "^10.3.0",
-    "@types/jest": "^26.0.0",
-    "jest-localstorage-mock": "^2.4.2"
   }
 }

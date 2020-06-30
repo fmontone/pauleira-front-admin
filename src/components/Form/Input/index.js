@@ -31,6 +31,7 @@ function Input({ label, name, isRequired, ...rest }) {
           ref={inputRef}
           defaultValue={defaultValue}
           {...rest}
+          data-testid="input"
         />
       </StyledLabel>
       <ErrorSpan>{error}</ErrorSpan>

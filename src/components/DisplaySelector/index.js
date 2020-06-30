@@ -9,7 +9,7 @@ import colors from '~/styles/colors';
 
 function DisplaySelector({ onClick, displayList, ...rest }) {
   return (
-    <Container {...rest}>
+    <Container {...rest} data-testid="display-selector">
       <StyledIconButton data-selector="list" onClick={onClick}>
         <Icon
           name="settings-list"
@@ -27,7 +27,7 @@ function DisplaySelector({ onClick, displayList, ...rest }) {
 }
 
 DisplaySelector.propTypes = {
-  displayList: PropTypes.string,
+  displayList: PropTypes.oneOf(['list', 'block']),
   onClick: PropTypes.func.isRequired,
 };
 

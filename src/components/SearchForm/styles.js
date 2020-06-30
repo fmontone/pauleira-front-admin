@@ -2,7 +2,9 @@ import styled from 'styled-components';
 
 import colors from '~/styles/colors';
 
-export const Form = styled.form`
+import { Form as UnForm } from '~/components/Form';
+
+export const Form = styled(UnForm)`
   position: relative;
 `;
 

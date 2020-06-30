@@ -26,7 +26,9 @@ export default function ButtonCustom({
 
   function handleClick() {
     setFeedback(false);
-    if (onClick) onClick();
+    if (onClick) {
+      onClick();
+    }
   }
 
   return (
@@ -40,10 +42,13 @@ export default function ButtonCustom({
       {...props}
     >
       <span>{children}</span>
-      <FeedBack
-        className={feedback && 'animate'}
-        onAnimationEnd={() => handleClick()}
-      />
+      {feedback && (
+        <FeedBack
+          className={feedback && 'animate'}
+          onAnimationEnd={() => handleClick()}
+          data-testid="custom-button-feedback"
+        />
+      )}
     </Button>
   );
 }

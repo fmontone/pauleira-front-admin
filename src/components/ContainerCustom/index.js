@@ -3,8 +3,12 @@ import PropTypes from 'prop-types';
 
 import { Container } from './styles';
 
-export default function ContainerCustom({ children, ...rest }) {
-  return <Container {...rest}>{children}</Container>;
+function ContainerCustom({ children, ...rest }) {
+  return (
+    <Container {...rest} data-testid="container-custom">
+      {children}
+    </Container>
+  );
 }
 
 ContainerCustom.propTypes = {
@@ -19,3 +23,5 @@ ContainerCustom.propTypes = {
 ContainerCustom.defaultProps = {
   children: '',
 };
+
+export default ContainerCustom;

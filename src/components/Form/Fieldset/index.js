@@ -5,7 +5,7 @@ import { Container, Title } from './styles';
 
 function Fieldset({ title, children, ...rest }) {
   return (
-    <Container {...rest}>
+    <Container {...rest} data-testid="test-fieldset">
       {title && <Title title={title} />}
       {children}
     </Container>
