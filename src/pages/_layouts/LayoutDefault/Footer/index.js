@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 
 import {
   MdMenu,
@@ -7,6 +8,8 @@ import {
   MdPhotoLibrary,
   MdExitToApp,
 } from 'react-icons/md';
+import { signOut } from '~/store/modules/auth/actions';
+
 import Menu from './Menu';
 
 import { Wrapper, Container, ButtonMenu, StyledLink } from './styles';
@@ -14,6 +17,7 @@ import { Wrapper, Container, ButtonMenu, StyledLink } from './styles';
 import colors from '~/styles/colors';
 
 function Footer() {
+  const dispatch = useDispatch();
   const [menuToggle, setMenuToggle] = useState(false);
 
   return (
@@ -41,7 +45,12 @@ function Footer() {
         >
           <MdPhotoLibrary color={colors.grey} size="24" />
         </StyledLink>
-        <StyledLink to="/" className={menuToggle ? 'animate' : ''} delay={0.15}>
+        <StyledLink
+          to="/"
+          className={menuToggle ? 'animate' : ''}
+          delay={0.15}
+          onClick={() => dispatch(signOut())}
+        >
           <MdExitToApp color={colors.grey} size="24" />
         </StyledLink>
 

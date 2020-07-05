@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { useDispatch } from 'react-redux';
 
 import {
   MdDashboard,
@@ -7,10 +8,18 @@ import {
   MdPhotoLibrary,
   MdExitToApp,
 } from 'react-icons/md';
+import { signOut } from '~/store/modules/auth/actions';
 
 import { Container, LinkWrapper, StyledLink } from './styles';
 
 function Menu({ menuToggle, onClick }) {
+  const dispatch = useDispatch();
+
+  function handleLogout() {
+    onClick();
+    dispatch(signOut());
+  }
+
   return (
     <Container menuToggle={menuToggle}>
       <LinkWrapper>
@@ -45,7 +54,7 @@ function Menu({ menuToggle, onClick }) {
           to="/"
           className={menuToggle ? 'animate' : ''}
           delay={0}
-          onClick={onClick}
+          onClick={handleLogout}
         >
           <MdExitToApp />
           Sair

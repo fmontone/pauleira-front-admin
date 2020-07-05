@@ -14,11 +14,11 @@ export function* signIn({ payload }) {
       password,
     });
 
-    const { token, user } = response.data;
+    const { token, id } = response.data;
 
     api.defaults.headers.Authorization = `Bearer ${token}`;
 
-    yield put(signInSuccess(token, user));
+    yield put(signInSuccess(token, id));
 
     history.push('/dashboard');
   } catch (err) {
