@@ -25,7 +25,7 @@
     "history": "^4.10.1",
     "immer": "^6.0.5",
     "jest-environment-jsdom-sixteen": "^1.0.3",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.19",
     "polished": "^3.6.5",
     "prettier": "^2.0.5",
     "prop-types": "^15.7.2",
