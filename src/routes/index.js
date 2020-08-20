@@ -17,7 +17,7 @@ export default function Routes() {
   return (
     <Switch>
       <Route path="/" exact component={Login} />
-      <Redirect path="/login" to="/" />
+      {/* <Redirect path="/login" to="/" /> */}
 
       <Route path="/dashboard" exact component={Main} isPrivate />
       <Route path="/users" exact component={Users} isPrivate />
