@@ -57,18 +57,6 @@ export const Name = styled.span`
   display: block;
 `;
 
-export const Aka = styled.span`
-  display: block;
-  font-size: 12px;
-  color: ${colors.greyHeavy};
-`;
-
-export const Role = styled.span`
-  display: block;
-  font-size: 12px;
-  color: ${colors.greyHeavy};
-`;
-
 export const ButtonEdit = styled.button.attrs({
   type: 'button',
 })`

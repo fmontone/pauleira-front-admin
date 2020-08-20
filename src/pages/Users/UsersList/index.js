@@ -10,29 +10,26 @@ import {
   ProfilePic,
   TitlesWrapper,
   Name,
-  Aka,
-  Role,
   ButtonEdit,
   EditIcon,
 } from './styles';
 
 import ProfilePlaceholder from '~/assets/pauleira_profile_pic_placeholder.jpg';
+import NoResultsList from '~/components/NoResultsList';
 
 function UsersList({ payload }) {
   const history = useHistory();
 
-  return (
+  return payload && payload.length >= 1 ? (
     <List>
-      {payload.map(({ id, profile_image, name, a_k_a, role_translated }) => (
+      {payload.map(({ id, name }) => (
         <ListItem key={id.toString()}>
           <ProfilePicWrapper>
-            <ProfilePic src={profile_image || ProfilePlaceholder} />
+            <ProfilePic src={ProfilePlaceholder} />
           </ProfilePicWrapper>
 
           <TitlesWrapper>
             <Name>{name}</Name>
-            <Aka>{a_k_a}</Aka>
-            <Role>{role_translated}</Role>
           </TitlesWrapper>
           <ButtonEdit
             onClick={() => history.push({ pathname: `/users/${id}` })}
@@ -42,6 +39,8 @@ function UsersList({ payload }) {
         </ListItem>
       ))}
     </List>
+  ) : (
+    <NoResultsList />
   );
 }
 
@@ -52,7 +51,9 @@ UsersList.propTypes = {
       name: PropTypes.string,
       email: PropTypes.string,
       a_k_a: PropTypes.string,
-      profile_image: PropTypes.string,
+      profile_image: PropTypes.shape({
+        url: PropTypes.string,
+      }),
     })
   ).isRequired,
 };

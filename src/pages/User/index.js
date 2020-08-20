@@ -2,8 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import { Form } from '@unform/web';
 
-import dummyData from '../Users/dummy_users.json';
-
 import {
   Container,
   StyledFieldset,
@@ -21,11 +19,11 @@ function User() {
   const [userData, setUserData] = useState({});
 
   useEffect(() => {
-    if (id) {
-      setEditUser(true);
-      setUserData(dummyData.find((item) => item.id.toString() === id));
-    }
-  }, [id]);
+    // if (id) {
+    //   setEditUser(true);
+    //   setUserData(dummyData.find((item) => item.id.toString() === id));
+    // }
+  }, []);
 
   return (
     <Container>

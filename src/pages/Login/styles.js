@@ -31,7 +31,8 @@ export const Title = styled.h2`
 `;
 
 export const MyForm = styled(Form)`
-  max-width: 500px;
+  max-width: 400px;
+  width: 100%;
 `;
 
 export const MyInput = styled.input`

@@ -6,7 +6,6 @@ import ContainerCustom from '~/components/ContainerCustom';
 import ButtonCustom from '~/components/ButtonCustom';
 import SearchForm from '~/components/SearchForm';
 import { Select } from '~/components/Form';
-import TabFilter from '~/components/TabFilter';
 
 export const Container = styled(ContainerCustom)`
   display: flex;
@@ -54,10 +53,6 @@ export const DropDownWrapper = styled.div`
 
 export const SelectFilter = styled(Select)`
   margin-bottom: 16px;
-`;
-
-export const Tabs = styled(TabFilter)`
-  margin-bottom: 32px;
 `;
 
 export const ButtonLoadMore = styled(ButtonCustom).attrs({

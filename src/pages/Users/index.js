@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 
-import useTranslateUserRole from '~/hooks/useTranslateUserRole';
+import api from '~/services/api';
+
 import useSortList from '~/hooks/useSortList';
-import useListFilter from '~/hooks/useListFilter';
 
 import colors from '~/styles/colors';
 
@@ -16,39 +16,53 @@ import {
   Search,
   SelectFilter,
   DropDownWrapper,
-  Tabs,
   ButtonLoadMore,
 } from './styles';
 
 import UsersList from './UsersList';
-
-import data from './dummy_users.json';
 
 function Users() {
   const history = useHistory();
 
   // Content Data
   const [users, setUsers] = useState([]);
-  const [searchQuery, setSearchQuery] = useState(null); /* eslint-disable-line */
+  const [searchQuery, setSearchQuery] = useState(null);
+  const [usersFiltered, setUsersFiltered] = useState(null);
 
   // Filters and Sorting
-  const tabOptions = ['Todos', 'Alunos', 'Instrutores', 'Admin'];
   const dropOptions = ['Mais Recentes', 'Mais Antigos', 'A-z', 'z-A'];
 
-  const [tabActive, setTabActive] = useState(tabOptions[0]);
   const [sortProperty, setSortProperty] = useState(null);
   const [order, setOrder] = useState(null);
-  const translated = useTranslateUserRole(users);
-  const sorted = useSortList(translated, sortProperty, order);
-  const filtered = useListFilter(sorted, 'role_translated', tabActive);
+  const sorted = useSortList(users, sortProperty, order);
 
   useEffect(() => {
-    setUsers(data);
+    async function loadUserData() {
+      const { data } = await api.get('/admin-users');
+      setUsers(data);
+    }
+
+    loadUserData();
   }, []);
 
-  function handleSearchFormSubmit(e) {
-    e.preventDefault();
-    // console.log('SUBMIT: ', searchQuery);
+  useEffect(() => {
+    if (searchQuery) {
+      setUsersFiltered(
+        users.filter((user) =>
+          user.name.toLowerCase().includes(searchQuery.toLowerCase())
+        )
+      );
+    } else {
+      setUsersFiltered(null);
+    }
+  }, [searchQuery, users]);
+
+  function handleSearchQuery(e) {
+    if (e.target.value === '') {
+      setSearchQuery(null);
+    } else {
+      setSearchQuery(e.target.value);
+    }
   }
 
   function handleSortSelect(e) {
@@ -82,11 +96,6 @@ function Users() {
     setOrder(selectOrder);
   }
 
-  function handleTabFilter(e) {
-    if (e.target.tagName !== 'BUTTON') return;
-    setTabActive(e.target.innerText);
-  }
-
   return (
     <Container>
       <HeadlineContainer>
@@ -101,8 +110,7 @@ function Users() {
 
         <SettingsLine>
           <Search
-            onSubmit={(e) => handleSearchFormSubmit(e)}
-            onChange={(e) => setSearchQuery(e.target.value)}
+            onChange={(e) => handleSearchQuery(e)}
             placeholder="Procurar Usuário..."
           />
 
@@ -115,9 +123,7 @@ function Users() {
         </SettingsLine>
       </HeadlineContainer>
 
-      <Tabs tabOptions={tabOptions} onClick={(e) => handleTabFilter(e)} />
-
-      <UsersList payload={filtered} />
+      <UsersList payload={usersFiltered || sorted} />
 
       {sorted.length >= 10 && <ButtonLoadMore>Carregar Mais</ButtonLoadMore>}
     </Container>
