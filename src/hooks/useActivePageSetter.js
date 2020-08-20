@@ -16,8 +16,8 @@ export default function useActivePageSetter() {
       case 'dashboard':
         pathString = 'Dashboard';
         break;
-      case 'users':
-        pathString = 'Usuários';
+      case 'admin-users':
+        pathString = 'Usuários ADM';
         break;
       case 'galleries':
         pathString = 'Galerias';

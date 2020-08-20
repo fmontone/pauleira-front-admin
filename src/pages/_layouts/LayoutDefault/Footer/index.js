@@ -32,7 +32,7 @@ function Footer() {
         </ButtonMenu>
 
         <StyledLink
-          to="/users"
+          to="/admin-users"
           className={menuToggle ? 'animate' : ''}
           delay={0.05}
         >

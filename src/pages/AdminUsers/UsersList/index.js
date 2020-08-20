@@ -32,7 +32,7 @@ function UsersList({ payload }) {
             <Name>{name}</Name>
           </TitlesWrapper>
           <ButtonEdit
-            onClick={() => history.push({ pathname: `/users/${id}` })}
+            onClick={() => history.push({ pathname: `/admin-users/${id}` })}
           >
             <EditIcon />
           </ButtonEdit>

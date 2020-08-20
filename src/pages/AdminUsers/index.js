@@ -21,7 +21,7 @@ import {
 
 import UsersList from './UsersList';
 
-function Users() {
+function AdminUsers() {
   const history = useHistory();
 
   // Content Data
@@ -130,4 +130,4 @@ function Users() {
   );
 }
 
-export default Users;
+export default AdminUsers;

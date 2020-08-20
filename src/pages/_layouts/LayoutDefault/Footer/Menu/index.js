@@ -33,7 +33,7 @@ function Menu({ menuToggle, onClick }) {
           Dashboard
         </StyledLink>
         <StyledLink
-          to="/users"
+          to="/admin-users"
           className={menuToggle ? 'animate' : ''}
           delay={0.15}
           onClick={onClick}
