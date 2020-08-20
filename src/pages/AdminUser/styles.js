@@ -23,10 +23,6 @@ export const StyledInput = styled(Input)`
   margin-bottom: 16px;
 `;
 
-export const StyledRadio = styled(Radio)`
-  margin-bottom: 16px;
-`;
-
 export const ButtonWrapper = styled.div`
   display: flex;
   flex-direction: row;

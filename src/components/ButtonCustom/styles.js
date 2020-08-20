@@ -73,6 +73,19 @@ export const Button = styled.button`
   &:active {
     transform: translate(0.5px, 0.5px);
   }
+
+  :disabled {
+    background-color: ${(props) =>
+      props.model === 'outiline' ? 'unset' : colors.greyLight};
+    color: ${colors.greyMedium};
+    border: ${(props) =>
+      props.model === 'outiline' ? `2px solid ${colors.greyMedium}` : 'unset'};
+    cursor: inactive;
+
+    &:active {
+      transform: unset;
+    }
+  }
 `;
 
 const animate = keyframes`
