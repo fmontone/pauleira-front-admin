@@ -2,7 +2,6 @@
   "name": "frontadmin",
   "version": "0.1.0",
   "private": true,
-
   "dependencies": {
     "@testing-library/jest-dom": "^5.11.0",
     "@testing-library/react": "^10.4.3",
@@ -47,14 +46,12 @@
     "styled-components": "^5.1.0",
     "yup": "^0.28.5"
   },
-
   "scripts": {
     "start": "react-app-rewired start",
     "build": "react-app-rewired build",
     "test": "react-app-rewired test --roots=__tests__ --watchAll --env=jest-environment-jsdom-sixteen",
     "eject": "react-scripts eject"
   },
-
   "jest": {
     "testMatch": [
       "**/__tests__/**/*.test.js"
@@ -71,11 +68,9 @@
     ],
     "coverageDirectory": "__tests__/coverage"
   },
-
   "eslintConfig": {
     "extends": "react-app"
   },
-
   "browserslist": {
     "production": [
       ">0.2%",
