@@ -1,65 +1,45 @@
 import React, { useState, useEffect } from 'react';
-import { useHistory, useParams } from 'react-router-dom';
-import { Form } from '@unform/web';
+import { useParams } from 'react-router-dom';
 
 import api from '~/services/api';
 
-import {
-  Container,
-  StyledFieldset,
-  StyledInput,
-  ButtonWrapper,
-  ButtonCancel,
-  ButtonSubmit,
-} from './styles';
+import { Container } from './styles';
+
+import TitleButtonBack from '~/components/TitleButtonBack';
+import UserForm from './UserForm';
 
 function AdminUser() {
-  const history = useHistory();
   const { id } = useParams();
+
   const [editUser, setEditUser] = useState(false);
-  const [userData, setUserData] = useState({});
-  const [dataChanged, setDataChanged] = useState(false);
+  const [formData, setFormData] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
+    setLoading(true);
     async function fetchData() {
       const { data } = await api.get(`/admin-users/${id}`);
-      setUserData(data);
+      setFormData(data);
     }
-    setEditUser(true);
-    fetchData();
-  }, [id]);
 
-  function handleDataUpdate(e) {
-    if (editUser && e.target.value !== userData[e.target.name]) {
-      setDataChanged(true);
-    } else if (editUser && e.target.value === userData[e.target.name]) {
-      setDataChanged(false);
+    if (id) {
+      setEditUser(true);
+      fetchData();
     }
-  }
+
+    setLoading(false);
+  }, [id]);
 
   return (
     <Container>
-      <h2>{editUser ? 'Editar Usuário' : 'Adicionar Usuário'}</h2>
+      <h2>
+        <TitleButtonBack goTo="/admin-users" />
+        {editUser ? 'Editar Usuário' : 'Adicionar Usuário'}
+      </h2>
 
-      <Form
-        onSubmit={(data) => console.log(data)}
-        onChange={(e) => handleDataUpdate(e)}
-        initialData={userData}
-      >
-        <StyledFieldset title="Dados Básicos">
-          <StyledInput name="name" label="Nome" isRequired />
-          <StyledInput name="email" label="Email" isRequired />
-        </StyledFieldset>
+      {loading && <h3>Loading...</h3>}
 
-        <ButtonWrapper>
-          <ButtonCancel onClick={() => history.push('/admin-users')}>
-            Cancelar
-          </ButtonCancel>
-          <ButtonSubmit disabled={!dataChanged}>
-            {editUser ? 'Salvar' : 'Adicionar'}
-          </ButtonSubmit>
-        </ButtonWrapper>
-      </Form>
+      <UserForm editUser={editUser} formData={formData} />
     </Container>
   );
 }

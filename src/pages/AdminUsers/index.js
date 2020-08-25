@@ -102,7 +102,7 @@ function AdminUsers() {
         <ButtonLine>
           <ButtonAdd
             color={colors.statusInfo}
-            onClick={() => history.push('/users/new')}
+            onClick={() => history.push('/admin-users/new')}
           >
             Adicionar Usuário
           </ButtonAdd>
