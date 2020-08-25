@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { signInRequest } from '~/store/modules/auth/actions';
 
-import { Container, Logo, Title, MyForm, MyInput, MyButton } from './styles';
+import { Container, Logo, Title, Form, MyInput, MyButton } from './styles';
 import colors from '~/styles/colors';
 
 import Icon from '~/components/Icon';
@@ -24,7 +24,8 @@ function Login() {
     }
   }
 
-  async function handleSubmit() {
+  async function handleSubmit(e) {
+    e.preventDefault();
     dispatch(signInRequest(email, password));
   }
 
@@ -34,7 +35,10 @@ function Login() {
         <Icon name="logo-flying-p" size="72" color={colors.greyLighter} />
       </Logo>
       <Title>Login</Title>
-      <MyForm onSubmit={handleSubmit} onInput={(e) => handleInputUpdate(e)}>
+      <Form
+        onSubmit={(e) => handleSubmit(e)}
+        onInput={(e) => handleInputUpdate(e)}
+      >
         <MyInput name="email" type="text" placeholder="Seu email..." />
         {formLogin && (
           <MyInput name="password" type="password" placeholder="Sua senha..." />
@@ -61,7 +65,7 @@ function Login() {
         >
           {formLogin ? 'Esqueci minha senha' : 'Voltar para o Login'}
         </MyButton>
-      </MyForm>
+      </Form>
     </Container>
   );
 }

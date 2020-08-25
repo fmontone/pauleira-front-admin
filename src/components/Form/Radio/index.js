@@ -1,5 +1,4 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { useField } from '@unform/core';
 import PropTypes from 'prop-types';
 
 import {
@@ -14,7 +13,6 @@ function Radio({ options, name, selected, directionRow, ...rest }) {
   const allRefs = useRef([]);
   const [activeRef, setActiveRef] = useState(0);
   const [hasChanged, setHasChanged] = useState(false);
-  const { fieldName, registerField } = useField(name);
 
   useEffect(() => {
     if (allRefs && selected && !hasChanged) {
@@ -23,14 +21,6 @@ function Radio({ options, name, selected, directionRow, ...rest }) {
 
     allRefs.current[activeRef].checked = true;
   }, [activeRef, options, selected, hasChanged]);
-
-  useEffect(() => {
-    registerField({
-      name: fieldName,
-      ref: allRefs.current[activeRef],
-      path: 'value',
-    });
-  }, [fieldName, registerField, activeRef]);
 
   function handleSelect(index) {
     if (!hasChanged) setHasChanged(true);

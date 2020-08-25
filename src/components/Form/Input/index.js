@@ -1,52 +1,38 @@
-import React, { useEffect, useRef } from 'react';
-import { useField } from '@unform/core';
+import React, { forwardRef } from 'react';
 import PropTypes from 'prop-types';
 
 import { StyledLabel, StyledInput } from './styles';
 import ErrorSpan from '~/components/Form/ErrorSpan';
 
-function Input({ label, name, isRequired, ...rest }) {
-  const inputRef = useRef(null);
-  const { fieldName, defaultValue, registerField, error } = useField(name);
-
-  useEffect(() => {
-    registerField({
-      name: fieldName,
-      ref: inputRef.current,
-      path: 'value',
-    });
-  }, [fieldName, registerField]);
-
-  return (
-    <>
-      <StyledLabel htmlFor={name}>
-        {label && (
-          <span>
-            {label}
-            {isRequired && <span className="asterisk">*</span>}
-          </span>
-        )}
-        <StyledInput
-          name={name}
-          ref={inputRef}
-          defaultValue={defaultValue}
-          {...rest}
-          data-testid="input"
-        />
-      </StyledLabel>
-      <ErrorSpan>{error}</ErrorSpan>
-    </>
-  );
-}
+const Input = forwardRef(
+  ({ label, name, errorText, isRequired, ...rest }, ref) => {
+    return (
+      <>
+        <StyledLabel htmlFor={name}>
+          {label && (
+            <span>
+              {label}
+              {isRequired && <span className="asterisk">*</span>}
+            </span>
+          )}
+          <StyledInput name={name} {...rest} data-testid="input" ref={ref} />
+        </StyledLabel>
+        {errorText && <ErrorSpan>{errorText}</ErrorSpan>}
+      </>
+    );
+  }
+);
 
 Input.propTypes = {
   label: PropTypes.string,
   name: PropTypes.string.isRequired,
+  errorText: PropTypes.string,
   isRequired: PropTypes.bool,
 };
 
 Input.defaultProps = {
   label: '',
+  errorText: null,
   isRequired: false,
 };
 

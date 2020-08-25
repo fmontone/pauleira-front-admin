@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import { Form } from '@unform/web';
 
 import ContainerCustom from '~/components/ContainerCustom';
 import ButtonCustom from '~/components/ButtonCustom';
@@ -30,7 +29,7 @@ export const Title = styled.h2`
   margin-bottom: 16px;
 `;
 
-export const MyForm = styled(Form)`
+export const Form = styled.form`
   max-width: 400px;
   width: 100%;
 `;
