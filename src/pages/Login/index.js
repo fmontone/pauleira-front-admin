@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
+import api from '~/services/api';
 import { signInRequest } from '~/store/modules/auth/actions';
 
 import { Container, Logo, Title, Form, MyInput, MyButton } from './styles';
 import colors from '~/styles/colors';
-
 import Icon from '~/components/Icon';
 
 function Login() {
@@ -15,6 +15,7 @@ function Login() {
   const [formLogin, setFormLogin] = useState(true);
   const [email, setEmail] = useState('');
   const [password, setPassWord] = useState('');
+  const [loadingReset, setLoadingReset] = useState(false);
 
   function handleInputUpdate(e) {
     if (e.target.name === 'email') {
@@ -26,7 +27,20 @@ function Login() {
 
   async function handleSubmit(e) {
     e.preventDefault();
-    dispatch(signInRequest(email, password));
+
+    if (formLogin) {
+      dispatch(signInRequest(email, password));
+    } else {
+      setLoadingReset(true);
+      try {
+        await api.put('/admin-users/activate?reset=true', { email });
+      } catch (err) {
+        console.log(err.stack); /* eslint-disable-line */
+        alert('Usuário não encontrado'); /* eslint-disable-line */
+      }
+
+      setLoadingReset(false);
+    }
   }
 
   return (
@@ -52,7 +66,7 @@ function Login() {
 
         {!formLogin && (
           <MyButton color={colors.primary} width="stretch" type="submit">
-            {!loading ? 'Recuperar Senha' : 'Carregando...'}
+            {!loadingReset ? 'Recuperar Senha' : 'Carregando...'}
           </MyButton>
         )}
 
