@@ -96,24 +96,24 @@ export default createGlobalStyle`
  /* FORMS */
 
  input {
-  font-family: inherit;
-  font-size: inherit;
+    font-family: inherit;
+    font-size: inherit;
 
-  ::placeholder {
-    color: ${colors.grey};
+    ::placeholder {
+      color: ${colors.greyMedium};
+    }
+
+    &[type=text], &[type=password] {
+      display: block;
+      width: 100%;
+      height: 32px;
+      padding: 4px;
+      border-radius: 3px;
+      border: 1px solid ${colors.grey};
+      background: #fff;
+
+    }
   }
-
-  &[type=text], &[type=password] {
-    display: block;
-    width: 100%;
-    height: 32px;
-    padding: 4px;
-    border-radius: 3px;
-    border: 1px solid ${colors.grey};
-    background: #fff;
-
-}
- }
 
   /* BUTTONS */
 

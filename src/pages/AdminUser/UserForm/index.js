@@ -57,6 +57,8 @@ function UserForm({ formData, editUser }) {
       try {
         await api.post('/admin-users', { ...data, password });
 
+        await api.put('/admin-users/activate/', { email: data.email });
+
         history.push('/admin-users');
       } catch (err) {
         alert('ERRO AO ADICIONAR USUÁRIO'); /* eslint-disable-line */

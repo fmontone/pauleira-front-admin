@@ -2,42 +2,65 @@ import styled from 'styled-components';
 
 import ContainerCustom from '~/components/ContainerCustom';
 import ButtonCustom from '~/components/ButtonCustom';
+import { Input } from '~/components/Form';
 
 import colors from '~/styles/colors';
 
+import { device } from '~/styles/queries';
+
 export const Container = styled(ContainerCustom)`
-  text-align: center;
+  max-width: 400px;
+  padding-top: 16px;
   flex: 1;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
+
+  @media ${device.tabletLs} {
+    padding-top: unset;
+    justify-content: center;
+  }
+`;
+
+export const PageHeader = styled.div`
+  width: 100%;
+  height: auto;
 `;
 
 export const Logo = styled.div`
-  width: 64px;
-  height: 70px;
+  width: 90px;
+  height: auto;
   margin-bottom: 16px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+
+  img {
+    width: 100%;
+    height: auto;
+  }
 `;
 
-export const Title = styled.h2`
-  text-transform: uppercase;
-  color: ${colors.primary};
+export const Title = styled.h3`
   margin-bottom: 16px;
 `;
 
 export const Form = styled.form`
   max-width: 400px;
   width: 100%;
+  text-align: left;
 `;
 
-export const MyInput = styled.input`
+export const StyledInput = styled(Input)`
   margin-bottom: 16px;
 `;
 
-export const MyButton = styled(ButtonCustom)`
+export const ButtonSubmit = styled(ButtonCustom)`
   margin-bottom: 16px;
+`;
+
+export const ButtonForgot = styled(ButtonCustom).attrs({
+  color: colors.greyMedium,
+  model: 'outline',
+  type: 'button',
+})`
+  width: 100%;
 `;

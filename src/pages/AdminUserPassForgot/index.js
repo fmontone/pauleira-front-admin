@@ -6,17 +6,18 @@ import api from '~/services/api';
 
 import {
   Container,
+  PageHeader,
   Logo,
   Title,
-  StyledCard,
   Form,
   StyledInput as Input,
   SubmitButton,
   LoginButton,
 } from './styles';
+
 import colors from '~/styles/colors';
 
-import Icon from '~/components/Icon';
+import PauleiraLogo from '~/assets/svg/pauleira-logo.svg';
 
 function AdminUserPassForgot() {
   const history = useHistory();
@@ -41,12 +42,12 @@ function AdminUserPassForgot() {
 
   return (
     <Container>
-      <Logo>
-        <Icon name="logo-flying-p" size="72" color={colors.greyLighter} />
-      </Logo>
-      <Title>Esqueci minha senha</Title>
+      <PageHeader>
+        <Logo>
+          <img src={PauleiraLogo} alt="Pauleira Guitars Logo" />
+        </Logo>
+        <Title>Esqueci minha senha</Title>
 
-      <StyledCard>
         {!emailSent ? (
           <p>
             Para cadastrar uma nova senha você deve adicionar seu email
@@ -64,12 +65,14 @@ function AdminUserPassForgot() {
             </p>
           </>
         )}
+      </PageHeader>
 
+      {!emailSent ? (
         <Form onSubmit={handleSubmit(handleDataSubmit)}>
           <Input
             name="email"
             type="text"
-            placeholder="Seu email..."
+            label="Email"
             ref={register({
               required: 'Campo Obrigatório',
               pattern: {
@@ -83,11 +86,15 @@ function AdminUserPassForgot() {
           <SubmitButton type="submit">
             {loading ? 'Carregando...' : 'Enviar Email'}
           </SubmitButton>
-          <LoginButton onClick={() => history.push('/')}>
+          <LoginButton color={colors.grey} onClick={() => history.push('/')}>
             Voltar para o login
           </LoginButton>
         </Form>
-      </StyledCard>
+      ) : (
+        <LoginButton color={colors.primary} onClick={() => history.push('/')}>
+          Voltar para o login
+        </LoginButton>
+      )}
 
       <Form />
     </Container>

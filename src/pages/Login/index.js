@@ -1,84 +1,82 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
+import { useForm } from 'react-hook-form';
 
-import api from '~/services/api';
 import { signInRequest } from '~/store/modules/auth/actions';
 
-import { Container, Logo, Title, Form, MyInput, MyButton } from './styles';
+import {
+  Container,
+  Logo,
+  Title,
+  PageHeader,
+  Form,
+  StyledInput as Input,
+  ButtonSubmit,
+  ButtonForgot,
+} from './styles';
 import colors from '~/styles/colors';
-import Icon from '~/components/Icon';
+
+import PauleiraLogo from '~/assets/svg/pauleira-logo.svg';
 
 function Login() {
+  const history = useHistory();
+
   const dispatch = useDispatch();
   const loading = useSelector((state) => state.auth.loading);
 
-  const [formLogin, setFormLogin] = useState(true);
-  const [email, setEmail] = useState('');
-  const [password, setPassWord] = useState('');
-  const [loadingReset, setLoadingReset] = useState(false);
+  const { handleSubmit, register, errors } = useForm();
 
-  function handleInputUpdate(e) {
-    if (e.target.name === 'email') {
-      setEmail(e.target.value);
-    } else if (e.target.name === 'password') {
-      setPassWord(e.target.value);
-    }
-  }
+  async function handleDataSubmit(data) {
+    const { email, password } = data;
 
-  async function handleSubmit(e) {
-    e.preventDefault();
-
-    if (formLogin) {
-      dispatch(signInRequest(email, password));
-    } else {
-      setLoadingReset(true);
-      try {
-        await api.put('/admin-users/activate?reset=true', { email });
-      } catch (err) {
-        console.log(err.stack); /* eslint-disable-line */
-        alert('Usuário não encontrado'); /* eslint-disable-line */
-      }
-
-      setLoadingReset(false);
-    }
+    dispatch(signInRequest(email, password));
   }
 
   return (
     <Container>
-      <Logo>
-        <Icon name="logo-flying-p" size="72" color={colors.greyLighter} />
-      </Logo>
-      <Title>Login</Title>
-      <Form
-        onSubmit={(e) => handleSubmit(e)}
-        onInput={(e) => handleInputUpdate(e)}
-      >
-        <MyInput name="email" type="text" placeholder="Seu email..." />
-        {formLogin && (
-          <MyInput name="password" type="password" placeholder="Sua senha..." />
-        )}
+      <PageHeader>
+        <Logo>
+          <img src={PauleiraLogo} alt="Pauleira Guitars Logo" />
+        </Logo>
+        <Title>Admin Login</Title>
+      </PageHeader>
 
-        {formLogin && (
-          <MyButton color={colors.primary} width="stretch" type="submit">
-            {!loading ? 'Entrar na Aplicação' : 'Carregando...'}
-          </MyButton>
-        )}
+      <Form onSubmit={handleSubmit(handleDataSubmit)}>
+        <Input
+          name="email"
+          type="text"
+          label="email"
+          ref={register({
+            required: 'Campo Obrigatório',
+            pattern: {
+              value: /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+              message: 'Este não é um email válido',
+            },
+          })}
+          errorText={errors.email && errors.email.message}
+        />
+        <Input
+          name="password"
+          type="password"
+          label="senha"
+          ref={register({
+            required: 'Campo Obrigatório',
+            minLength: {
+              value: 6,
+              message: 'Mínimo 6 caracteres',
+            },
+          })}
+          errorText={errors.password && errors.password.message}
+        />
 
-        {!formLogin && (
-          <MyButton color={colors.primary} width="stretch" type="submit">
-            {!loadingReset ? 'Recuperar Senha' : 'Carregando...'}
-          </MyButton>
-        )}
+        <ButtonSubmit color={colors.primary} width="stretch" type="submit">
+          {!loading ? 'Entrar na Aplicação' : 'Carregando...'}
+        </ButtonSubmit>
 
-        <MyButton
-          color={colors.primary}
-          width="stretch"
-          model="outline"
-          type="button"
-          onClick={() => setFormLogin(!formLogin)}
-        >
-          {formLogin ? 'Esqueci minha senha' : 'Voltar para o Login'}
-        </MyButton>
+        <ButtonForgot onClick={() => history.push('/pass-forgot')}>
+          Esqueci minha senha
+        </ButtonForgot>
       </Form>
     </Container>
   );
