@@ -6,7 +6,6 @@ import PropTypes from 'prop-types';
 import {
   List,
   ListItem,
-  ProfilePicWrapper,
   ProfilePic,
   TitlesWrapper,
   Name,
@@ -22,18 +21,23 @@ function UsersList({ payload }) {
 
   return payload && payload.length >= 1 ? (
     <List>
-      {payload.map(({ id, name }) => (
-        <ListItem key={id.toString()}>
-          <ProfilePicWrapper>
-            <ProfilePic src={ProfilePlaceholder} />
-          </ProfilePicWrapper>
+      {payload.map(({ id, name, profile_image }) => (
+        <ListItem
+          key={id.toString()}
+          onClick={() => history.push({ pathname: `/admin-users/${id}` })}
+        >
+          <ProfilePic
+            src={
+              profile_image
+                ? profile_image.url
+                : `${process.env.REACT_APP_URL}${ProfilePlaceholder}`
+            }
+          />
 
           <TitlesWrapper>
             <Name>{name}</Name>
           </TitlesWrapper>
-          <ButtonEdit
-            onClick={() => history.push({ pathname: `/admin-users/${id}` })}
-          >
+          <ButtonEdit>
             <EditIcon />
           </ButtonEdit>
         </ListItem>

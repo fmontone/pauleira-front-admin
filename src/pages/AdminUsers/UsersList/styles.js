@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-
+import { lighten } from 'polished';
 import { MdEdit } from 'react-icons/md';
 
 import colors from '~/styles/colors';
@@ -26,22 +26,34 @@ export const ListItem = styled.li`
   & + li {
     border-top: 1px solid ${colors.greyLighter};
   }
+
+  cursor: pointer;
+
+  :hover {
+    background-color: ${lighten(0.5, colors.greyHeavy)};
+  }
+
+  :active {
+    box-shadow: unset;
+    transform: translate(0.5px, 0.5px);
+  }
 `;
 
 export const ProfilePicWrapper = styled.div`
-  width: 48px;
-  height: 48px;
   display: flex;
   justify-content: center;
   align-items: center;
-  border: 1px solid ${colors.grey};
-  border-radius: 50%;
-  overflow: hidden;
 `;
 
-export const ProfilePic = styled.img`
-  width: 100%;
-  height: auto;
+export const ProfilePic = styled.div`
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  overflow: hidden;
+
+  background-image: url(${(props) => props.src});
+  background-position: center center;
+  background-size: contain;
 `;
 
 export const TitlesWrapper = styled.div`
