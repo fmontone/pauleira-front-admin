@@ -7,6 +7,8 @@ import ButtonCustom from '~/components/ButtonCustom';
 import SearchForm from '~/components/SearchForm';
 import { Select } from '~/components/Form';
 
+import { device } from '~/styles/queries';
+
 export const Container = styled(ContainerCustom)`
   display: flex;
   padding: 0;
@@ -17,19 +19,23 @@ export const Container = styled(ContainerCustom)`
 export const HeadlineContainer = styled.div`
   width: 100%;
   height: auto;
+  margin-top: 16px;
   display: flex;
-  flex-direction: column;
+  flex-direction: column-reverse;
+
+  @media ${device.tabletLs} {
+    flex-direction: row;
+    justify-content: space-between;
+  }
 `;
 
-export const ButtonLine = styled.div`
-  width: 100%;
-  height: auto;
-  margin: 16px 0;
-  display: flex;
-  justify-content: center;
-`;
+export const ButtonAdd = styled(ButtonCustom)`
+  margin-bottom: 32px;
 
-export const ButtonAdd = styled(ButtonCustom)``;
+  @media ${device.tabletLs} {
+    margin-bottom: unset;
+  }
+`;
 
 export const SettingsLine = styled.div`
   width: 100%;
@@ -37,7 +43,10 @@ export const SettingsLine = styled.div`
   margin-bottom: 32px;
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+
+  @media ${device.tabletLs} {
+    width: 50%;
+  }
 `;
 
 export const Search = styled(SearchForm)`

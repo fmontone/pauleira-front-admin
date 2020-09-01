@@ -10,7 +10,6 @@ import colors from '~/styles/colors';
 import {
   Container,
   HeadlineContainer,
-  ButtonLine,
   ButtonAdd,
   SettingsLine,
   Search,
@@ -20,9 +19,12 @@ import {
 } from './styles';
 
 import UsersList from './UsersList';
+import LoadingList from '~/components/LoadingList';
 
 function AdminUsers() {
   const history = useHistory();
+
+  const [loading, setLoading] = useState(true);
 
   // Content Data
   const [users, setUsers] = useState([]);
@@ -40,6 +42,7 @@ function AdminUsers() {
     async function loadUserData() {
       const { data } = await api.get('/admin-users');
       setUsers(data);
+      setLoading(false);
     }
 
     loadUserData();
@@ -99,15 +102,6 @@ function AdminUsers() {
   return (
     <Container>
       <HeadlineContainer>
-        <ButtonLine>
-          <ButtonAdd
-            color={colors.statusInfo}
-            onClick={() => history.push('/admin-users/new')}
-          >
-            Adicionar Usuário
-          </ButtonAdd>
-        </ButtonLine>
-
         <SettingsLine>
           <Search
             onChange={(e) => handleSearchQuery(e)}
@@ -121,9 +115,20 @@ function AdminUsers() {
             />
           </DropDownWrapper>
         </SettingsLine>
+
+        <ButtonAdd
+          color={colors.statusInfo}
+          onClick={() => history.push('/admin-users/new')}
+        >
+          Adicionar Usuário
+        </ButtonAdd>
       </HeadlineContainer>
 
-      <UsersList payload={usersFiltered || sorted} />
+      {loading ? (
+        <LoadingList />
+      ) : (
+        <UsersList payload={usersFiltered || sorted} />
+      )}
 
       {sorted.length >= 10 && <ButtonLoadMore>Carregar Mais</ButtonLoadMore>}
     </Container>
