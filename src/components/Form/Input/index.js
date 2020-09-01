@@ -15,7 +15,7 @@ const Input = forwardRef(
               {isRequired && <span className="asterisk">*</span>}
             </span>
           )}
-          <StyledInput name={name} {...rest} data-testid="input" ref={ref} />
+          <StyledInput name={name} ref={ref} {...rest} data-testid="input" />
         </StyledLabel>
         {errorText && <ErrorSpan>{errorText}</ErrorSpan>}
       </>

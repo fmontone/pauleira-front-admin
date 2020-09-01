@@ -5,7 +5,7 @@ import { CircularProgressbar } from 'react-circular-progressbar';
 import { MdEdit, MdDelete, MdClose } from 'react-icons/md';
 
 import Card from '~/components/Card';
-import { Form, Input, TextArea } from '~/components/Form';
+import { Input, TextArea } from '~/components/Form';
 import ButtonCustom from '~/components/ButtonCustom';
 
 import colors from '~/styles/colors';
@@ -157,7 +157,7 @@ export const PreviewImage = styled.div`
   background-color: #000;
 `;
 
-export const StyledForm = styled(Form)`
+export const StyledForm = styled.form`
   padding: 8px;
 `;
 

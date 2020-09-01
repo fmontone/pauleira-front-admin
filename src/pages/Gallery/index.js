@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 
-import { Form } from '~/components/Form';
 import colors from '~/styles/colors';
 import ImageList from './ImagesList';
 
@@ -52,7 +51,7 @@ function Gallery() {
   return (
     <Container>
       <h2>{editGallery ? 'Editar Galeria' : 'Adicionar Galeria'}</h2>
-      <Form
+      <form
         onSubmit={(data) => handleSubmitGallery(data)}
         initialData={galleryData}
       >
@@ -85,7 +84,7 @@ function Gallery() {
             Cancelar
           </ButtonCancel>
         </ButtonWrapper>
-      </Form>
+      </form>
 
       {editGallery && !!galleryData.images.length && (
         <StyledFieldset title="Imagens">

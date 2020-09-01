@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { forwardRef } from 'react';
 import PropTypes from 'prop-types';
 
 import { MdExpandMore } from 'react-icons/md';
@@ -7,10 +7,10 @@ import { Wrapper, StyledSelect, Arrow } from './styles';
 
 import colors from '~/styles/colors';
 
-function Select({ dropOptions, ...rest }) {
+const Select = forwardRef(({ dropOptions, ...rest }, ref) => {
   return (
     <Wrapper>
-      <StyledSelect {...rest}>
+      <StyledSelect ref={ref} {...rest}>
         {dropOptions.map((item, index) => {
           return <option key={String(index)}>{item}</option>;
         })}
@@ -20,7 +20,7 @@ function Select({ dropOptions, ...rest }) {
       </Arrow>
     </Wrapper>
   );
-}
+});
 
 Select.propTypes = {
   dropOptions: PropTypes.arrayOf(PropTypes.string),

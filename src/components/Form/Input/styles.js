@@ -24,8 +24,4 @@ export const StyledInput = styled.input`
   border: 1px solid ${colors.greyLight};
   border-radius: 6px;
   background-color: ${colors.white};
-
-  ::placeholder {
-    color: ${colors.greyLight};
-  }
 `;
