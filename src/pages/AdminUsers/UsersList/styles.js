@@ -39,12 +39,6 @@ export const ListItem = styled.li`
   }
 `;
 
-export const ProfilePicWrapper = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-
 export const ProfilePic = styled.div`
   width: 48px;
   height: 48px;
