@@ -2,115 +2,108 @@ import styled from 'styled-components';
 
 import { MdEdit } from 'react-icons/md';
 
+import Icon from '~/components/Icon';
+
 import colors from '~/styles/colors';
+import { device } from '~/styles/queries';
 
 export const List = styled.ul`
   width: 100%;
-  padding: none;
+  margin-bottom: 16px;
   list-style: none;
-  margin-bottom: 16px;
-`;
 
-export const ListItem = styled.li`
-  width: 100%;
-  height: 64px;
-  margin-bottom: 16px;
-  border-radius: 6px;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  background-color: ${colors.white};
-  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.07);
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-gap: 16px;
 
-  & + li {
-    border-top: 1px solid ${colors.greyLighter};
+  @media ${device.tabletLs} {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  @media ${device.laptop} {
+    grid-template-columns: repeat(4, 1fr);
   }
 `;
 
-export const ThumbWrapper = styled.div`
-  width: 86px;
-  height: 100%;
-  position: relative;
-  overflow: hidden;
-`;
-
-export const Thumb = styled.img`
-  width: 100%;
-  height: auto;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-`;
-
-export const TitlesWrapper = styled.div`
-  margin-left: 8px;
-  text-align: left;
-  flex: 1;
+export const ListItem = styled.li`
   display: flex;
   flex-direction: column;
+
+  border-radius: 6px;
+  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.07);
+
+  background-color: #fff;
+
+  cursor: pointer;
 `;
 
-export const Title = styled.span`
-  font-weight: 400;
-  display: block;
+export const Thumb = styled.div`
+  position: relative;
+  width: 100%;
+  height: auto;
+  padding-top: 56.25%;
+
+  border-radius: 6px 6px 0 0;
+
+  background: url(${(props) => props.src}) center center no-repeat;
+  background-size: cover;
 `;
 
-export const StatusInfoWrapper = styled.div`
+export const InfoWrapper = styled.div`
+  width: 100%;
+  padding: 8px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+export const InfoGroup = styled.div`
   display: flex;
   align-items: center;
-  padding: 2px 0;
 `;
 
-export const StatusInfo = styled.span`
-  display: flex;
-  align-items: center;
-  height: 100%;
+export const Info = styled.div`
   margin-right: 16px;
+  display: flex;
+  align-items: center;
+`;
+
+export const IconWrapper = styled.span`
+  width: 24px;
+  height: 24px;
+
+  display: flex;
+  align-items: center;
+
+  margin-right: 8px;
   font-size: 12px;
-  color: ${colors.greyHeavy};
 `;
 
-export const IconPics = styled(MdEdit).attrs({
-  color: colors.greyLight,
-  size: 16,
-})`
-  margin-right: 8px;
-  transform: translateY(1px);
-`;
-
-export const IconLikes = styled(MdEdit).attrs({
-  color: colors.greyLight,
-  size: 16,
-})`
-  margin-right: 8px;
-  transform: translateY(1px);
-`;
+export const IconLikes = styled(Icon).attrs({
+  name: 'social-like-heavymetal',
+  color: colors.primary,
+})``;
 
 export const Status = styled.span`
   font-size: 12px;
   font-weight: 400;
-  color: ${colors.statusSuccess};
-`;
-
-export const ButtonWrapper = styled.div`
-  width: auto;
-  height: auto;
-  margin: 0 8px;
-  display: flex;
-  align-items: center;
+  color: ${colors.greyHeavy};
 `;
 
 export const ButtonIcon = styled.button.attrs({ type: 'button' })`
   width: 24px;
   height: 24px;
+
+  align-self: flex-end;
+
   display: flex;
   justify-content: center;
   align-items: center;
 `;
 
 export const EditIcon = styled(MdEdit).attrs({
-  color: colors.statusInfo,
+  color: colors.grey,
   size: '20',
 })`
   :active {

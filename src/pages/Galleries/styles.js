@@ -1,12 +1,12 @@
 import styled from 'styled-components';
 
 import colors from '~/styles/colors';
+import { device } from '~/styles/queries';
 
 import ContainerCustom from '~/components/ContainerCustom';
 import ButtonCustom from '~/components/ButtonCustom';
 import SearchForm from '~/components/SearchForm';
 import { Select } from '~/components/Form';
-import TabFilter from '~/components/TabFilter';
 
 export const Container = styled(ContainerCustom)`
   display: flex;
@@ -18,19 +18,23 @@ export const Container = styled(ContainerCustom)`
 export const HeadlineContainer = styled.div`
   width: 100%;
   height: auto;
+  margin-top: 16px;
   display: flex;
-  flex-direction: column;
+  flex-direction: column-reverse;
+
+  @media ${device.tabletLs} {
+    flex-direction: row;
+    justify-content: space-between;
+  }
 `;
 
-export const ButtonLine = styled.div`
-  width: 100%;
-  height: auto;
-  margin: 16px 0;
-  display: flex;
-  justify-content: center;
-`;
+export const ButtonAdd = styled(ButtonCustom)`
+  margin-bottom: 32px;
 
-export const ButtonAdd = styled(ButtonCustom)``;
+  @media ${device.tabletLs} {
+    margin-bottom: unset;
+  }
+`;
 
 export const SettingsLine = styled.div`
   width: 100%;
@@ -38,7 +42,10 @@ export const SettingsLine = styled.div`
   margin-bottom: 32px;
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+
+  @media ${device.tabletLs} {
+    width: 50%;
+  }
 `;
 
 export const Search = styled(SearchForm)`
@@ -54,10 +61,6 @@ export const DropDownWrapper = styled.div`
 
 export const SelectFilter = styled(Select)`
   margin-bottom: 16px;
-`;
-
-export const Tabs = styled(TabFilter)`
-  margin-bottom: 32px;
 `;
 
 export const ButtonLoadMore = styled(ButtonCustom).attrs({

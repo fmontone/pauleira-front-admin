@@ -1,52 +1,51 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
+
 import {
   List,
   ListItem,
-  ThumbWrapper,
   Thumb,
-  TitlesWrapper,
-  Title,
-  StatusInfoWrapper,
-  StatusInfo,
-  IconPics,
+  InfoWrapper,
+  InfoGroup,
+  Info,
+  IconWrapper,
   IconLikes,
   Status,
-  ButtonWrapper,
   ButtonIcon,
   EditIcon,
 } from './styles';
 
-import ProfilePlaceholder from '~/assets/pauleira_profile_pic_placeholder.jpg';
+import GelleryPlaceholder from '~/assets/pauleira_gallery_pic_placeholder.jpg';
 
 function GalleriesList({ payload }) {
   const history = useHistory();
   return (
     <List>
       {payload.map((item) => (
-        <ListItem key={item.id.toString()}>
-          <ThumbWrapper>
-            <Thumb src={ProfilePlaceholder} />
-          </ThumbWrapper>
+        <ListItem
+          key={item.id.toString()}
+          onClick={() => history.push(`/galleries/${item.id}`)}
+        >
+          {console.log(item)}
+          <Thumb src={GelleryPlaceholder} />
 
-          <TitlesWrapper>
-            <Title>{item.title}</Title>
-            <StatusInfoWrapper>
-              <StatusInfo>
-                <IconPics />0
-              </StatusInfo>
-              <StatusInfo>
-                <IconLikes />0
-              </StatusInfo>
-              <Status>Publicada</Status>
-            </StatusInfoWrapper>
-          </TitlesWrapper>
-          <ButtonWrapper>
-            <ButtonIcon onClick={() => history.push(`/galleries/${item.id}`)}>
+          <InfoWrapper>
+            <InfoGroup>
+              <Info>
+                <IconWrapper>
+                  <IconLikes />
+                </IconWrapper>
+                <span>{item.likes}</span>
+              </Info>
+
+              <Status>{item.status}</Status>
+            </InfoGroup>
+
+            <ButtonIcon>
               <EditIcon />
             </ButtonIcon>
-          </ButtonWrapper>
+          </InfoWrapper>
         </ListItem>
       ))}
     </List>

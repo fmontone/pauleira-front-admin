@@ -1,38 +1,35 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 
+import api from '~/services/api';
 import useTranslateUserRole from '~/hooks/useTranslateUserRole';
 import useSortList from '~/hooks/useSortList';
-import useListFilter from '~/hooks/useListFilter';
 
 import colors from '~/styles/colors';
 
 import {
   Container,
   HeadlineContainer,
-  ButtonLine,
   ButtonAdd,
   SettingsLine,
   Search,
   SelectFilter,
   DropDownWrapper,
-  Tabs,
   ButtonLoadMore,
 } from './styles';
 
 import GalleriesList from './GalleriesList';
 
-import data from './dummy_galleries.json';
-
 function Galleries() {
   const history = useHistory();
+
+  const [loading, setLoading] = useState(true);
 
   // Content Data
   const [galleries, setGalleries] = useState([]);
   const [searchQuery, setSearchQuery] = useState(null); // eslint-disable-line
 
   // Filters and Sorting
-  const tabOptions = ['Todos', 'Pauleira', 'Alunos', 'Instrutores'];
   const dropOptions = [
     'Mais Recentes',
     'Mais Antigos',
@@ -42,15 +39,20 @@ function Galleries() {
     'z-A',
   ];
 
-  const [tabActive, setTabActive] = useState(tabOptions[0]);
   const [sortProperty, setSortProperty] = useState(null);
   const [order, setOrder] = useState(null);
   const translated = useTranslateUserRole(galleries);
   const sorted = useSortList(translated, sortProperty, order);
-  const filtered = useListFilter(sorted, 'role_translated', tabActive);
 
   useEffect(() => {
-    setGalleries(data);
+    async function fetchData() {
+      const { data } = await api.get('/galleries');
+
+      setGalleries(data);
+      setLoading(false);
+    }
+
+    fetchData();
   }, []);
 
   function handleSearchFormSubmit(e) {
@@ -97,23 +99,9 @@ function Galleries() {
     setOrder(selectOrder);
   }
 
-  function handleTabFilter(e) {
-    if (e.target.tagName !== 'BUTTON') return;
-    setTabActive(e.target.innerText);
-  }
-
   return (
     <Container>
       <HeadlineContainer>
-        <ButtonLine>
-          <ButtonAdd
-            onClick={() => history.push('/galleries/new')}
-            color={colors.statusInfo}
-          >
-            Adicionar Galeria
-          </ButtonAdd>
-        </ButtonLine>
-
         <SettingsLine>
           <Search
             onSubmit={(e) => handleSearchFormSubmit(e)}
@@ -128,13 +116,18 @@ function Galleries() {
             />
           </DropDownWrapper>
         </SettingsLine>
+
+        <ButtonAdd
+          onClick={() => history.push('/galleries/new')}
+          color={colors.statusInfo}
+        >
+          Adicionar Galeria
+        </ButtonAdd>
       </HeadlineContainer>
 
-      <Tabs tabOptions={tabOptions} onClick={(e) => handleTabFilter(e)} />
+      <GalleriesList payload={sorted} />
 
-      <GalleriesList payload={filtered} />
-
-      {filtered.length >= 10 && <ButtonLoadMore>Carregar Mais</ButtonLoadMore>}
+      {sorted.length >= 10 && <ButtonLoadMore>Carregar Mais</ButtonLoadMore>}
     </Container>
   );
 }

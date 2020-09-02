@@ -4,8 +4,6 @@ import { useHistory, useParams } from 'react-router-dom';
 import colors from '~/styles/colors';
 import ImageList from './ImagesList';
 
-import dummyData from '../Galleries/dummy_galleries.json';
-
 import {
   Container,
   StyledInput,
@@ -33,7 +31,7 @@ function Gallery() {
   useEffect(() => {
     if (id) {
       setEditGallery(true);
-      setGalleryData(dummyData.find((i) => i.id.toString() === id.toString()));
+      setGalleryData([]);
     }
   }, [id]);
 
