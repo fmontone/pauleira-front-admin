@@ -2,18 +2,15 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { MdEdit } from 'react-icons/md';
 
+import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/swiper.scss';
+
 import { ImageEditContext } from '../GalleryContext';
 import api from '~/services/api';
 
 import ImageEdit from '../ImageEdit';
 
-import {
-  Container,
-  MainImage,
-  Thumbnails,
-  Thumbnail,
-  ButtonEditImage,
-} from './styles';
+import { Container, MainImage, Thumbnail, ButtonEditImage } from './styles';
 
 function GalleryImages() {
   const { id } = useParams();
@@ -45,6 +42,7 @@ function GalleryImages() {
       value={{ editImage, setEditImage, editImageData }}
     >
       <Container>
+        {/* MAIN IMAGE */}
         {images.length > 0 && (
           <MainImage
             src={images[returnIndex(1)].url}
@@ -56,27 +54,28 @@ function GalleryImages() {
           </MainImage>
         )}
 
+        {/* SWIPER THUMBNAILS */}
         {images.length >= 1 && (
-          <Thumbnails>
+          <Swiper spaceBetween={16} slidesPerView="auto">
             {images.length > 1 &&
               images.map((img) => {
                 if (Number(img.position) !== 1) {
                   return (
-                    <Thumbnail
-                      key={String(img.position)}
-                      src={img.url}
-                      onClick={() => handleEditImage(img.position)}
-                    >
-                      <ButtonEditImage>
-                        <MdEdit color="#fff" />
-                      </ButtonEditImage>
-                    </Thumbnail>
+                    <SwiperSlide key={String(img.id)}>
+                      <Thumbnail
+                        src={img.url}
+                        onClick={() => handleEditImage(img.position)}
+                      >
+                        <ButtonEditImage>
+                          <MdEdit color="#fff" />
+                        </ButtonEditImage>
+                      </Thumbnail>
+                    </SwiperSlide>
                   );
                 }
-
                 return null;
               })}
-          </Thumbnails>
+          </Swiper>
         )}
       </Container>
       {editImage && <ImageEdit />}

@@ -7,6 +7,18 @@ export const Container = styled.div`
   height: auto;
   min-height: 80px;
   margin-bottom: 32px;
+
+  .swiper-container {
+    width: 100%;
+    height: 60px;
+  }
+
+  .swiper-slide {
+    flex-shrink: unset !important;
+    width: unset !important;
+    height: unset !important;
+    position: unset !important;
+  }
 `;
 
 export const MainImage = styled.div`
@@ -17,6 +29,8 @@ export const MainImage = styled.div`
 
   background: url(${(props) => props.src}) no-repeat center center;
   background-size: cover;
+
+  border-radius: 6px;
 
   cursor: pointer;
 
@@ -32,19 +46,6 @@ export const MainImage = styled.div`
   }
 `;
 
-export const Thumbnails = styled.div`
-  width: 100%;
-  height: auto;
-
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  column-gap: 8px;
-
-  overflow: hidden;
-
-  background-color: #00000010;
-`;
-
 export const Thumbnail = styled.div`
   position: relative;
   width: 100px;
@@ -53,7 +54,8 @@ export const Thumbnail = styled.div`
   background: url(${(props) => props.src}) no-repeat center center;
   background-size: cover;
 
-  border: 1px solid salmon;
+  border-radius: 6px;
+
   cursor: pointer;
 
   button {

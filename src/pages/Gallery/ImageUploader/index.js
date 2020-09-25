@@ -39,6 +39,8 @@ function ImageUploader() {
           ? parseInt(uniqueId(), 10) + parseInt(galleryData.images.length, 10)
           : parseInt(uniqueId(), 10);
 
+      console.log({ position });
+
       return api.post(`/galleries/add-img/${id}/${position}`, formData);
     });
 
@@ -60,6 +62,7 @@ function ImageUploader() {
     isDragReject,
   } = useDropzone({
     accept: 'image/*',
+    maxSize: 5242880,
     onDrop,
     onDropRejected: () => console.log('ERROR UPLOADING FILE'),
   });
