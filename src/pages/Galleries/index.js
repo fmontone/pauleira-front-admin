@@ -101,6 +101,7 @@ function Galleries() {
 
   return (
     <Container>
+      {loading && <></>}
       <HeadlineContainer>
         <SettingsLine>
           <Search

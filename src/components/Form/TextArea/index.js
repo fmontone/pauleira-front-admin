@@ -6,7 +6,7 @@ import { Container, StyledLabel, TextEditor } from './styles';
 import ErrorSpan from '~/components/Form/ErrorSpan';
 
 const TextArea = forwardRef(
-  ({ label, name, isRequired, error, ...rest }, ref) => {
+  ({ label, name, isRequired, errorText, ...rest }, ref) => {
     return (
       <Container>
         <StyledLabel htmlFor={name}>
@@ -26,7 +26,7 @@ const TextArea = forwardRef(
             {...rest}
           />
         </StyledLabel>
-        <ErrorSpan>{error}</ErrorSpan>
+        {errorText && <ErrorSpan>{errorText}</ErrorSpan>}
       </Container>
     );
   }
@@ -36,13 +36,13 @@ TextArea.propTypes = {
   label: PropTypes.string,
   name: PropTypes.string.isRequired,
   isRequired: PropTypes.bool,
-  error: PropTypes.string,
+  errorText: PropTypes.string,
 };
 
 TextArea.defaultProps = {
   label: '',
   isRequired: false,
-  error: '',
+  errorText: '',
 };
 
 export default TextArea;

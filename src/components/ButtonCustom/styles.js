@@ -2,19 +2,17 @@ import styled, { keyframes } from 'styled-components';
 
 import colors from '~/styles/colors';
 
-const height = { small: '16px', regular: '32px', large: '64px' };
-
 export const Button = styled.button`
   position: relative;
   width: ${(props) => (props.width === 'stretch' ? '100%' : 'auto')};
-  height: ${(props) => height[props.size]};
-  padding: 0 32px;
+  height: auto;
+  padding: ${(props) => (props.size === 'small' ? '2px 8px' : '12px 24px')};
   overflow: hidden;
 
   text-transform: ${(props) =>
-    props.model === 'callToAction' ? 'uppercase' : 'unset'};
-  font-size: ${(props) => (props.size === 'small' ? '12px' : '16px')};
-  font-weight: 500;
+    props.size === 'small' ? 'uppercase' : 'unset'};
+  font-size: ${(props) => (props.size === 'small' ? '11px' : '16px')};
+  font-weight: ${(props) => (props.size === 'small' ? '300' : '500')};
   color: ${props => { /*eslint-disable-line*/
     switch (props.model) {
       case 'regular':
@@ -29,7 +27,7 @@ export const Button = styled.button`
     }
   }};
 
-  border-radius: 6px;
+  border-radius: ${(props) => (props.size === 'small' ? '2.5px' : '6px')};
   border: ${props => { /*eslint-disable-line*/
     switch (props.model) {
       case 'regular':

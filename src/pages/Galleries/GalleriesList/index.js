@@ -27,7 +27,6 @@ function GalleriesList({ payload }) {
           key={item.id.toString()}
           onClick={() => history.push(`/galleries/${item.id}`)}
         >
-          {console.log(item)}
           <Thumb src={GelleryPlaceholder} />
 
           <InfoWrapper>

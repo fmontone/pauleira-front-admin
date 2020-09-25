@@ -1,101 +1,65 @@
 import React, { useState, useEffect } from 'react';
-import { useHistory, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
-import colors from '~/styles/colors';
-import ImageList from './ImagesList';
+import { GalleryContext } from './GalleryContext';
 
-import {
-  Container,
-  StyledInput,
-  StyledTextArea,
-  StyledFieldset,
-  StyledRadio,
-  ButtonWrapper,
-  ButtonSave,
-  ButtonCancel,
-  StyledImageUploader,
-} from './styles';
+import api from '~/services/api';
 
-const STATUS_OPTIONS = ['rascunho', 'publicado'];
+import { Container } from './styles';
+
+import GalleryForm from './GalleryForm';
+import LoadingGallery from '~/components/LoadingGallery';
+import ImageUploader from './ImageUploader';
+import GalleryImages from './GalleryImages';
 
 function Gallery() {
-  const history = useHistory();
-
   const { id } = useParams();
-  const [galleryData, setGalleryData] = useState();
-  const [loading, setLoading] = useState(false); /* eslint-disable-line */
+
+  const [loading, setLoading] = useState(true);
+  const [galleryData, setGalleryData] = useState(null);
   const [editGallery, setEditGallery] = useState(false);
-  const [allowAddImages, setAllowAddImages] = useState(false); /* eslint-disable-line */
-  const [statusSelected, setStatusSelected] = useState(STATUS_OPTIONS[0]);
 
   useEffect(() => {
-    if (id) {
+    setLoading(true);
+    async function fetchData() {
+      const { data } = await api.get(`/galleries/${id}`);
+
+      setGalleryData(data);
+    }
+
+    if (id && !galleryData) {
+      fetchData();
       setEditGallery(true);
-      setGalleryData([]);
     }
-  }, [id]);
 
-  useEffect(() => {
-    if (galleryData) {
-      setStatusSelected(galleryData.status);
-      setAllowAddImages(true);
-    }
-  }, [galleryData]);
-
-  function handleSubmitGallery(data) {
-    console.log(data);
-  }
+    setLoading(false);
+  }, [id, editGallery, galleryData]);
 
   return (
-    <Container>
-      <h2>{editGallery ? 'Editar Galeria' : 'Adicionar Galeria'}</h2>
-      <form
-        onSubmit={(data) => handleSubmitGallery(data)}
-        initialData={galleryData}
-      >
-        <StyledInput
-          name="title"
-          label="Título"
-          autoComplete="off"
-          isRequired
-        />
+    <GalleryContext.Provider value={{ galleryData, setGalleryData }}>
+      <Container>
+        <h2>{editGallery ? 'Editar Galeria' : 'Adicionar Galeria'}</h2>
 
-        <StyledTextArea name="description" label="Descrição" isRequired />
+        {loading && <LoadingGallery />}
 
-        <StyledFieldset title="Status">
-          <StyledRadio
-            name="status"
-            options={STATUS_OPTIONS}
-            selected={statusSelected}
-            directionRow
-          />
-        </StyledFieldset>
+        {!loading && !editGallery && (
+          <h4>Salve a galeria para adicionar imagens</h4>
+        )}
 
-        <ButtonWrapper>
-          <ButtonSave type="submit" color={colors.statusSuccess}>
-            {editGallery ? 'Salvar Alterações' : 'Criar Galeria'}
-          </ButtonSave>
-          <ButtonCancel
-            onClick={() => history.push('/galleries')}
-            color={colors.statusSuccess}
-          >
-            Cancelar
-          </ButtonCancel>
-        </ButtonWrapper>
-      </form>
+        {!loading && editGallery && (
+          <ImageUploader imageFiles={galleryData ? galleryData.images : []} />
+        )}
 
-      {editGallery && !!galleryData.images.length && (
-        <StyledFieldset title="Imagens">
-          <ImageList files={galleryData.images} />
-        </StyledFieldset>
-      )}
+        {!loading &&
+          editGallery &&
+          !!galleryData &&
+          !!galleryData.images.length && <GalleryImages />}
 
-      {allowAddImages && (
-        <StyledFieldset title="Adicionar Imagens">
-          <StyledImageUploader />
-        </StyledFieldset>
-      )}
-    </Container>
+        {!loading && (
+          <GalleryForm formData={galleryData} editGallery={editGallery} />
+        )}
+      </Container>
+    </GalleryContext.Provider>
   );
 }
 
