@@ -6,6 +6,10 @@ import colors from '~/styles/colors';
 
 export const Wrapper = styled.div`
   margin-bottom: 32px;
+
+  &.gallery__empty {
+    min-height: 100%;
+  }
 `;
 
 const Container = styled.div`
@@ -18,11 +22,13 @@ const Container = styled.div`
   align-items: center;
 
   border-radius: 6px;
+
+  border: 2px dashed;
 `;
 
 export const ContainerIdle = styled(Container)`
   padding: 0 32px;
-  border: 1px dashed ${colors.greyLight};
+  border-color: ${colors.greyLight};
 
   h5 {
     color: ${colors.grey};
@@ -30,14 +36,17 @@ export const ContainerIdle = styled(Container)`
 `;
 
 export const ContainerDrop = styled(Container)`
-  height: 160px;
+  height: 100%;
+  min-height: 160px;
   padding: 0 32px;
-  border: 1px dashed ${colors.statusInfo};
+  color: ${colors.statusInfo};
+  border-color: ${colors.statusInfo};
 `;
 
 export const ContainerReject = styled(Container)`
   padding: 16px;
-  border: 1px solid ${colors.statusDanger};
+  border-color: ${colors.statusDanger};
+  color: #fff;
   background-color: ${colors.statusDanger};
 `;
 

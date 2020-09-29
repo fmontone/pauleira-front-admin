@@ -8,7 +8,7 @@ import {
   ContentAnimation,
 } from './styles';
 
-function LoadingGallery() {
+function LoadingGalleryForm() {
   return (
     <Container>
       <LabelLike>
@@ -27,4 +27,4 @@ function LoadingGallery() {
   );
 }
 
-export default LoadingGallery;
+export default LoadingGalleryForm;

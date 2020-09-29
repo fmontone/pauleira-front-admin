@@ -16,7 +16,7 @@ import {
   EditIcon,
 } from './styles';
 
-import GelleryPlaceholder from '~/assets/pauleira_gallery_pic_placeholder.jpg';
+import GalleryPlaceholder from '~/assets/pauleira_gallery_pic_placeholder.jpg';
 
 function GalleriesList({ payload }) {
   const history = useHistory();
@@ -27,7 +27,10 @@ function GalleriesList({ payload }) {
           key={item.id.toString()}
           onClick={() => history.push(`/galleries/${item.id}`)}
         >
-          <Thumb src={GelleryPlaceholder} />
+          {console.log(!!item.images[0])}
+          <Thumb
+            src={item.images[0] ? item.images[0].url : GalleryPlaceholder}
+          />
 
           <InfoWrapper>
             <InfoGroup>

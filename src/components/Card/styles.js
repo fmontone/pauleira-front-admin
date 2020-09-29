@@ -8,5 +8,5 @@ export const Container = styled.div`
 
   border-radius: 6px;
   background: ${colors.white};
-  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.07);
+  box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);
 `;

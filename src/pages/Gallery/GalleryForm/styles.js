@@ -50,6 +50,7 @@ export const ButtonDeleteWrapper = styled.div`
 
   @media ${device.tabletLs} {
     flex-direction: row;
+    justify-content: flex-end;
   }
 `;
 

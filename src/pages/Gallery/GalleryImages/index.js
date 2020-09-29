@@ -55,7 +55,7 @@ function GalleryImages() {
         )}
 
         {/* SWIPER THUMBNAILS */}
-        {images.length >= 1 && (
+        {images.length > 1 && (
           <Swiper spaceBetween={16} slidesPerView="auto">
             {images.length > 1 &&
               images.map((img) => {

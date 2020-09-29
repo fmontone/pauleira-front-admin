@@ -1,17 +1,26 @@
-import React, { useEffect, useState, forwardRef } from 'react';
+import React, { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
 
 import { Label, Content, TextOn, TextOff, ButtonToggle } from './styles';
 
-function Toggle({ name, toggleValue, textOn, textOff, ...rest }, ref) {
+function Toggle({
+  name,
+  toggleValue,
+  textOn,
+  textOff,
+  active,
+  toggleRef,
+  ...rest
+}) {
   const [toggle, setToggle] = useState(false);
 
   useEffect(() => {
     if (toggleValue) setToggle(toggleValue);
-
-    console.log({ toggle });
-  }, [toggleValue, toggle]);
+  }, [toggleValue]);
 
   function handleToggle() {
+    if (!active) return;
+
     setToggle(!toggle);
   }
 
@@ -22,10 +31,38 @@ function Toggle({ name, toggleValue, textOn, textOff, ...rest }, ref) {
 
         {!toggle && <TextOff>{textOff || textOn}</TextOff>}
       </Content>
-      <ButtonToggle onClick={handleToggle} toggle={toggle} />
-      <input name={name} type="checkbox" value={toggle} {...rest} ref={ref} />
+
+      <ButtonToggle
+        onClick={() => handleToggle()}
+        toggle={toggle}
+        disabled={active}
+      />
+      <input
+        name={name}
+        type="checkbox"
+        value={toggle}
+        disabled={!active}
+        ref={toggleRef}
+        {...rest}
+      />
     </Label>
   );
 }
 
-export default forwardRef(Toggle);
+Toggle.propTypes = {
+  name: PropTypes.string.isRequired,
+  toggleValue: PropTypes.bool,
+  textOn: PropTypes.string.isRequired,
+  textOff: PropTypes.string,
+  active: PropTypes.bool,
+  toggleRef: PropTypes.shape({ current: PropTypes.instanceOf(Element) }),
+};
+
+Toggle.defaultProps = {
+  toggleValue: false,
+  textOff: '',
+  active: true,
+  toggleRef: null,
+};
+
+export default Toggle;

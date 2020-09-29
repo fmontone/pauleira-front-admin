@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import generator from 'generate-password';
 import PropTypes from 'prop-types';
@@ -21,6 +21,8 @@ function UserForm({ formData, editUser }) {
     length: 6,
     numbers: 2,
   });
+
+  const { id } = useParams();
 
   const { register, reset, handleSubmit, watch, errors } = useForm();
   const [dataChanged, setDataChanged] = useState(null);
@@ -52,7 +54,16 @@ function UserForm({ formData, editUser }) {
 
   async function handleDataSubmit(data) {
     if (editUser && dataChanged && Object.keys(dataChanged).length > 0) {
-      console.log('PUT: ', dataChanged);  /* eslint-disable-line */
+      try {
+        await api.put(`/admin-users/${id}`, dataChanged);
+
+        alert('Dados atualizados com sucesso!'); /* eslint-disable-line */
+      } catch (err) {
+        if (err)
+          alert( /* eslint-disable-line */
+            'Erro ao atualiza usuário. Verifique os dados e tente novamente!'
+          );
+      }
     } else if (!editUser) {
       try {
         await api.post('/admin-users', { ...data, password });

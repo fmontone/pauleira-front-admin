@@ -87,7 +87,7 @@ function ImageEdit() {
       await api.delete(`/galleries/remove-img/${id}/${editImageData.id}`);
 
       alert('IMAGEM DELETADA COM SUCESSO'); /*eslint-disable-line */
-      window.location.reload();
+
     } catch (error) {
       if (error) alert('ERRO AO DELETAR IMAGEM'); /*eslint-disable-line */
       return;
@@ -107,9 +107,23 @@ function ImageEdit() {
           }
         }
       });
-
-      window.location.reload();
     }
+
+    if (
+      deletePosition === 1 &&
+      totalImages === 1 &&
+      galleryData.status === 'Public'
+    ) {
+      try {
+        await api.put(`/galleries/${id}`, { status: 'Draft' });
+
+        alert('A galeria mudou para o status: RASCUNHO porque precisa ter ao menos uma imagem para ser pública'); /*eslint-disable-line*/
+      } catch (err) {
+        if (err) alert('Erro ao alterar status'); /*eslint-disable-line*/
+      }
+    }
+
+    window.location.reload();
   }
 
   return (

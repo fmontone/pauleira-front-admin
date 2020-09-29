@@ -68,7 +68,12 @@ function ImageUploader() {
   });
 
   return (
-    <Wrapper {...getRootProps()}>
+    <Wrapper
+      {...getRootProps()}
+      className={
+        !!galleryData && !!galleryData.images.length ? '' : 'gallery__empty'
+      }
+    >
       <input {...getInputProps()} />
 
       {loading && (

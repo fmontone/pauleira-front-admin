@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext, createRef } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import api from '~/services/api';
+import { GalleryContext } from '../GalleryContext';
 
 import {
   StyledInput,
@@ -21,6 +22,7 @@ import {
 function GalleryForm({ formData, editGallery }) {
   const history = useHistory();
   const { id } = useParams();
+  const { galleryData, setGalleryData } = useContext(GalleryContext);
 
   const { user_id } = useSelector((state) => state.auth);
 
@@ -30,11 +32,13 @@ function GalleryForm({ formData, editGallery }) {
   const [dataChanged, setDataChanged] = useState(null);
   const [activeSubmit, setActiveSubmit] = useState(false);
 
+  const toggleRef = createRef(null);
+
   useEffect(() => {
     reset(formData);
 
     if (formData) setPublished(formData.status.toLowerCase() === 'public');
-  }, [formData, reset, published]);
+  }, [formData, reset]);
 
   useEffect(() => {
     if (!editGallery) {
@@ -89,11 +93,21 @@ function GalleryForm({ formData, editGallery }) {
     }
   }
 
-  async function handleUpdateStatus() {
-    if (formData.images.length === 0) {
-      alert( /* eslint-disable-line */
-        'VOCÊ PRECISA ADICIONAR PELO MENOS UMA IMAGEM PARA PODER PUBLICAR UMA GALERIA'
-      );
+  async function handleUpdateStatus(e) {
+    const status = e.target.value === 'true' ? 'Public' : 'Draft';
+
+    try {
+      await api.put(`/galleries/${id}`, { status });
+
+      setGalleryData({ ...galleryData, status });
+
+      if (status === 'Public') {
+        alert('Sua Galeria Foi Publicada com Sucesso'); /*eslint-disable-line*/
+      } else {
+        alert('Status alterado para RASCUNHO'); /*eslint-disable-line*/
+      }
+    } catch (err) {
+      if (err) alert('Erro ao alterar status'); /*eslint-disable-line*/
     }
   }
 
@@ -125,14 +139,16 @@ function GalleryForm({ formData, editGallery }) {
         </MainButtonWrapper>
       </form>
 
-      {formData && 2 + 2 === 5 && (
+      {formData && (
         <form onChange={(e) => handleUpdateStatus(e)}>
           <ToggleWrapper>
             <Toggler
               name="status"
               toggleValue={published}
-              textOn="Publicar Galeria"
-              textOff="Galeria Publicada"
+              textOn="Galeria Publicada"
+              textOff="Publicar Galeria"
+              active={galleryData && !!galleryData.images.length}
+              toggleRef={toggleRef}
             />
           </ToggleWrapper>
         </form>

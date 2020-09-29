@@ -26,6 +26,8 @@ export const HeadlineContainer = styled.div`
   @media ${device.tabletLs} {
     flex-direction: row;
     justify-content: space-between;
+    align-items: center;
+    margin-bottom: 32px;
   }
 `;
 
@@ -46,6 +48,7 @@ export const SettingsLine = styled.div`
 
   @media ${device.tabletLs} {
     width: 50%;
+    margin-bottom: unset;
   }
 `;
 
@@ -62,6 +65,10 @@ export const DropDownWrapper = styled.div`
 
 export const SelectFilter = styled(Select)`
   margin-bottom: 16px;
+
+  @media ${device.tabletLs} {
+    margin-bottom: unset !important;
+  }
 `;
 
 export const ButtonLoadMore = styled(ButtonCustom).attrs({

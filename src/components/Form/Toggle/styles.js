@@ -40,6 +40,8 @@ export const ButtonToggle = styled.div`
   background-color: ${(props) =>
     props.toggle ? colors.statusInfo : colors.grey};
 
+  cursor: ${(props) => (props.disabled ? 'pointer' : 'not-allowed')};
+
   ::before {
     content: '';
     width: 18px;
