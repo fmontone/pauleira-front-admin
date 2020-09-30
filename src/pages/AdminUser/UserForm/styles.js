@@ -25,7 +25,7 @@ export const ButtonWrapper = styled.div`
 
   @media ${device.tabletLs} {
     flex-direction: row;
-    justify-content: flex-end;
+    justify-content: space-around;
 
     button + button {
       margin-left: 8px;
