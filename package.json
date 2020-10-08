@@ -59,7 +59,7 @@
     "dev": "react-app-rewired start",
     "start": "serve -s build",
     "build": "react-app-rewired build",
-    "postinstall": "yarn build",
+    "postinstall": "yarn build ",
     "test": "react-app-rewired test --roots=__tests__ --watchAll --env=jest-environment-jsdom-sixteen",
     "eject": "react-scripts eject"
   },
