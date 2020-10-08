@@ -9,7 +9,7 @@ const config = {
   port: process.env.PORT || 3333,
 };
 
-if (config.forcarHTTPS)
+if (config.forceHttps)
   // Se o redirecionamento HTTP estiver habilitado, registra o middleware abaixo
   app.use((req, res, next) => {
     // Cria um middleware onde todas as requests passam por ele
