@@ -27,6 +27,7 @@
     "jest-environment-jsdom-sixteen": "^1.0.3",
     "lodash": "^4.17.19",
     "node-sass": "^4.14.1",
+    "path": "^0.12.7",
     "polished": "^3.6.5",
     "prettier": "^2.0.5",
     "prop-types": "^15.7.2",
@@ -59,7 +60,6 @@
     "start": "serve -s build",
     "build": "react-app-rewired build",
     "postinstall": "yarn build",
-
     "test": "react-app-rewired test --roots=__tests__ --watchAll --env=jest-environment-jsdom-sixteen",
     "eject": "react-scripts eject"
   },
