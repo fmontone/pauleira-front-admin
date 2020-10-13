@@ -29,5 +29,5 @@ app.get('*', (req, res) => {
 });
 
 app.listen(config.port, () => {
-  console.log(`Pauleira Front Web Listening ${config.port}!`); /* eslint-disable-line */
+  console.log(`Pauleira Front Admin Listening ${config.port}!`); /* eslint-disable-line */
 });
