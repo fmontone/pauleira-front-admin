@@ -124,11 +124,11 @@ function AdminUsers() {
         </ButtonAdd>
       </HeadlineContainer>
 
-      {loading ? (
-        <LoadingList />
+      <LoadingList />
+      {/* {loading ? (
       ) : (
         <UsersList payload={usersFiltered || sorted} />
-      )}
+      )} */}
 
       {sorted.length >= 10 && <ButtonLoadMore>Carregar Mais</ButtonLoadMore>}
     </Container>
