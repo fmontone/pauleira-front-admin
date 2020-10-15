@@ -67,7 +67,9 @@ function AdminUsers() {
   // }, [searchQuery, users]);
 
   function handleFilter(e) {
-    console.log('FILTER: ', e.target.data);
+    if (e.target.data.length > 3) {
+      console.log(e.target.data);
+    }
   }
 
   return (
@@ -75,10 +77,7 @@ function AdminUsers() {
       <Container>
         <HeadlineContainer>
           <SettingsLine>
-            <Search
-              onChange={(e) => handleFilter(e)}
-              placeholder="Procurar Usuário..."
-            />
+            <Search onChange={handleFilter} placeholder="Procurar Usuário..." />
 
             <DropDownWrapper>
               <SelectFilter dropOptions={dropOptions} onChange={() => {}} />
