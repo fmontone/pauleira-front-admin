@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
+import { debounce } from 'lodash';
 
 import api from '~/services/api';
 import UsersContext from './usersContext';
@@ -31,22 +32,22 @@ function AdminUsers() {
   // Filters and Sorting
   const dropOptions = ['Mais Recentes', 'Mais Antigos', 'A-z', 'z-A'];
 
-  function sortData(data, criteria, order = 'ASC') {
-    if (order === 'ASC') {
-      return data.sort((a, b) => a[criteria] - b[criteria]);
-    }
-    if (order === 'DES') {
-      return data.sort((a, b) => a[criteria] - b[criteria]).reverse();
-    }
+  // function sortData(data, criteria, order = 'ASC') {
+  //   if (order === 'ASC') {
+  //     return data.sort((a, b) => a[criteria] - b[criteria]);
+  //   }
+  //   if (order === 'DES') {
+  //     return data.sort((a, b) => a[criteria] - b[criteria]).reverse();
+  //   }
 
-    return data;
-  }
+  //   return data;
+  // }
 
   useEffect(() => {
     async function loadUserData() {
       const { data } = await api.get('/admin-users');
 
-      console.log(sortData(data, 'id', 'ASC'));
+      // console.log(sortData(data, 'id', 'ASC'));
 
       setUsers(data);
       setLoading(false);
