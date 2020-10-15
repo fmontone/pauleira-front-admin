@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 
-import PropTypes from 'prop-types';
+import UsersContext from '../usersContext';
 
 import {
   List,
@@ -16,12 +16,14 @@ import {
 import ProfilePlaceholder from '~/assets/pauleira_profile_pic_placeholder.jpg';
 import NoResultsList from '~/components/NoResultsList';
 
-function UsersList({ payload }) {
+function UsersList() {
   const history = useHistory();
 
-  return payload && payload.length >= 1 ? (
+  const { users } = useContext(UsersContext);
+
+  return users.length ? (
     <List>
-      {payload.map(({ id, name, profile_image }) => (
+      {users.map(({ id, name, profile_image }) => (
         <ListItem
           key={id.toString()}
           onClick={() => history.push({ pathname: `/admin-users/${id}` })}
@@ -47,19 +49,5 @@ function UsersList({ payload }) {
     <NoResultsList />
   );
 }
-
-UsersList.propTypes = {
-  payload: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.number,
-      name: PropTypes.string,
-      email: PropTypes.string,
-      a_k_a: PropTypes.string,
-      profile_image: PropTypes.shape({
-        url: PropTypes.string,
-      }),
-    })
-  ).isRequired,
-};
 
 export default UsersList;
