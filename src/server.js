@@ -13,12 +13,17 @@ if (config.forceHttps)
   // Se o redirecionamento HTTP estiver habilitado, registra o middleware abaixo
   app.use((req, res, next) => {
     // Cria um middleware onde todas as requests passam por ele
-    if (req.headers['x-forwarded-proto'] === 'http')
+
+    if (req.headers['x-forwarded-proto'] === 'http') {
       // Checa se o protocolo informado nos headers é HTTP
       res.redirect(`https://${req.headers.host}${req.url}`);
-    // Redireciona pra HTTPS
-    // Se a requisição já é HTTPS
-    else next(); // Não precisa redirecionar, passa para os próximos middlewares que servirão com o conteúdo desejado
+
+      // Redireciona pra HTTPS
+      // Se a requisição já é HTTPS
+    } else {
+      next();
+      // Não precisa redirecionar, passa para os próximos middlewares que servirão com o conteúdo desejado
+    }
   });
 
 app.use(express.static(config.folder)); // Serve os outros arquivos, como CSSs, Javascripts, Imagens etc.
