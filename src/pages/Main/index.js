@@ -3,6 +3,9 @@ import React from 'react';
 import { Container } from './styles';
 
 function Main() {
+  console.log('API URL', process.env.REACT_APP_API_URL);
+  console.log('APP URL', process.env.REACT_APP_URL);
+
   return (
     <Container>
       <h1>Admin Pauleira</h1>
