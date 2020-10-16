@@ -19,11 +19,13 @@ import NoResultsList from '~/components/NoResultsList';
 function UsersList() {
   const history = useHistory();
 
-  const { users } = useContext(UsersContext);
+  const { sorted } = useContext(UsersContext);
 
-  return users.length ? (
+  console.log('CONSUMER', sorted);
+
+  return sorted ? (
     <List>
-      {users.map(({ id, name, profile_image }) => (
+      {sorted.map(({ id, name, profile_image }) => (
         <ListItem
           key={id.toString()}
           onClick={() => history.push({ pathname: `/admin-users/${id}` })}
