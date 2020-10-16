@@ -40,7 +40,6 @@ function Login() {
           <img src={PauleiraLogo} alt="Pauleira Guitars Logo" />
         </Logo>
         <Title>Admin Login</Title>
-        <p>{process.env.PUBLIC_URL}</p>
       </PageHeader>
 
       <Form onSubmit={handleSubmit(handleDataSubmit)}>
