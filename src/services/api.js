@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: 'http://104.248.53.119',
+  baseURL: 'https://www.pauleira.group',
 });
 
 export default api;
