@@ -40,7 +40,6 @@ function Login() {
           <img src={PauleiraLogo} alt="Pauleira Guitars Logo" />
         </Logo>
         <Title>Admin Login</Title>
-        <h4>api: {process.env.REACT_APP_API_URL}</h4>
       </PageHeader>
 
       <Form onSubmit={handleSubmit(handleDataSubmit)}>

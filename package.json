@@ -2,7 +2,15 @@
   "name": "frontadmin",
   "version": "0.1.0",
   "private": true,
-  "homepage": ".",
+  "homepage": "https://fire.pauleira.com.br",
+  "scripts": {
+    "dev": "react-app-rewired start",
+    "start": "node server",
+    "build": "react-app-rewired build",
+    "postinstall": "yarn build",
+    "test": "react-app-rewired test --roots=__tests__ --watchAll --env=jest-environment-jsdom-sixteen",
+    "eject": "react-scripts eject"
+  },
   "dependencies": {
     "@testing-library/jest-dom": "^5.11.0",
     "@testing-library/react": "^10.4.3",
@@ -57,14 +65,7 @@
     "elliptic": "^6.5.3:",
     "lodash": "^4.17.19:"
   },
-  "scripts": {
-    "dev": "react-app-rewired start",
-    "start": "node server",
-    "build": "react-app-rewired build",
-    "postinstall": "yarn build",
-    "test": "react-app-rewired test --roots=__tests__ --watchAll --env=jest-environment-jsdom-sixteen",
-    "eject": "react-scripts eject"
-  },
+
   "jest": {
     "testMatch": [
       "**/__tests__/**/*.test.js"
