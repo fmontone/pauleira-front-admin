@@ -2,7 +2,7 @@
   "name": "frontadmin",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://fire.pauleira.com.br",
+  "homepage": "https://pauleira.netlify.app",
   "scripts": {
     "start": "react-app-rewired start",
     "build": "react-app-rewired build",
