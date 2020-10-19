@@ -7,6 +7,7 @@ import '~/config/ReactotronConfig';
 
 import Routes from '~/routes';
 import history from '~/services/history';
+import ToastContainer from '~/components/ToastContainer';
 
 import GlobalStyles from '~/styles/global';
 
@@ -18,6 +19,7 @@ function App() {
       <PersistGate persistor={persistor}>
         <Router history={history}>
           <GlobalStyles />
+          <ToastContainer />
           <Routes />
         </Router>
       </PersistGate>
