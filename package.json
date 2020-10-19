@@ -2,7 +2,7 @@
   "name": "frontadmin",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://pauleira.netlify.app",
+  "homepage": ".",
   "scripts": {
     "start": "react-app-rewired start",
     "build": "react-app-rewired build",
