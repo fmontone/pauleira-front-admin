@@ -21,8 +21,6 @@ function UsersList() {
 
   const { sorted } = useContext(UsersContext);
 
-  console.log('CONSUMER', sorted);
-
   return sorted ? (
     <List>
       {sorted.map(({ id, name, profile_image }) => (
@@ -31,11 +29,7 @@ function UsersList() {
           onClick={() => history.push({ pathname: `/admin-users/${id}` })}
         >
           <ProfilePic
-            src={
-              profile_image
-                ? profile_image.url
-                : `${process.env.REACT_APP_URL}${ProfilePlaceholder}`
-            }
+            src={profile_image ? profile_image.url : `${ProfilePlaceholder}`}
           />
 
           <TitlesWrapper>
