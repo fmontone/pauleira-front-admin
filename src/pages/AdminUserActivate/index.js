@@ -4,6 +4,8 @@ import { useForm } from 'react-hook-form';
 
 import api from '~/services/api';
 
+import { useToast } from '~/hooks/ToastContext';
+
 import {
   Container,
   Logo,
@@ -28,6 +30,8 @@ function AdminUserActivate() {
 
   const { register, handleSubmit, watch, errors } = useForm();
 
+  const { addToast } = useToast();
+
   useEffect(() => {
     async function dataValidate() {
       try {
@@ -48,7 +52,10 @@ function AdminUserActivate() {
 
       setSuccess(true);
     } catch (err) {
-      alert('Usuário não encontrado'); /*eslint-disable-line*/
+      addToast({
+        type: 'error',
+        message: 'Usuário não encontrado',
+      });
     }
 
     setLoading(false);

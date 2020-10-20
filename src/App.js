@@ -7,7 +7,8 @@ import '~/config/ReactotronConfig';
 
 import Routes from '~/routes';
 import history from '~/services/history';
-import ToastContainer from '~/components/ToastContainer';
+
+import AppProvider from '~/hooks/AppProvider';
 
 import GlobalStyles from '~/styles/global';
 
@@ -17,11 +18,12 @@ function App() {
   return (
     <Provider store={store}>
       <PersistGate persistor={persistor}>
-        <Router history={history}>
-          <GlobalStyles />
-          <ToastContainer />
-          <Routes />
-        </Router>
+        <AppProvider>
+          <Router history={history}>
+            <GlobalStyles />
+            <Routes />
+          </Router>
+        </AppProvider>
       </PersistGate>
     </Provider>
   );

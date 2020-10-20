@@ -6,6 +6,7 @@ import PropTypes from 'prop-types';
 
 import api from '~/services/api';
 import { GalleryContext } from '../GalleryContext';
+import { useToast } from '~/hooks/ToastContext';
 
 import {
   StyledInput,
@@ -33,6 +34,8 @@ function GalleryForm({ formData, editGallery }) {
   const [activeSubmit, setActiveSubmit] = useState(false);
 
   const toggleRef = createRef(null);
+
+  const { addToast } = useToast();
 
   useEffect(() => {
     reset(formData);
@@ -75,14 +78,20 @@ function GalleryForm({ formData, editGallery }) {
     if (editGallery && dataChanged && Object.keys(dataChanged).length > 0) {
       api.put(`/galleries/${id}`, dataChanged);
 
-      alert('GALERIA ATUALIZADA COM SUCESSO'); /* eslint-disable-line */
+      addToast({
+        type: 'success',
+        message: 'Galeria atualizada com sucesso',
+      });
     } else if (!editGallery) {
       try {
         const response = await api.post('/galleries', { ...data, user_id });
 
         history.push(`/galleries/${response.data.id}`);
       } catch (err) {
-        alert('ERRO AO CRIAR GALERIA'); /* eslint-disable-line */
+        addToast({
+          type: 'error',
+          message: 'Erro ao criar galeria',
+        });
       }
     }
   }
@@ -102,12 +111,22 @@ function GalleryForm({ formData, editGallery }) {
       setGalleryData({ ...galleryData, status });
 
       if (status === 'Public') {
-        alert('Sua Galeria Foi Publicada com Sucesso'); /*eslint-disable-line*/
+        addToast({
+          type: 'success',
+          message: 'Sua galeria foi publicada com sucesso',
+        });
       } else {
-        alert('Status alterado para RASCUNHO'); /*eslint-disable-line*/
+        addToast({
+          type: 'info',
+          message: 'Status alterado para rascunho',
+        });
       }
     } catch (err) {
-      if (err) alert('Erro ao alterar status'); /*eslint-disable-line*/
+      if (err)
+        addToast({
+          type: 'error',
+          message: 'Erro ao alterar status',
+        });
     }
   }
 

@@ -18,11 +18,15 @@ import LoadingCircle from '~/components/LoadingCircle';
 import api from '~/services/api';
 import { GalleryContext } from '../GalleryContext';
 
+import { useToast } from '~/hooks/ToastContext';
+
 function ImageUploader() {
   const { id } = useParams();
   const { galleryData } = useContext(GalleryContext);
 
   const [loading, setLoading] = useState(false);
+
+  const { addToast } = useToast();
 
   function onDrop(files) {
     setLoading(true);
@@ -49,7 +53,11 @@ function ImageUploader() {
       .then(() => {
         window.location.reload();
       })
-      .catch((err) => alert('EEEERRROOOO', err)) /*eslint-disable-line*/
+      .catch((err) =>
+        addToast({
+          type: 'error',
+          message: 'Erro ao fazer upload',
+      })) /*eslint-disable-line*/
       .then(() => {
         setLoading(false);
       });

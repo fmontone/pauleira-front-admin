@@ -4,6 +4,8 @@ import { useForm } from 'react-hook-form';
 
 import api from '~/services/api';
 
+import { useToast } from '~/hooks/ToastContext';
+
 import {
   Container,
   PageHeader,
@@ -26,6 +28,8 @@ function AdminUserPassForgot() {
 
   const { register, handleSubmit, errors } = useForm();
 
+  const { addToast } = useToast();
+
   async function handleDataSubmit(data) {
     setLoading(true);
 
@@ -34,7 +38,10 @@ function AdminUserPassForgot() {
 
       setEmailSent(true);
     } catch (err) {
-      alert('Usuário não encontrado');
+      addToast({
+        type: 'error',
+        message: 'Usuário não encontrado',
+      });
     }
 
     setLoading(false);

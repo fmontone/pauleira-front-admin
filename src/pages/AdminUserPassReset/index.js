@@ -3,6 +3,7 @@ import { useParams, useHistory } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 
 import api from '~/services/api';
+import { useToast } from '~/hooks/ToastContext';
 
 import {
   Container,
@@ -29,6 +30,8 @@ function AdminUserPassReset() {
 
   const { register, handleSubmit, watch, errors } = useForm();
 
+  const { addToast } = useToast();
+
   useEffect(() => {
     async function dataValidate() {
       try {
@@ -52,7 +55,10 @@ function AdminUserPassReset() {
 
       setSuccess(true);
     } catch (err) {
-      alert('Usuário não encontrado'); /*eslint-disable-line*/
+      addToast({
+        type: 'error',
+        message: 'Usuário não encontrado',
+      });
     }
 
     setLoading(false);

@@ -3,6 +3,8 @@ import { useParams } from 'react-router-dom';
 
 import api from '~/services/api';
 
+import { useToast } from '~/hooks/ToastContext';
+
 import {
   Container,
   TitleWrapper,
@@ -27,6 +29,8 @@ function AdminUser() {
   const [profileLoading, setProfileLoading] = useState(false);
 
   const fileInputRef = useRef(null);
+
+  const { addToast } = useToast();
 
   useEffect(() => {
     setLoading(true);
@@ -56,9 +60,17 @@ function AdminUser() {
       try {
         await api.delete(`/admin-users/profile-img/${id}`);
 
+        addToast({
+          type: 'success',
+          message: 'Imagem excluída com sucesso!',
+        });
+
         window.location.reload();
       } catch (error) {
-        alert('Erro ao excluir imagem.'); /*eslint-disable-line*/
+        addToast({
+          type: 'error',
+          message: 'Erro ao excluir imagem',
+        });
       }
     }
   }
@@ -73,11 +85,18 @@ function AdminUser() {
     try {
       api.post(`/admin-users/profile-img/${id}`, formDataPic);
 
-      alert('Imagem adicionada com sucesso!'); /*eslint-disable-line*/
+      addToast({
+        type: 'success',
+        message: 'Imagem adicionada com sucesso!',
+      });
 
       window.location.reload();
     } catch (err) {
-      if(err) alert('Erro ao adicionar imagem.'); /*eslint-disable-line*/
+      if (err)
+        addToast({
+          type: 'error',
+          message: 'Erro ao adicionar imagem',
+        });
     }
 
     setProfileLoading(false);

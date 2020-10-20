@@ -6,6 +6,8 @@ import PropTypes from 'prop-types';
 
 import api from '~/services/api';
 
+import { useToast } from '~/hooks/ToastContext';
+
 import {
   StyledFieldset,
   StyledInput,
@@ -27,6 +29,8 @@ function UserForm({ formData, editUser }) {
   const { register, reset, handleSubmit, watch, errors } = useForm();
   const [dataChanged, setDataChanged] = useState(null);
   const [activeSubmit, setActiveSubmit] = useState(false);
+
+  const { addToast } = useToast();
 
   useEffect(() => {
     reset(formData);
@@ -57,12 +61,17 @@ function UserForm({ formData, editUser }) {
       try {
         await api.put(`/admin-users/${id}`, dataChanged);
 
-        alert('Dados atualizados com sucesso!'); /* eslint-disable-line */
+        addToast({
+          type: 'success',
+          message: 'Dados atualizados com sucesso!',
+        });
       } catch (err) {
         if (err)
-          alert( /* eslint-disable-line */
-            'Erro ao atualiza usuário. Verifique os dados e tente novamente!'
-          );
+          addToast({
+            type: 'error',
+            message:
+              'Erro ao atualiza usuário. Verifique os dados e tente novamente!',
+          });
       }
     } else if (!editUser) {
       try {
@@ -72,10 +81,11 @@ function UserForm({ formData, editUser }) {
 
         history.push('/admin-users');
       } catch (err) {
-        alert('ERRO AO ADICIONAR USUÁRIO'); /* eslint-disable-line */
+        addToast({
+          type: 'error',
+          message: 'Erro ao atualizar usuário.',
+        });
       }
-
-      console.log('POST: ', {...data, password}); /* eslint-disable-line */
     }
   }
 
@@ -87,9 +97,17 @@ function UserForm({ formData, editUser }) {
     try {
       await api.delete(`/admin-users/${formData.id}`);
 
+      addToast({
+        type: 'success',
+        message: 'Usuário Deletado com sucesso!',
+      });
+
       history.push('/admin-users');
     } catch (err) {
-      alert('ERRO AO DELETAR USUÁRIO'); /* eslint-disable-line */
+      addToast({
+        type: 'error',
+        message: 'Erro ao deletar usuário',
+      });
     }
   }
 

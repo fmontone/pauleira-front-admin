@@ -21,26 +21,28 @@ export default function Routes() {
     <Switch>
       <Route path="/" exact component={Login} />
 
-      <Route path="/pass-forgot" component={AdminUserPassForgot} />
+      <Route path="/pass-forgot" exact component={AdminUserPassForgot} />
 
       <Route
         path="/admin-users/pass-reset/:id/:token"
+        exact
         component={AdminUserPassReset}
       />
       <Route
         path="/admin-users/activate/:id/:token"
+        exact
         component={AdminUserActivate}
       />
 
       <Route path="/dashboard" component={Main} isPrivate />
 
-      <Route path="/admin-users" component={AdminUsers} isPrivate />
-      <Route path="/admin-users/new" component={User} isPrivate />
-      <Route path="/admin-users/:id" component={User} isPrivate />
+      <Route path="/admin-users" exact component={AdminUsers} isPrivate />
+      <Route path="/admin-users/new" exact component={User} isPrivate />
+      <Route path="/admin-users/:id" exact component={User} isPrivate />
 
-      <Route path="/galleries" component={Galleries} isPrivate />
-      <Route path="/galleries/new" component={Gallery} isPrivate />
-      <Route path="/galleries/:id" component={Gallery} isPrivate />
+      <Route path="/galleries" exact component={Galleries} isPrivate />
+      <Route path="/galleries/new" exact component={Gallery} isPrivate />
+      <Route path="/galleries/:id" exact component={Gallery} isPrivate />
 
       <Redirect from="*" to="/" />
     </Switch>

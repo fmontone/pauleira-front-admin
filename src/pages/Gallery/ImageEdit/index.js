@@ -6,6 +6,7 @@ import { MdFullscreen, MdFullscreenExit, MdClose } from 'react-icons/md';
 
 import api from '~/services/api';
 import { ImageEditContext, GalleryContext } from '../GalleryContext';
+import { useToast } from '~/hooks/ToastContext';
 
 import colors from '~/styles/colors';
 
@@ -32,6 +33,8 @@ function ImageEdit() {
   const [fullScreen, setFullScreen] = useState(false);
 
   const { register, reset, handleSubmit, watch } = useForm();
+
+  const { addToast } = useToast();
 
   useEffect(() => {
     reset(editImageData);
@@ -71,11 +74,18 @@ function ImageEdit() {
 
         window.location.reload();
       } catch (err) {
-        if (err) alert('ERRO AO ATUALIZAR DADOS DA IMAGEM'); /*eslint-disable-line */
+        if (err)
+          addToast({
+            type: 'error',
+            message: 'Erro ao alterar dados da imagem',
+          });
       }
       setDataChanged(null);
       setActiveSubmit(false);
-      alert('Imagem Salva com Sucesso'); /*eslint-disable-line */
+      addToast({
+        type: 'success',
+        message: 'Imagem salva com sucesso',
+      });
     }
   }
 
@@ -86,10 +96,16 @@ function ImageEdit() {
     try {
       await api.delete(`/galleries/remove-img/${id}/${editImageData.id}`);
 
-      alert('IMAGEM DELETADA COM SUCESSO'); /*eslint-disable-line */
-
+      addToast({
+        type: 'success',
+        message: 'Imagem deletada com sucesso',
+      });
     } catch (error) {
-      if (error) alert('ERRO AO DELETAR IMAGEM'); /*eslint-disable-line */
+      if (error)
+        addToast({
+          type: 'error',
+          message: 'Erro ao deletar imagem',
+        });
       return;
     }
 
@@ -101,9 +117,16 @@ function ImageEdit() {
               position: Number(image.position - 1),
             });
 
-            alert('IMAGENS REPOSICIONADAS!'); /*eslint-disable-line */
+            addToast({
+              type: 'info',
+              message: 'Imagens reposicionadas',
+            });
           } catch (error) {
-            if (error) alert('ERRO REPOSICIONANDO IMAGENS'); /*eslint-disable-line */
+            if (error)
+              addToast({
+                type: 'error',
+                message: 'Erro ao reposicionar imagens',
+              });
           }
         }
       });
@@ -117,9 +140,17 @@ function ImageEdit() {
       try {
         await api.put(`/galleries/${id}`, { status: 'Draft' });
 
-        alert('A galeria mudou para o status: RASCUNHO porque precisa ter ao menos uma imagem para ser pública'); /*eslint-disable-line*/
+        addToast({
+          type: 'info',
+          message:
+            'A galeria mudou para o status: RASCUNHO porque precisa ter ao menos uma imagem para ser pública',
+        });
       } catch (err) {
-        if (err) alert('Erro ao alterar status'); /*eslint-disable-line*/
+        if (err)
+          addToast({
+            type: 'error',
+            message: 'Erro ao alterar status',
+          });
       }
     }
 
