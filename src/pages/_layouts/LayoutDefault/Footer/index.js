@@ -1,60 +1,39 @@
-import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import React from 'react';
 
-import {
-  MdMenu,
-  MdClose,
-  MdPerson,
-  MdPhotoLibrary,
-  MdExitToApp,
-} from 'react-icons/md';
-import { signOut } from '~/store/modules/auth/actions';
+import { GiExitDoor } from 'react-icons/gi';
+import { FiUsers, FiSettings } from 'react-icons/fi';
+import { AiOutlineDashboard } from 'react-icons/ai';
+import { IoMdImages } from 'react-icons/io';
 
-import Menu from './Menu';
+import history from '~/services/history';
+import { useAuth } from '~/hooks/AuthContext';
 
-import { Wrapper, Container, ButtonMenu, StyledLink } from './styles';
-
-import colors from '~/styles/colors';
+import { Wrapper, Container, Button } from './styles';
 
 function Footer() {
-  const dispatch = useDispatch();
-  const [menuToggle, setMenuToggle] = useState(false);
-
+  const { signOut } = useAuth();
   return (
     <Wrapper>
       <Container>
-        <ButtonMenu onClick={() => setMenuToggle(!menuToggle)}>
-          {menuToggle ? (
-            <MdClose color={colors.grey} size="24" />
-          ) : (
-            <MdMenu color={colors.grey} size="24" />
-          )}
-        </ButtonMenu>
-
-        <StyledLink
-          to="/admin-users"
-          className={menuToggle ? 'animate' : ''}
-          delay={0.05}
-        >
-          <MdPerson color={colors.grey} size="24" />
-        </StyledLink>
-        <StyledLink
-          to="/galleries"
-          className={menuToggle ? 'animate' : ''}
-          delay={0.075}
-        >
-          <MdPhotoLibrary color={colors.grey} size="24" />
-        </StyledLink>
-        <StyledLink
-          to="/"
-          className={menuToggle ? 'animate' : ''}
-          delay={0.15}
-          onClick={() => dispatch(signOut())}
-        >
-          <MdExitToApp color={colors.grey} size="24" />
-        </StyledLink>
-
-        <Menu menuToggle={menuToggle} onClick={() => setMenuToggle(false)} />
+        <Button onClick={() => history.push('/')}>
+          <AiOutlineDashboard /> Dashboard
+        </Button>
+        <Button onClick={() => history.push('/admin-users')}>
+          <FiUsers />
+          Usuários Adm
+        </Button>
+        <Button onClick={() => history.push('/galleries')}>
+          <IoMdImages />
+          Galerias
+        </Button>
+        <Button onClick={() => history.push('/settings')}>
+          <FiSettings />
+          Sua Conta
+        </Button>
+        <Button onClick={() => signOut()}>
+          <GiExitDoor />
+          Logout
+        </Button>
       </Container>
     </Wrapper>
   );

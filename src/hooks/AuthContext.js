@@ -26,7 +26,7 @@ function AuthProvider({ children }) {
     const { token, user } = response.data;
 
     localStorage.setItem('@pauleiraAdm:token', token);
-    localStorage.setItem('@pauleiraAdm:user', JSON.stringify({ user }));
+    localStorage.setItem('@pauleiraAdm:user', JSON.stringify(user));
 
     setData({ token, user });
     setAuthLoading(false);

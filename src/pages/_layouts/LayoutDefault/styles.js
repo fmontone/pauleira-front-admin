@@ -8,8 +8,8 @@ export const Wrapper = styled(PageWrapper)`
 `;
 
 export const Container = styled(ContainerCustom)`
-  padding-top: 16px;
-  padding-bottom: 64px;
+  padding-top: 32px;
   display: flex;
   flex-direction: column;
+  flex: 1;
 `;
