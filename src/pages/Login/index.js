@@ -1,9 +1,8 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
 import { useForm } from 'react-hook-form';
 
-import { signInRequest } from '~/store/modules/auth/actions';
+import { useAuth } from '~/hooks/AuthContext';
 
 import {
   Container,
@@ -20,17 +19,16 @@ import colors from '~/styles/colors';
 import PauleiraLogo from '~/assets/svg/pauleira-logo.svg';
 
 function Login() {
-  const history = useHistory();
+  const { signIn, authLoading } = useAuth();
 
-  const dispatch = useDispatch();
-  const loading = useSelector((state) => state.auth.loading);
+  const history = useHistory();
 
   const { handleSubmit, register, errors } = useForm();
 
   async function handleDataSubmit(data) {
     const { email, password } = data;
 
-    dispatch(signInRequest(email, password));
+    signIn({ email, password });
   }
 
   return (
@@ -71,7 +69,7 @@ function Login() {
         />
 
         <ButtonSubmit color={colors.primary} width="stretch" type="submit">
-          {!loading ? 'Entrar na Aplicação' : 'Carregando...'}
+          {!authLoading ? 'Entrar na Aplicação' : 'Carregando...'}
         </ButtonSubmit>
 
         <ButtonForgot onClick={() => history.push('/pass-forgot')}>

@@ -1,9 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+
+import { AuthProvider } from './AuthContext';
 import { ToastProvider } from './ToastContext';
 
 function AppProvider({ children }) {
-  return <ToastProvider>{children}</ToastProvider>;
+  return (
+    <AuthProvider>
+      <ToastProvider value={{ name: 'Fabio' }}>{children}</ToastProvider>
+    </AuthProvider>
+  );
 }
 
 AppProvider.propTypes = {
