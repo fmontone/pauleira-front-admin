@@ -2,8 +2,6 @@ import React from 'react';
 import { Switch, Redirect } from 'react-router-dom';
 import Route from './Route';
 
-import useActivePageSetter from '~/hooks/useActivePageSetter';
-
 import Login from '~/pages/Login';
 import Main from '~/pages/Main';
 import AdminUsers from '~/pages/AdminUsers';
@@ -15,8 +13,6 @@ import Galleries from '~/pages/Galleries';
 import Gallery from '~/pages/Gallery';
 
 export default function Routes() {
-  useActivePageSetter();
-
   return (
     <Switch>
       <Route path="/" exact component={Login} />

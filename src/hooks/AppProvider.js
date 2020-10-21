@@ -7,7 +7,7 @@ import { ToastProvider } from './ToastContext';
 function AppProvider({ children }) {
   return (
     <AuthProvider>
-      <ToastProvider value={{ name: 'Fabio' }}>{children}</ToastProvider>
+      <ToastProvider>{children}</ToastProvider>
     </AuthProvider>
   );
 }
