@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { NavLink } from 'react-router-dom';
 
 import { MdClose } from 'react-icons/md';
@@ -33,7 +33,23 @@ import colors from '~/styles/colors';
 function Header() {
   const { user, signOut } = useAuth();
 
+  const menuRef = useRef(null);
+
   const [menuToggle, setMenuToggle] = useState(false);
+
+  function handleClickOutside(e) {
+    if (menuRef.current && !menuRef.current.contains(e.target)) {
+      setMenuToggle(false);
+    }
+  }
+
+  useEffect(() => {
+    if (menuToggle) {
+      document.addEventListener('click', (e) => handleClickOutside(e), true);
+    }
+
+    return document.removeEventListener('click', handleClickOutside, true);
+  }, [menuToggle]);
 
   return (
     <Wrapper>
@@ -71,7 +87,7 @@ function Header() {
         </ButtonWrapper>
 
         {menuToggle && (
-          <Menu>
+          <Menu ref={menuRef}>
             <Nav>
               <ul>
                 <li>

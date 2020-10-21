@@ -103,7 +103,7 @@ export const Menu = styled.ul`
     position: absolute;
     left: unset;
     top: -10px;
-    right: 73px;
+    right: 58px;
     max-width: 250px;
     height: auto;
     border-radius: 8px 0px 8px 8px;
@@ -211,6 +211,9 @@ export const ButtonSignOut = styled.button`
   }
 
   @media ${device.tabletLs} {
+    border-top: 1px solid ${colors.greyLight};
+    padding-top: 16px;
+    padding-bottom: unset;
     flex-direction: row-reverse;
   }
 `;
