@@ -19,7 +19,6 @@ export const Container = styled(ContainerCustom)`
 export const HeadlineContainer = styled.div`
   width: 100%;
   height: auto;
-  margin-top: 16px;
   display: flex;
   flex-direction: column-reverse;
 

@@ -13,8 +13,6 @@ export const Container = styled.div`
   justify-content: center;
   align-items: center;
 
-  border-color: 1px solid lime;
-
   svg {
     animation: ${spin} 0.5s ease infinite;
   }

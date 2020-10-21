@@ -8,6 +8,8 @@ import useSortList from '~/hooks/useSortList';
 
 import colors from '~/styles/colors';
 
+import PageTitle from '~/components/PageTitle';
+
 import {
   Container,
   HeadlineContainer,
@@ -97,6 +99,7 @@ function AdminUsers() {
   return (
     <UsersContext.Provider value={{ sorted, users, setUsers }}>
       <Container>
+        <PageTitle>Usuários Administrativos</PageTitle>
         <HeadlineContainer>
           <SettingsLine>
             <Search onChange={handleFilter} placeholder="Procurar Usuário..." />
