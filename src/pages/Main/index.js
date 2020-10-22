@@ -8,7 +8,7 @@ import history from '~/services/history';
 function Main() {
   return (
     <Container>
-      <PageTitle>Admin Pauleira</PageTitle>
+      <PageTitle>Dashboard</PageTitle>
 
       <ContentWrapper>
         <Button onClick={() => history.push('/galleries/new')}>
