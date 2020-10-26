@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom';
 import api from '~/services/api';
 
 import { useToast } from '~/hooks/ToastContext';
+import { useAdmUsers } from '~/hooks/UsersAdmContext';
 
 import {
   Container,
@@ -18,6 +19,7 @@ import {
 import TitleButtonBack from '~/components/TitleButtonBack';
 import UserForm from './UserForm';
 import LoadingCircle from '~/components/LoadingCircle';
+import PageTitle from '~/components/PageTitle';
 
 function AdminUser() {
   const { id } = useParams();
@@ -60,12 +62,12 @@ function AdminUser() {
       try {
         await api.delete(`/admin-users/profile-img/${id}`);
 
+        setFormData({ ...formData, profile_image: '' });
+
         addToast({
           type: 'success',
           message: 'Imagem excluída com sucesso!',
         });
-
-        window.location.reload();
       } catch (error) {
         addToast({
           type: 'error',
@@ -83,14 +85,19 @@ function AdminUser() {
     formDataPic.append('file', e.target.files[0]);
 
     try {
-      api.post(`/admin-users/profile-img/${id}`, formDataPic);
+      const response = await api.post(
+        `/admin-users/profile-img/${id}`,
+        formDataPic
+      );
+
+      const { url } = response.data;
+
+      setFormData({ ...formData, profile_image: { url } });
 
       addToast({
         type: 'success',
         message: 'Imagem adicionada com sucesso!',
       });
-
-      window.location.reload();
     } catch (err) {
       if (err)
         addToast({
@@ -105,10 +112,10 @@ function AdminUser() {
   return (
     <Container>
       <TitleWrapper>
-        <h2>
+        <PageTitle>
           <TitleButtonBack goTo="/admin-users" />
           {editUser ? 'Editar Usuário' : 'Adicionar Usuário'}
-        </h2>
+        </PageTitle>
       </TitleWrapper>
 
       <ContentWrapper>

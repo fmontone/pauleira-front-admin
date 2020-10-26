@@ -1,7 +1,7 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { useHistory } from 'react-router-dom';
 
-import UsersContext from '../usersContext';
+import { useAdmUsers } from '~/hooks/UsersAdmContext';
 
 import {
   List,
@@ -19,11 +19,11 @@ import NoResultsList from '~/components/NoResultsList';
 function UsersList() {
   const history = useHistory();
 
-  const { sorted } = useContext(UsersContext);
+  const { admUsers } = useAdmUsers();
 
-  return sorted ? (
+  return admUsers ? (
     <List>
-      {sorted.map(({ id, name, profile_image }) => (
+      {admUsers.map(({ id, name, profile_image }) => (
         <ListItem
           key={id.toString()}
           onClick={() => history.push({ pathname: `/admin-users/${id}` })}

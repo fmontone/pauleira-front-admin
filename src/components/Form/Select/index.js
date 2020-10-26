@@ -12,7 +12,11 @@ const Select = forwardRef(({ dropOptions, ...rest }, ref) => {
     <Wrapper>
       <StyledSelect ref={ref} {...rest}>
         {dropOptions.map((item, index) => {
-          return <option key={String(index)}>{item}</option>;
+          return (
+            <option key={String(index)} value={index}>
+              {item.title}
+            </option>
+          );
         })}
       </StyledSelect>
       <Arrow>
@@ -23,10 +27,10 @@ const Select = forwardRef(({ dropOptions, ...rest }, ref) => {
 });
 
 Select.propTypes = {
-  dropOptions: PropTypes.arrayOf(PropTypes.string),
+  dropOptions: PropTypes.arrayOf(PropTypes.shape({})),
 };
 Select.defaultProps = {
-  dropOptions: [''],
+  dropOptions: [{}],
 };
 
 export default Select;
