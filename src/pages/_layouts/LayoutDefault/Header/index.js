@@ -5,7 +5,7 @@ import { MdClose } from 'react-icons/md';
 import { GiExitDoor } from 'react-icons/gi';
 import { FiUsers, FiMenu, FiSettings } from 'react-icons/fi';
 import { AiOutlineDashboard } from 'react-icons/ai';
-import { IoMdImages } from 'react-icons/io';
+import { IoMdImages, IoMdArrowRoundBack } from 'react-icons/io';
 
 import { useAuth } from '~/hooks/AuthContext';
 import history from '~/services/history';
@@ -36,6 +36,7 @@ function Header() {
   const menuRef = useRef(null);
 
   const [menuToggle, setMenuToggle] = useState(false);
+  const [subPage, setSubpage] = useState(false);
 
   function handleClickOutside(e) {
     if (menuRef.current && !menuRef.current.contains(e.target)) {
@@ -51,6 +52,16 @@ function Header() {
     return document.removeEventListener('click', handleClickOutside, true);
   }, [menuToggle]);
 
+  const pathLenght = history.location.pathname.split('/').slice(1).length;
+
+  useEffect(() => {
+    if (pathLenght > 1) {
+      setSubpage(true);
+    } else {
+      setSubpage(false);
+    }
+  }, [pathLenght]);
+
   return (
     <Wrapper>
       <Container>
@@ -61,30 +72,38 @@ function Header() {
           </NavLink>
         </LogoWrapper>
 
-        <ButtonWrapper>
-          <div>
-            <ButtonHome onClick={() => history.push('/')}>
-              <AiOutlineDashboard />
-              Dashboard
-            </ButtonHome>
-          </div>
+        {subPage && (
+          <button type="button" onClick={() => history.goBack()}>
+            <IoMdArrowRoundBack color={colors.primary} size="24" />
+          </button>
+        )}
 
-          <ButtonToggle onClick={() => setMenuToggle(!menuToggle)}>
-            {menuToggle ? (
-              <MdClose color={colors.primary} size="24" />
-            ) : (
-              <FiMenu color={colors.blackDeep} size="24" />
-            )}
-          </ButtonToggle>
+        {!subPage && (
+          <ButtonWrapper>
+            <div>
+              <ButtonHome onClick={() => history.push('/')}>
+                <AiOutlineDashboard />
+                Dashboard
+              </ButtonHome>
+            </div>
 
-          <NavLink
-            onClick={() => setMenuToggle(!menuToggle)}
-            to="/settings"
-            className="header__profile"
-          >
-            <ProfilePic src={user.profile_image || ProfilePlaceholder} />
-          </NavLink>
-        </ButtonWrapper>
+            <ButtonToggle onClick={() => setMenuToggle(!menuToggle)}>
+              {menuToggle ? (
+                <MdClose color={colors.primary} size="24" />
+              ) : (
+                <FiMenu color={colors.blackDeep} size="24" />
+              )}
+            </ButtonToggle>
+
+            <NavLink
+              onClick={() => setMenuToggle(!menuToggle)}
+              to="/settings"
+              className="header__profile"
+            >
+              <ProfilePic src={user.profile_image || ProfilePlaceholder} />
+            </NavLink>
+          </ButtonWrapper>
+        )}
 
         {menuToggle && (
           <Menu ref={menuRef}>

@@ -33,7 +33,7 @@ export default function Routes() {
       <Route path="/dashboard" component={Main} isPrivate />
 
       <Route path="/admin-users" exact component={AdminUsers} isPrivate />
-      <Route path="/admin-users/new" exact component={User} isPrivate />
+      <Route path="/admin-users/new" exact component={User} isPrivate isSub />
       <Route path="/admin-users/:id" exact component={User} isPrivate />
 
       <Route path="/galleries" exact component={Galleries} isPrivate />

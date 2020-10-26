@@ -7,7 +7,6 @@ import api from '~/services/api';
 
 import { Container, BlockTitle, BlockImages, BlockForm } from './styles';
 
-import TitleButtonBack from '~/components/TitleButtonBack';
 import GalleryForm from './GalleryForm';
 import LoadingGalleryForm from '~/components/LoadingGalleryForm';
 import ImageUploader from './ImageUploader';
@@ -40,10 +39,7 @@ function Gallery() {
     <GalleryContext.Provider value={{ galleryData, setGalleryData }}>
       <Container>
         <BlockTitle>
-          <h2>
-            <TitleButtonBack goTo="/galleries" />
-            {editGallery ? 'Editar Galeria' : 'Adicionar Galeria'}
-          </h2>
+          <h2>{editGallery ? 'Editar Galeria' : 'Adicionar Galeria'}</h2>
         </BlockTitle>
 
         <BlockImages>

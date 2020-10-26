@@ -4,7 +4,6 @@ import { useParams } from 'react-router-dom';
 import api from '~/services/api';
 
 import { useToast } from '~/hooks/ToastContext';
-import { useAdmUsers } from '~/hooks/UsersAdmContext';
 
 import {
   Container,
@@ -16,7 +15,6 @@ import {
   ButtonDeleteProfilePic,
 } from './styles';
 
-import TitleButtonBack from '~/components/TitleButtonBack';
 import UserForm from './UserForm';
 import LoadingCircle from '~/components/LoadingCircle';
 import PageTitle from '~/components/PageTitle';
@@ -113,7 +111,6 @@ function AdminUser() {
     <Container>
       <TitleWrapper>
         <PageTitle>
-          <TitleButtonBack goTo="/admin-users" />
           {editUser ? 'Editar Usuário' : 'Adicionar Usuário'}
         </PageTitle>
       </TitleWrapper>
