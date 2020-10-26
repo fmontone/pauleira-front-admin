@@ -8,7 +8,7 @@ export const Container = styled.div`
   max-width: 1024px;
   padding: 0 16px;
 
-  @media ${device.tabletLs} {
+  @media ${device.desktop} {
     padding: 0;
   }
 `;
