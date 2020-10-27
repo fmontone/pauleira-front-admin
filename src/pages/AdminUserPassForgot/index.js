@@ -51,7 +51,11 @@ function AdminUserPassForgot() {
     <Container>
       <PageHeader>
         <Logo>
-          <img src={PauleiraLogo} alt="Pauleira Guitars Logo" />
+          <img
+            src={PauleiraLogo}
+            color={colors.blackDeep}
+            alt="Pauleira Guitars Logo"
+          />
         </Logo>
         <Title>Esqueci minha senha</Title>
 

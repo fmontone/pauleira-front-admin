@@ -64,7 +64,7 @@ function AdminUserActivate() {
   return (
     <Container>
       <Logo>
-        <Icon name="logo-flying-p" size="72" color={colors.greyLighter} />
+        <Icon name="logo-flying-p" size="72" color={colors.blackDeep} />
       </Logo>
       <Title>{validUser ? 'Ativar Conta' : 'Link Inválido'}</Title>
 

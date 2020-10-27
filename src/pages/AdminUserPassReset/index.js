@@ -68,7 +68,11 @@ function AdminUserPassReset() {
     <Container>
       <PageHeader>
         <Logo>
-          <img src={PauleiraLogo} alt="Pauleira Guitars Logo" />
+          <img
+            src={PauleiraLogo}
+            color={colors.blackDeep}
+            alt="Pauleira Guitars Logo"
+          />
         </Logo>
 
         <Title className={!validUser ? 'title__error' : ''}>
