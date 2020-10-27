@@ -61,5 +61,12 @@ export const ButtonDelete = styled(ButtonCustom).attrs({
 export const ButtonSubmit = styled(ButtonCustom).attrs({
   color: colors.statusSuccess,
   type: 'submit',
-  width: window.innerWidth <= 400 ? 'stretch' : 'auto',
-})``;
+})`
+  padding: 0 24px;
+  span {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    margin: 8px 0;
+  }
+`;

@@ -9,6 +9,8 @@ import api from '~/services/api';
 import { useToast } from '~/hooks/ToastContext';
 import { useConfirm } from '~/hooks/ConfirmContext';
 
+import LoadingCircle from '~/components/LoadingCircle';
+
 import {
   StyledFieldset,
   StyledInput,
@@ -30,6 +32,7 @@ function UserForm({ formData, editUser }) {
   const { register, reset, handleSubmit, watch, errors } = useForm();
   const [dataChanged, setDataChanged] = useState(null);
   const [activeSubmit, setActiveSubmit] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const { addToast } = useToast();
   const { confirm } = useConfirm();
@@ -59,6 +62,7 @@ function UserForm({ formData, editUser }) {
   }, [dataChanged, formData, editUser]);
 
   async function handleDataSubmit(data) {
+    setLoading(true);
     if (editUser && dataChanged && Object.keys(dataChanged).length > 0) {
       try {
         await api.put(`/admin-users/${id}`, dataChanged);
@@ -81,14 +85,20 @@ function UserForm({ formData, editUser }) {
 
         await api.put('/admin-users/activate/', { email: data.email });
 
-        history.push('/admin-users');
+        addToast({
+          type: 'success',
+          message: 'Usuário adicionado com sucesso!',
+        });
+
+        history.goBack();
       } catch (err) {
         addToast({
           type: 'error',
-          message: 'Erro ao atualizar usuário.',
+          message: 'Erro ao adicionar usuário.',
         });
       }
     }
+    setLoading(false);
   }
 
   function handleChange(e) {
@@ -117,12 +127,6 @@ function UserForm({ formData, editUser }) {
       }
     );
   }
-
-  // function handleDeleteConfirm() {
-  //   if (window.confirm('Você tem certeza que deseja deletar o usuário?')) { /* eslint-disable-line */
-  //     handleDeleteUser();
-  //   }
-  // }
 
   return (
     <form onSubmit={handleSubmit(handleDataSubmit)} onChange={handleChange}>
@@ -160,6 +164,7 @@ function UserForm({ formData, editUser }) {
         )}
         <ButtonSubmit disabled={!activeSubmit}>
           {editUser ? 'Salvar' : 'Adicionar'}
+          {loading && <LoadingCircle color="#fff" />}
         </ButtonSubmit>
       </ButtonWrapper>
     </form>
