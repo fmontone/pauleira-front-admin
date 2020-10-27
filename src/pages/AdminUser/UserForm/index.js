@@ -7,6 +7,7 @@ import PropTypes from 'prop-types';
 import api from '~/services/api';
 
 import { useToast } from '~/hooks/ToastContext';
+import { useConfirm } from '~/hooks/ConfirmContext';
 
 import {
   StyledFieldset,
@@ -31,6 +32,7 @@ function UserForm({ formData, editUser }) {
   const [activeSubmit, setActiveSubmit] = useState(false);
 
   const { addToast } = useToast();
+  const { confirm } = useConfirm();
 
   useEffect(() => {
     reset(formData);
@@ -93,29 +95,34 @@ function UserForm({ formData, editUser }) {
     setDataChanged({ ...dataChanged, [e.target.name]: watch(e.target.name) });
   }
 
-  async function handleDeteleUser() {
-    try {
-      await api.delete(`/admin-users/${formData.id}`);
+  async function handleDeleteUser() {
+    confirm(
+      'Você tem certeza que deseja deletar este usuário?',
+      () => async () => {
+        try {
+          await api.delete(`/admin-users/${formData.id}`);
 
-      addToast({
-        type: 'success',
-        message: 'Usuário Deletado com sucesso!',
-      });
+          addToast({
+            type: 'success',
+            message: 'Usuário Deletado com sucesso!',
+          });
 
-      history.push('/admin-users');
-    } catch (err) {
-      addToast({
-        type: 'error',
-        message: 'Erro ao deletar usuário',
-      });
-    }
+          history.push('/admin-users');
+        } catch (err) {
+          addToast({
+            type: 'error',
+            message: 'Erro ao deletar usuário',
+          });
+        }
+      }
+    );
   }
 
-  function handleDeleteConfirm() {
-    if (window.confirm('Você tem certeza que deseja deletar o usuário?')) { /* eslint-disable-line */
-      handleDeteleUser();
-    }
-  }
+  // function handleDeleteConfirm() {
+  //   if (window.confirm('Você tem certeza que deseja deletar o usuário?')) { /* eslint-disable-line */
+  //     handleDeleteUser();
+  //   }
+  // }
 
   return (
     <form onSubmit={handleSubmit(handleDataSubmit)} onChange={handleChange}>
@@ -147,7 +154,7 @@ function UserForm({ formData, editUser }) {
           Cancelar
         </ButtonCancel>
         {editUser && (
-          <ButtonDelete onClick={handleDeleteConfirm}>
+          <ButtonDelete onClick={handleDeleteUser}>
             Deletar Usuário
           </ButtonDelete>
         )}

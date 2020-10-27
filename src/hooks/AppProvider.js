@@ -3,13 +3,16 @@ import PropTypes from 'prop-types';
 
 import { AuthProvider } from './AuthContext';
 import { ToastProvider } from './ToastContext';
-import { UsersAdmProvider } from '~/hooks/UsersAdmContext';
+import { UsersAdmProvider } from './UsersAdmContext';
+import { ConfirmProvider } from './ConfirmContext';
 
 function AppProvider({ children }) {
   return (
     <AuthProvider>
       <ToastProvider>
-        <UsersAdmProvider>{children}</UsersAdmProvider>
+        <ConfirmProvider>
+          <UsersAdmProvider>{children}</UsersAdmProvider>
+        </ConfirmProvider>
       </ToastProvider>
     </AuthProvider>
   );
