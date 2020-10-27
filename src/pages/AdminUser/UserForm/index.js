@@ -138,6 +138,7 @@ function UserForm({ formData, editUser }) {
             required: 'Campo Obrigatório',
           })}
           errorText={errors.name && errors.name.message}
+          autoComplete="off"
         />
         <StyledInput
           name="email"
@@ -150,6 +151,7 @@ function UserForm({ formData, editUser }) {
             },
           })}
           errorText={errors.email && errors.email.message}
+          autoComplete="off"
         />
       </StyledFieldset>
 
