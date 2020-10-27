@@ -22,10 +22,12 @@ export default function Routes() {
       <Route
         path="/admin-users/pass-reset/:id/:token"
         component={AdminUserPassReset}
+        exact
       />
       <Route
         path="/admin-users/activate/:id/:token"
         component={AdminUserActivate}
+        exact
       />
 
       <Route path="/dashboard" component={Main} isPrivate />
