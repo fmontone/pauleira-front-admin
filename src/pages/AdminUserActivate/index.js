@@ -48,7 +48,8 @@ function AdminUserActivate() {
     setLoading(true);
     try {
       const { password } = data;
-      await api.get(`/admin-users/pass-reset/${id}`, { password });
+
+      await api.put(`/admin-users/pass-reset/${id}`, { id, password });
 
       setSuccess(true);
     } catch (err) {
@@ -90,6 +91,10 @@ function AdminUserActivate() {
                   Agora você pode fazer login com sua nova senha. Se tiver
                   problemas, procure pelo administrador do site.
                 </p>
+
+                <LoginButton onClick={() => history.push('/')}>
+                  Voltar para o login
+                </LoginButton>
               </>
             )}
 

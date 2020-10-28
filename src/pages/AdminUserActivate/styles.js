@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 
 import ContainerCustom from '~/components/ContainerCustom';
-import Card from '~/components/Card';
 import ButtonCustom from '~/components/ButtonCustom';
 import { Input } from '~/components/Form';
 
@@ -27,12 +26,15 @@ export const Logo = styled.div`
 
 export const Title = styled.h2`
   text-transform: uppercase;
-  color: ${colors.primary};
   margin-bottom: 16px;
 `;
 
-export const StyledCard = styled(Card)`
+export const StyledCard = styled.div`
   padding: 16px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 
   p {
     margin-bottom: 16px;
@@ -43,6 +45,7 @@ export const Form = styled.form`
   max-width: 400px;
   width: 100%;
   text-align: left;
+  align-self: center;
 `;
 
 export const StyledInput = styled(Input)`

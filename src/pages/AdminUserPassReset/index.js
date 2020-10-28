@@ -51,7 +51,7 @@ function AdminUserPassReset() {
     setLoading(true);
     try {
       const { password } = data;
-      await api.put(`/admin-users/pass-reset/${id}/${token}`, { id, password });
+      await api.put(`/admin-users/pass-reset/${id}`, { id, password });
 
       setSuccess(true);
     } catch (err) {
