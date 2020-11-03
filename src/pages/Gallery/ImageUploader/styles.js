@@ -81,6 +81,7 @@ export const ContainerLoading = styled(Container)`
 export const ThumbsWrapper = styled.div`
   display: block;
   margin-left: 0;
+  padding-bottom: 8px;
   margin-bottom: 16px;
   position: relative;
   width: 100%;

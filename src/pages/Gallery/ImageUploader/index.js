@@ -130,7 +130,11 @@ function ImageUploader() {
         noDrag
         className={`
         ${
-          gallery && !!gallery.images && !isDragActive && !isDragReject
+          !loading &&
+          gallery &&
+          !!gallery.images &&
+          !isDragActive &&
+          !isDragReject
             ? 'dropzone__idle'
             : ''
         }
