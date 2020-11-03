@@ -25,6 +25,11 @@ export const Container = styled(ContainerCustom)`
   @media ${device.tabletLs} {
     flex-direction: row;
   }
+
+  &.single__button {
+    background-color: ${colors.blackDeep};
+    flex-direction: row !important;
+  }
 `;
 
 export const ButtonWrapper = styled.div`
@@ -232,5 +237,14 @@ export const ButtonHome = styled(ButtonBlank)`
     svg {
       margin-right: 4px;
     }
+  }
+`;
+
+export const ButtonBack = styled(ButtonBlank)`
+  color: ${colors.greyLighter};
+  font-weight: 500;
+
+  svg {
+    margin-right: 8px;
   }
 `;

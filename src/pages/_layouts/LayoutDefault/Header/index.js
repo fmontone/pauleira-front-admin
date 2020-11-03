@@ -26,6 +26,7 @@ import {
   ProfilePic,
   Nav,
   ButtonSignOut,
+  ButtonBack,
 } from './styles';
 
 import colors from '~/styles/colors';
@@ -64,7 +65,7 @@ function Header() {
 
   return (
     <Wrapper>
-      <Container>
+      <Container className={subPage ? 'single__button' : ''}>
         {!subPage && (
           <LogoWrapper>
             <NavLink to="/">
@@ -75,9 +76,9 @@ function Header() {
         )}
 
         {subPage && (
-          <button type="button" onClick={() => history.goBack()}>
-            <IoMdArrowRoundBack color={colors.primary} size="24" /> Voltar
-          </button>
+          <ButtonBack type="button" onClick={() => history.goBack()}>
+            <IoMdArrowRoundBack color={colors.grey} size="20" /> Voltar
+          </ButtonBack>
         )}
 
         {!subPage && (
