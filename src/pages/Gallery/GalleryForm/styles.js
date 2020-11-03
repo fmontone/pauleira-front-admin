@@ -17,6 +17,7 @@ export const StyledTextArea = styled(TextArea).attrs({
   label: 'Descrição',
 })`
   margin-bottom: 32px;
+  min-height: 248px;
 `;
 
 export const MainButtonWrapper = styled.div`

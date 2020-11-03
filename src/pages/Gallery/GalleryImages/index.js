@@ -5,7 +5,6 @@ import { MdEdit } from 'react-icons/md';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/swiper.scss';
 
-import { ImageEditContext } from '../GalleryContext';
 import api from '~/services/api';
 
 import ImageEdit from '../ImageEdit';
@@ -38,9 +37,7 @@ function GalleryImages() {
   }
 
   return (
-    <ImageEditContext.Provider
-      value={{ editImage, setEditImage, editImageData }}
-    >
+    <>
       <Container>
         {/* MAIN IMAGE */}
         {images.length > 0 && (
@@ -79,7 +76,7 @@ function GalleryImages() {
         )}
       </Container>
       {editImage && <ImageEdit />}
-    </ImageEditContext.Provider>
+    </>
   );
 }
 

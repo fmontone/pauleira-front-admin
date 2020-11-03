@@ -1,12 +1,13 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
+import PropTypes from 'prop-types';
 
 import { MdFullscreen, MdFullscreenExit, MdClose } from 'react-icons/md';
 
 import api from '~/services/api';
-import { ImageEditContext, GalleryContext } from '../GalleryContext';
 import { useToast } from '~/hooks/ToastContext';
+import { useGallery } from '~/hooks/GalleryContext';
 
 import colors from '~/styles/colors';
 
@@ -24,26 +25,33 @@ import {
   ButtonDeleteImage,
 } from './styles';
 
-function ImageEdit() {
+function ImageEdit({ imageId, closeModal }) {
   const { id } = useParams();
-  const { setEditImage, editImageData } = useContext(ImageEditContext);
-  const { galleryData } = useContext(GalleryContext);
+
+  const { gallery, setGallery } = useGallery();
+
   const [dataChanged, setDataChanged] = useState(null);
   const [activeSubmit, setActiveSubmit] = useState(false);
   const [fullScreen, setFullScreen] = useState(false);
+  const [imageData, setImageData] = useState({});
+  const [deleted, setDeleted] = useState(false);
 
   const { register, reset, handleSubmit, watch } = useForm();
 
   const { addToast } = useToast();
 
   useEffect(() => {
-    reset(editImageData);
-  }, [editImageData, reset]);
+    if (!deleted) {
+      setImageData(gallery.images.find((img) => img.id === imageId));
+
+      reset(imageData);
+    }
+  }, [deleted, gallery.images, imageData, imageId, reset]);
 
   useEffect(() => {
     if (dataChanged) {
       Object.keys(dataChanged).map((item) => {
-        if (dataChanged[item] === editImageData[item]) {
+        if (dataChanged[item] === imageData[item]) {
           delete dataChanged[item];
         }
         return null;
@@ -58,7 +66,7 @@ function ImageEdit() {
       setDataChanged(null);
       setActiveSubmit(false);
     }
-  }, [dataChanged, editImageData]);
+  }, [dataChanged, imageData]);
 
   function handleChange(e) {
     setDataChanged({ ...dataChanged, [e.target.name]: watch(e.target.name) });
@@ -67,10 +75,7 @@ function ImageEdit() {
   async function handleDataSubmit() {
     if (dataChanged && Object.keys(dataChanged).length > 0) {
       try {
-        await api.put(
-          `/galleries/images/${id}/${editImageData.id}`,
-          dataChanged
-        );
+        await api.put(`/galleries/images/${id}/${imageData.id}`, dataChanged);
 
         window.location.reload();
       } catch (err) {
@@ -90,82 +95,87 @@ function ImageEdit() {
   }
 
   async function handleDeleteImage() {
-    const totalImages = galleryData.images.length;
-    const deletePosition = Number(editImageData.position);
+    const totalImages = gallery.images.length;
+    const deletePosition = Number(imageData.position);
 
     try {
-      await api.delete(`/galleries/remove-img/${id}/${editImageData.id}`);
+      await api.delete(`/galleries/remove-img/${id}/${imageData.id}`);
 
       addToast({
         type: 'success',
         message: 'Imagem deletada com sucesso',
       });
+
+      if (deletePosition < totalImages) {
+        gallery.images.forEach(async (image) => {
+          if (Number(image.position) > deletePosition) {
+            try {
+              await api.put(`/galleries/images/${2}/${image.id}`, {
+                position: Number(image.position - 1),
+              });
+
+              addToast({
+                type: 'info',
+                message: 'Imagem reposicionada',
+              });
+            } catch (error) {
+              if (error)
+                addToast({
+                  type: 'error',
+                  message: 'Erro ao reposicionar imagem',
+                });
+            }
+          }
+        });
+      }
+
+      if (
+        deletePosition === 1 &&
+        totalImages === 1 &&
+        gallery.status === 'Public'
+      ) {
+        try {
+          await api.put(`/galleries/${id}`, { status: 'Draft' });
+
+          addToast({
+            type: 'info',
+            message:
+              'A galeria mudou para o status: RASCUNHO porque precisa ter ao menos uma imagem para ser pública',
+          });
+        } catch (err) {
+          if (err)
+            addToast({
+              type: 'error',
+              message: 'Erro ao alterar status',
+            });
+        }
+      }
+
+      setDeleted(true); // Block useEffect from reload state
+
+      const { data } = await api.get(`/galleries/images/${id}`);
+
+      setGallery((state) => ({ ...state, images: data }));
+
+      closeModal();
     } catch (error) {
       if (error)
         addToast({
           type: 'error',
           message: 'Erro ao deletar imagem',
         });
-      return;
     }
-
-    if (deletePosition < totalImages) {
-      galleryData.images.forEach(async (image) => {
-        if (Number(image.position) > deletePosition) {
-          try {
-            await api.put(`/galleries/images/${2}/${image.id}`, {
-              position: Number(image.position - 1),
-            });
-
-            addToast({
-              type: 'info',
-              message: 'Imagens reposicionadas',
-            });
-          } catch (error) {
-            if (error)
-              addToast({
-                type: 'error',
-                message: 'Erro ao reposicionar imagens',
-              });
-          }
-        }
-      });
-    }
-
-    if (
-      deletePosition === 1 &&
-      totalImages === 1 &&
-      galleryData.status === 'Public'
-    ) {
-      try {
-        await api.put(`/galleries/${id}`, { status: 'Draft' });
-
-        addToast({
-          type: 'info',
-          message:
-            'A galeria mudou para o status: RASCUNHO porque precisa ter ao menos uma imagem para ser pública',
-        });
-      } catch (err) {
-        if (err)
-          addToast({
-            type: 'error',
-            message: 'Erro ao alterar status',
-          });
-      }
-    }
-
-    window.location.reload();
   }
 
   return (
     <Wrapper>
       <Container>
         <CloseWrapper>
-          <ButtonClose onClick={() => setEditImage(false)}>
+          <ButtonClose onClick={() => closeModal()}>
             <MdClose color={colors.grey} size="24" />
           </ButtonClose>
         </CloseWrapper>
-        <ImageWrapper fullScreen={fullScreen} src={editImageData.url}>
+        <ImageWrapper fullScreen={fullScreen} src={imageData.url}>
           <ButtonFullScreen
             onClick={() => setFullScreen(!fullScreen)}
             fullScreen={fullScreen}
@@ -176,7 +186,7 @@ function ImageEdit() {
               <MdFullscreen color="#fff" size="24" />
             )}
           </ButtonFullScreen>
-          {fullScreen && <Image src={editImageData.url} />}
+          {fullScreen && <Image src={imageData.url} />}
         </ImageWrapper>
 
         <form onSubmit={handleSubmit(handleDataSubmit)} onChange={handleChange}>
@@ -196,5 +206,10 @@ function ImageEdit() {
     </Wrapper>
   );
 }
+
+ImageEdit.propTypes = {
+  imageId: PropTypes.number.isRequired,
+  closeModal: PropTypes.func.isRequired,
+};
 
 export default ImageEdit;

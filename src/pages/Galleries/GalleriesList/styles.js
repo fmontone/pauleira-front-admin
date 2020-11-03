@@ -110,3 +110,10 @@ export const EditIcon = styled(MdEdit).attrs({
     transform: translate(1px, 1px);
   }
 `;
+
+export const InfoTitle = styled.h4`
+  margin: 8px 0;
+  padding: 0 8px;
+
+  color: ${colors.greyHeavy};
+`;

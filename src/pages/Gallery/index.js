@@ -1,77 +1,70 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
-import { GalleryContext } from './GalleryContext';
+import { GalleryProvider, useGallery } from '~/hooks/GalleryContext';
+
+import { Container, ContentWrapper, BlockImages, BlockForm } from './styles';
 
 import api from '~/services/api';
-
-import { Container, BlockTitle, BlockImages, BlockForm } from './styles';
 
 import GalleryForm from './GalleryForm';
 import LoadingGalleryForm from '~/components/LoadingGalleryForm';
 import ImageUploader from './ImageUploader';
-import GalleryImages from './GalleryImages';
+import PageTitle from '~/components/PageTitle';
 
-function Gallery() {
+function GalleryConsumer() {
   const { id } = useParams();
 
+  const { gallery, setGallery } = useGallery();
+
   const [loading, setLoading] = useState(true);
-  const [galleryData, setGalleryData] = useState(null);
   const [editGallery, setEditGallery] = useState(false);
 
   useEffect(() => {
-    setLoading(true);
-    async function fetchData() {
+    async function fetchGallery() {
       const { data } = await api.get(`/galleries/${id}`);
 
-      setGalleryData(data);
+      setGallery(data);
     }
-
-    if (id && !galleryData) {
-      fetchData();
+    setLoading(true);
+    if (id) {
+      fetchGallery();
       setEditGallery(true);
     }
-
     setLoading(false);
-  }, [id, editGallery, galleryData]);
+  }, [id, editGallery, setGallery]);
 
   return (
-    <GalleryContext.Provider value={{ galleryData, setGalleryData }}>
-      <Container>
-        <BlockTitle>
-          <h2>{editGallery ? 'Editar Galeria' : 'Adicionar Galeria'}</h2>
-        </BlockTitle>
+    <Container>
+      <PageTitle>{editGallery ? 'Editar Galeria' : 'Criar Galeria'}</PageTitle>
 
-        <BlockImages>
-          {!loading && !editGallery && (
-            <h4 className="galley-image__placeholder">
-              Salve a galeria para adicionar imagens
-            </h4>
-          )}
-
-          {!loading && editGallery && (
-            <ImageUploader imageFiles={galleryData ? galleryData.images : []} />
-          )}
-
-          {!loading &&
-            editGallery &&
-            !!galleryData &&
-            !!galleryData.images.length && <GalleryImages />}
-        </BlockImages>
+      <ContentWrapper>
+        {editGallery && (
+          <BlockImages>
+            <ImageUploader gallery={gallery} />
+          </BlockImages>
+        )}
 
         <BlockForm>
           {loading && <LoadingGalleryForm />}
 
           {!loading && (
             <GalleryForm
-              formData={galleryData}
               editGallery={editGallery}
-              canPublish={galleryData && !!galleryData.images.length}
+              canPublish={gallery && gallery.images && !!gallery.images.length}
             />
           )}
         </BlockForm>
-      </Container>
-    </GalleryContext.Provider>
+      </ContentWrapper>
+    </Container>
+  );
+}
+
+function Gallery() {
+  return (
+    <GalleryProvider>
+      <GalleryConsumer />
+    </GalleryProvider>
   );
 }
 

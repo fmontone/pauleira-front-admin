@@ -1,30 +1,47 @@
-import React, { useContext, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useDropzone } from 'react-dropzone';
 import { uniqueId } from 'lodash';
 import axios from 'axios';
+
+import { MdCloudUpload, MdEdit } from 'react-icons/md';
+
+import api from '~/services/api';
+import { useGallery } from '~/hooks/GalleryContext';
+import { useToast } from '~/hooks/ToastContext';
+
+import LoadingCircle from '~/components/LoadingCircle';
+import ImageEdit from '../ImageEdit';
+
+import colors from '~/styles/colors';
 
 import {
   Wrapper,
   ContainerIdle,
   ContainerReject,
   ContainerLoading,
-  ContainerDrop,
-  ButtonUpload,
+  EditImageButton,
+  ThumbsWrapper,
+  ThumbsList,
+  Thumbnail,
+  ThumbAdd,
 } from './styles';
-
-import LoadingCircle from '~/components/LoadingCircle';
-
-import api from '~/services/api';
-import { GalleryContext } from '../GalleryContext';
-
-import { useToast } from '~/hooks/ToastContext';
 
 function ImageUploader() {
   const { id } = useParams();
-  const { galleryData } = useContext(GalleryContext);
+
+  const { gallery, setGallery } = useGallery();
 
   const [loading, setLoading] = useState(false);
+  const [stopDrag, setStopDrag] = useState(false);
+  const [editImage, setEditImage] = useState(false);
+  const [editImageId, setEditImageId] = useState({});
+
+  useEffect(() => {
+    if (gallery && !!gallery.images && !!gallery.images.length) {
+      setStopDrag(true);
+    }
+  }, [gallery]);
 
   const { addToast } = useToast();
 
@@ -35,25 +52,28 @@ function ImageUploader() {
       // FormData to Carry File
       const formData = new FormData();
       formData.append('file', file);
-      formData.append('title', galleryData.title);
+      formData.append('title', gallery.title);
 
       // Position
       const position =
-        galleryData && galleryData.images && galleryData.images.length > 0
-          ? parseInt(uniqueId(), 10) + parseInt(galleryData.images.length, 10)
+        gallery && !!gallery.images && gallery.images.length > 0
+          ? parseInt(uniqueId(), 10) + parseInt(gallery.images.length, 10)
           : parseInt(uniqueId(), 10);
-
-      console.log({ position });
 
       return api.post(`/galleries/add-img/${id}/${position}`, formData);
     });
 
     axios
       .all(uploads)
-      .then(() => {
-        window.location.reload();
+      .then((res) => {
+        return res.forEach((item) =>
+          setGallery((state) => ({
+            ...state,
+            images: [...state.images, item.data],
+          }))
+        );
       })
-      .catch((err) =>
+      .catch(() =>
         addToast({
           type: 'error',
           message: 'Erro ao fazer upload',
@@ -68,47 +88,116 @@ function ImageUploader() {
     getInputProps,
     isDragActive,
     isDragReject,
+    open,
   } = useDropzone({
     accept: 'image/*',
     maxSize: 5242880,
     onDrop,
     onDropRejected: () => console.log('ERROR UPLOADING FILE'),
+    noDrag: stopDrag,
   });
 
+  function handleEditImage(e, imageId) {
+    e.stopPropagation();
+    setEditImageId(imageId);
+    setEditImage(true);
+  }
+
   return (
-    <Wrapper
-      {...getRootProps()}
-      className={
-        !!galleryData && !!galleryData.images.length ? '' : 'gallery__empty'
-      }
-    >
-      <input {...getInputProps()} />
+    <>
+      <Wrapper
+        {...getRootProps()}
+        noDrag
+        className={`
+        ${
+          gallery && !!gallery.images && !isDragActive && !isDragReject
+            ? 'dropzone__idle'
+            : ''
+        }
+        ${isDragActive && !isDragReject ? 'dropzone__active' : ''}
+        ${isDragReject ? 'dropzone__reject' : ''}
 
-      {loading && (
-        <ContainerLoading>
-          <LoadingCircle color="fff" />
-        </ContainerLoading>
-      )}
+      `}
+        src={
+          gallery && !!gallery.images && !!gallery.images.length
+            ? gallery.images[0].url
+            : ''
+        }
+      >
+        <input {...getInputProps()} />
 
-      {!loading && !isDragActive && !isDragReject && (
-        <ContainerIdle>
-          <ButtonUpload>Adicionar Imagens</ButtonUpload>
-          <h5>Você pode arrastar [jpg, gif, png] aqui.</h5>
-        </ContainerIdle>
-      )}
+        {loading && (
+          <ContainerLoading>
+            <LoadingCircle color="fff" />
+          </ContainerLoading>
+        )}
 
-      {isDragActive && !isDragReject && (
-        <ContainerDrop>
-          <h4>Pode descarregar chefe!</h4>
-        </ContainerDrop>
-      )}
+        {stopDrag && (
+          <EditImageButton
+            onClick={(e) => handleEditImage(e, gallery.images[0].id)}
+          >
+            <button type="button">
+              <MdEdit color="#fff" />
+            </button>
+          </EditImageButton>
+        )}
 
-      {!loading && isDragReject && (
-        <ContainerReject>
-          <h4>Formato não aceito</h4>
-        </ContainerReject>
+        {!!gallery.images && gallery.images.length === 0 && (
+          <ContainerIdle>
+            <MdCloudUpload
+              size={64}
+              color={isDragActive ? colors.primary : colors.greyLight}
+            />
+            <h3>Adicionar Imagem</h3>
+            <span>
+              Arraste uma imagem ou clique para escolher a partir do seu
+              dispositivo.
+            </span>
+          </ContainerIdle>
+        )}
+
+        {!loading && isDragReject && (
+          <ContainerReject>
+            <h4>Formato não aceito</h4>
+          </ContainerReject>
+        )}
+      </Wrapper>
+
+      <ThumbsWrapper>
+        <ThumbsList>
+          {gallery &&
+            gallery.images &&
+            gallery.images.length > 1 &&
+            gallery.images.map((image, index) => {
+              if (index > 0)
+                return (
+                  <Thumbnail key={String(image.id)} src={image.url}>
+                    <EditImageButton
+                      onClick={(e) => handleEditImage(e, image.id)}
+                    />
+                  </Thumbnail>
+                );
+
+              return null;
+            })}
+
+          {gallery && gallery.images && !!gallery.images.length && (
+            <ThumbAdd>
+              <button onClick={open} type="button">
+                <MdCloudUpload size={32} color={colors.terceary} />
+              </button>
+            </ThumbAdd>
+          )}
+        </ThumbsList>
+      </ThumbsWrapper>
+
+      {editImage && (
+        <ImageEdit
+          closeModal={() => setEditImage(false)}
+          imageId={editImageId}
+        />
       )}
-    </Wrapper>
+    </>
   );
 }
 

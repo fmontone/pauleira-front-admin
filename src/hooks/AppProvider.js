@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 import { AuthProvider } from './AuthContext';
 import { ToastProvider } from './ToastContext';
+import { GalleriesAdmProvider } from './GalleriesAdmContext';
 import { UsersAdmProvider } from './UsersAdmContext';
 import { ConfirmProvider } from './ConfirmContext';
 
@@ -11,7 +12,9 @@ function AppProvider({ children }) {
     <AuthProvider>
       <ToastProvider>
         <ConfirmProvider>
-          <UsersAdmProvider>{children}</UsersAdmProvider>
+          <GalleriesAdmProvider>
+            <UsersAdmProvider>{children}</UsersAdmProvider>
+          </GalleriesAdmProvider>
         </ConfirmProvider>
       </ToastProvider>
     </AuthProvider>

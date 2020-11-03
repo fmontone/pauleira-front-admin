@@ -2,10 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 
 import api from '~/services/api';
-import useTranslateUserRole from '~/hooks/useTranslateUserRole';
-import useSortList from '~/hooks/useSortList';
+import { useGalleriesAdm } from '~/hooks/GalleriesAdmContext';
+import sortList from '~/utils/sortList';
 
 import colors from '~/styles/colors';
+
+import PageTitle from '~/components/PageTitle';
 
 import {
   Container,
@@ -15,7 +17,6 @@ import {
   Search,
   SelectFilter,
   DropDownWrapper,
-  ButtonLoadMore,
 } from './styles';
 
 import GalleriesList from './GalleriesList';
@@ -24,111 +25,69 @@ function Galleries() {
   const history = useHistory();
 
   const [loading, setLoading] = useState(true);
+  const [loaded, setLoaded] = useState(null);
 
-  // Content Data
-  const [galleries, setGalleries] = useState([]);
-  const [searchQuery, setSearchQuery] = useState(null); // eslint-disable-line
-
-  // Filters and Sorting
-  const dropOptions = [
-    'Mais Recentes',
-    'Mais Antigos',
-    'Mais Curtidas',
-    'Menos Curtidas',
-    'A-z',
-    'z-A',
-  ];
-
-  const [sortProperty, setSortProperty] = useState(null);
-  const [order, setOrder] = useState(null);
-  const translated = useTranslateUserRole(galleries);
-  const sorted = useSortList(translated, sortProperty, order);
+  // Context Data
+  const {
+    galleriesAdm,
+    setGalleriesAdm,
+    setCacheGalleriesAdm,
+    galleriesAdmFilter,
+    sortOptions,
+  } = useGalleriesAdm();
 
   useEffect(() => {
-    async function fetchData() {
+    async function fetchGalleries() {
       const { data } = await api.get('/galleries');
 
-      setGalleries(data);
+      setGalleriesAdm(sortList(data, sortOptions[0]));
+      setCacheGalleriesAdm(sortList(data, sortOptions[0]));
       setLoading(false);
+      setLoaded(true);
     }
 
-    fetchData();
-  }, []);
+    if (!loaded) fetchGalleries();
+  }, [
+    galleriesAdm,
+    loaded,
+    setCacheGalleriesAdm,
+    setGalleriesAdm,
+    sortOptions,
+  ]);
 
-  function handleSearchFormSubmit(e) {
-    e.preventDefault();
-    // console.log('SUBMIT: ', searchQuery);
-  }
-
-  function handleSortSelect(e) {
-    let selectSortProperty;
-    let selectOrder;
-
-    switch (e.target.value) {
-      case dropOptions[0]:
-        selectSortProperty = 'createdAt';
-        selectOrder = 'DES';
-        break;
-      case dropOptions[1]:
-        selectSortProperty = 'createdAt';
-        selectOrder = 'ASC';
-        break;
-      case dropOptions[2]:
-        selectSortProperty = 'likes';
-        selectOrder = 'ASC';
-        break;
-      case dropOptions[3]:
-        selectSortProperty = 'likes';
-        selectOrder = 'DES';
-        break;
-      case dropOptions[4]:
-        selectSortProperty = 'title';
-        selectOrder = 'ASC';
-        break;
-      case dropOptions[5]:
-        selectSortProperty = 'title';
-        selectOrder = 'DES';
-        break;
-      default:
-        selectSortProperty = 'createdAt';
-        selectOrder = 'ASC';
-        break;
-    }
-
-    setSortProperty(selectSortProperty);
-    setOrder(selectOrder);
+  function handleSort(index) {
+    setGalleriesAdm(sortList(galleriesAdm, sortOptions[index]));
   }
 
   return (
     <Container>
-      {loading && <></>}
+      <PageTitle>Galerias Pauleira</PageTitle>
       <HeadlineContainer>
         <SettingsLine>
           <Search
-            onSubmit={(e) => handleSearchFormSubmit(e)}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            placeholder="Procurar Usuário..."
+            onChange={(e) => galleriesAdmFilter(e.target.value)}
+            placeholder="Filtrar Galerias..."
           />
 
           <DropDownWrapper>
             <SelectFilter
-              dropOptions={dropOptions}
-              onChange={(e) => handleSortSelect(e)}
+              dropOptions={sortOptions}
+              onChange={(e) => handleSort(e.target.value)}
             />
           </DropDownWrapper>
         </SettingsLine>
 
         <ButtonAdd
-          onClick={() => history.push('/galleries/new')}
           color={colors.statusInfo}
+          onClick={() => history.push('/galleries/new')}
         >
           Adicionar Galeria
         </ButtonAdd>
       </HeadlineContainer>
 
-      <GalleriesList payload={sorted} />
+      {loading ? <h3>Loading</h3> : <GalleriesList />}
 
-      {sorted.length >= 10 && <ButtonLoadMore>Carregar Mais</ButtonLoadMore>}
+      {/* {sorted.length >= 10 && <ButtonLoadMore>Carregar Mais</ButtonLoadMore>} */}
     </Container>
   );
 }

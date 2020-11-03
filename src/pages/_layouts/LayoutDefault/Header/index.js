@@ -65,16 +65,18 @@ function Header() {
   return (
     <Wrapper>
       <Container>
-        <LogoWrapper>
-          <NavLink to="/">
-            <Icon name="logo-flying-p" color={colors.blackDeep} size="32" />
-            <img src={PauleiraLogo} alt="Pauleira" />
-          </NavLink>
-        </LogoWrapper>
+        {!subPage && (
+          <LogoWrapper>
+            <NavLink to="/">
+              <Icon name="logo-flying-p" color={colors.blackDeep} size="32" />
+              <img src={PauleiraLogo} alt="Pauleira" />
+            </NavLink>
+          </LogoWrapper>
+        )}
 
         {subPage && (
           <button type="button" onClick={() => history.goBack()}>
-            <IoMdArrowRoundBack color={colors.primary} size="24" />
+            <IoMdArrowRoundBack color={colors.primary} size="24" /> Voltar
           </button>
         )}
 

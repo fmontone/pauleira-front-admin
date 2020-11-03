@@ -1,53 +1,50 @@
 import styled from 'styled-components';
 
 import ContainerCustom from '~/components/ContainerCustom';
-import colors from '~/styles/colors';
+
 import { device } from '~/styles/queries';
 
 export const Container = styled(ContainerCustom)`
-  margin-bottom: 16px;
-  padding: 0;
+  width: 100%;
+  height: 100%;
+  padding: unset;
 
+  flex: 1;
   display: flex;
   flex-direction: column;
 
   @media ${device.tabletLs} {
-    flex-direction: row;
-    flex-wrap: wrap;
-  }
-
-  h2 {
-    margin-bottom: 32px;
-  }
-
-  .galley-image__placeholder {
-    padding: 16px;
-    margin-bottom: 32px;
-    text-align: center;
-    color: ${colors.grey};
-    border-radius: 6px;
-    border: 1px dashed ${colors.greyLight};
+    padding: unset;
   }
 `;
 
-export const BlockTitle = styled.div`
-  display: flex;
-  flex-direction: column;
-
+export const ContentWrapper = styled.div`
   @media ${device.tabletLs} {
-    flex: 0 0 100%;
+    display: flex;
+    justify-content: center;
+    flex: 1;
   }
 `;
 
 export const BlockImages = styled.div`
+  width: 100%;
+  height: auto;
   display: flex;
   flex-direction: column;
-  flex: 0 0 60%;
+
+  @media ${device.tabletLs} {
+    width: 60%;
+  }
 `;
 
 export const BlockForm = styled.div`
+  width: 100%;
+  margin-left: unset;
+  padding-bottom: 16px;
+
   @media ${device.tabletLs} {
-    flex: 1;
-    padding: 0 16px;
+    margin-left: 16px;
+    width: 40%;
+    padding-bottom: unset;
   }
 `;

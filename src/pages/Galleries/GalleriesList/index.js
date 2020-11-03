@@ -1,11 +1,13 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
-import PropTypes from 'prop-types';
+
+import { useGalleriesAdm } from '~/hooks/GalleriesAdmContext';
 
 import {
   List,
   ListItem,
   Thumb,
+  InfoTitle,
   InfoWrapper,
   InfoGroup,
   Info,
@@ -18,52 +20,48 @@ import {
 
 import GalleryPlaceholder from '~/assets/pauleira_gallery_pic_placeholder.jpg';
 
-function GalleriesList({ payload }) {
+function GalleriesList() {
   const history = useHistory();
+
+  const { galleriesAdm } = useGalleriesAdm();
+
   return (
-    <List>
-      {payload.map((item) => (
-        <ListItem
-          key={item.id.toString()}
-          onClick={() => history.push(`/galleries/${item.id}`)}
-        >
-          {console.log(!!item.images[0])}
-          <Thumb
-            src={item.images[0] ? item.images[0].url : GalleryPlaceholder}
-          />
+    <>
+      <List>
+        {!!galleriesAdm.length &&
+          galleriesAdm.map((item) => (
+            <ListItem
+              key={item.id.toString()}
+              onClick={() => history.push(`/galleries/${item.id}`)}
+            >
+              <Thumb
+                src={item.images[0] ? item.images[0].url : GalleryPlaceholder}
+              />
 
-          <InfoWrapper>
-            <InfoGroup>
-              <Info>
-                <IconWrapper>
-                  <IconLikes />
-                </IconWrapper>
-                <span>{item.likes}</span>
-              </Info>
+              <InfoTitle>{item.title}</InfoTitle>
+              <InfoWrapper>
+                <InfoGroup>
+                  <Info>
+                    <IconWrapper>
+                      <IconLikes />
+                    </IconWrapper>
+                    <span>{item.likes}</span>
+                  </Info>
 
-              <Status>{item.status}</Status>
-            </InfoGroup>
+                  <Status>{item.status}</Status>
+                </InfoGroup>
 
-            <ButtonIcon>
-              <EditIcon />
-            </ButtonIcon>
-          </InfoWrapper>
-        </ListItem>
-      ))}
-    </List>
+                <ButtonIcon>
+                  <EditIcon />
+                </ButtonIcon>
+              </InfoWrapper>
+            </ListItem>
+          ))}
+      </List>
+
+      {!galleriesAdm.length && <h3>Nenhuma galeria encontrada :(</h3>}
+    </>
   );
 }
-
-GalleriesList.propTypes = {
-  payload: PropTypes.arrayOf(
-    PropTypes.shape({
-      // id: PropTypes.number,
-      // name: PropTypes.string,
-      // email: PropTypes.string,
-      // a_k_a: PropTypes.string,
-      // profile_image: PropTypes.string,
-    })
-  ).isRequired,
-};
 
 export default GalleriesList;

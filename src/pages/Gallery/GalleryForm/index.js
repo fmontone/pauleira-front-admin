@@ -1,12 +1,15 @@
-import React, { useEffect, useState, useContext, createRef } from 'react';
+import React, { useEffect, useState, createRef } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
-import { useSelector } from 'react-redux';
+
 import PropTypes from 'prop-types';
 
 import api from '~/services/api';
-import { GalleryContext } from '../GalleryContext';
+
+import { useAuth } from '~/hooks/AuthContext';
 import { useToast } from '~/hooks/ToastContext';
+import { useConfirm } from '~/hooks/ConfirmContext';
+import { useGallery } from '~/hooks/GalleryContext';
 
 import {
   StyledInput,
@@ -20,12 +23,12 @@ import {
   ButtonDelete,
 } from './styles';
 
-function GalleryForm({ formData, editGallery }) {
+function GalleryForm({ editGallery }) {
   const history = useHistory();
   const { id } = useParams();
-  const { galleryData, setGalleryData } = useContext(GalleryContext);
 
-  const { user_id } = useSelector((state) => state.auth);
+  const { user } = useAuth();
+  const { gallery } = useGallery();
 
   const { register, reset, handleSubmit, watch, errors } = useForm();
 
@@ -36,12 +39,14 @@ function GalleryForm({ formData, editGallery }) {
   const toggleRef = createRef(null);
 
   const { addToast } = useToast();
+  const { confirm } = useConfirm();
 
   useEffect(() => {
-    reset(formData);
+    reset(gallery);
 
-    if (formData) setPublished(formData.status.toLowerCase() === 'public');
-  }, [formData, reset]);
+    if (gallery && !!gallery.status)
+      setPublished(gallery.status.toLowerCase() === 'public');
+  }, [gallery, reset]);
 
   useEffect(() => {
     if (!editGallery) {
@@ -52,7 +57,7 @@ function GalleryForm({ formData, editGallery }) {
 
     if (editGallery && dataChanged) {
       Object.keys(dataChanged).map((item) => {
-        if (dataChanged[item] === formData[item]) {
+        if (dataChanged[item] === gallery[item]) {
           delete dataChanged[item];
         }
 
@@ -66,7 +71,7 @@ function GalleryForm({ formData, editGallery }) {
       setDataChanged(null);
       setActiveSubmit(false);
     }
-  }, [dataChanged, formData, editGallery]);
+  }, [dataChanged, gallery, editGallery]);
 
   function handleCancel() {
     if (window.confirm('Ao cancelar você perderá suas alterações. Você tem certeza que quer cancelar?')) { /* eslint-disable-line */
@@ -84,7 +89,15 @@ function GalleryForm({ formData, editGallery }) {
       });
     } else if (!editGallery) {
       try {
-        const response = await api.post('/galleries', { ...data, user_id });
+        const response = await api.post('/galleries', {
+          ...data,
+          user_id: user.id,
+        });
+
+        addToast({
+          type: 'success',
+          message: 'Galeria Criada com Sucesso!',
+        });
 
         history.push(`/galleries/${response.data.id}`);
       } catch (err) {
@@ -108,7 +121,7 @@ function GalleryForm({ formData, editGallery }) {
     try {
       await api.put(`/galleries/${id}`, { status });
 
-      setGalleryData({ ...galleryData, status });
+      // setGalleryData({ ...galleryData, status });
 
       if (status === 'Public') {
         addToast({
@@ -130,6 +143,29 @@ function GalleryForm({ formData, editGallery }) {
     }
   }
 
+  function handleDeleteGallery() {
+    confirm(
+      'Você tem certeza que quer excluir permanentemente esta galeria? Não esqueça que você pode mantê-la como rascunho.',
+      () => async () => {
+        try {
+          await api.delete(`/galleries/${id}`);
+
+          addToast({
+            type: 'success',
+            message: 'Galeria excluída com sucesso!',
+          });
+
+          history.push('/galleries');
+        } catch (err) {
+          addToast({
+            type: 'error',
+            message: 'Erro ao excluir galeria',
+          });
+        }
+      }
+    );
+  }
+
   return (
     <>
       <form onSubmit={handleSubmit(handleDataSubmit)} onChange={handleChange}>
@@ -139,6 +175,7 @@ function GalleryForm({ formData, editGallery }) {
             required: 'Campo Obrigatório',
           })}
           errorText={errors.title && errors.title.message}
+          autoComplete="off"
         />
 
         <StyledTextArea
@@ -147,6 +184,7 @@ function GalleryForm({ formData, editGallery }) {
             required: 'Campo Obrigatório',
           })}
           errorText={errors.description && errors.description.message}
+          autoComplete="off"
         />
 
         <MainButtonWrapper>
@@ -158,7 +196,7 @@ function GalleryForm({ formData, editGallery }) {
         </MainButtonWrapper>
       </form>
 
-      {formData && (
+      {gallery && (
         <form onChange={(e) => handleUpdateStatus(e)}>
           <ToggleWrapper>
             <Toggler
@@ -166,7 +204,7 @@ function GalleryForm({ formData, editGallery }) {
               toggleValue={published}
               textOn="Galeria Publicada"
               textOff="Publicar Galeria"
-              active={galleryData && !!galleryData.images.length}
+              // active={galleryData && !!galleryData.images.length}
               toggleRef={toggleRef}
             />
           </ToggleWrapper>
@@ -174,24 +212,18 @@ function GalleryForm({ formData, editGallery }) {
       )}
 
       <ButtonDeleteWrapper>
-        {editGallery && <ButtonDelete>Excluir Galeria</ButtonDelete>}
+        {editGallery && (
+          <ButtonDelete onClick={handleDeleteGallery}>
+            Excluir Galeria
+          </ButtonDelete>
+        )}
       </ButtonDeleteWrapper>
     </>
   );
 }
 
 GalleryForm.propTypes = {
-  formData: PropTypes.shape({
-    id: PropTypes.number,
-    title: PropTypes.string,
-    status: PropTypes.string,
-    images: PropTypes.arrayOf(PropTypes.shape({})),
-  }),
   editGallery: PropTypes.bool.isRequired,
-};
-
-GalleryForm.defaultProps = {
-  formData: null,
 };
 
 export default GalleryForm;
