@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import { useDropzone } from 'react-dropzone';
 import { uniqueId } from 'lodash';
 import axios from 'axios';
+import imageCompression from 'browser-image-compression';
 
 import { MdCloudUpload, MdEdit } from 'react-icons/md';
 
@@ -48,10 +49,29 @@ function ImageUploader() {
   function onDrop(files) {
     setLoading(true);
 
-    const uploads = files.map((file) => {
+    const uploads = files.map(async (file) => {
+      const options = {
+        maxSizeMB: 2,
+        maxWidthOrHeight: 1920,
+        useWebWorker: true,
+      };
+
+      let compressedBlob;
+
+      try {
+        compressedBlob = await imageCompression(file, options);
+      } catch (error) {
+        console.log('error compressing', error);
+      }
+
+      const convertedBlobFile = new File([compressedBlob], file.name, {
+        type: file.type,
+        lastModified: Date.now(),
+      });
+
       // FormData to Carry File
       const formData = new FormData();
-      formData.append('file', file);
+      formData.append('file', convertedBlobFile);
       formData.append('title', gallery.title);
 
       // Position
@@ -65,20 +85,20 @@ function ImageUploader() {
 
     axios
       .all(uploads)
-      .then((res) => {
-        return res.forEach((item) =>
-          setGallery((state) => ({
-            ...state,
-            images: [...state.images, item.data],
-          }))
-        );
-      })
-      .catch(() =>
+      .catch((error) => {
+        console.log('ERRO', error);
         addToast({
           type: 'error',
           message: 'Erro ao fazer upload',
-      })) /*eslint-disable-line*/
-      .then(() => {
+      })}) /*eslint-disable-line*/
+      .then(async () => {
+        try {
+          const { data } = await api.get(`/galleries/${id}`);
+          console.log(data);
+          setGallery(data);
+        } catch (error) {
+          if (error) window.location.reload();
+        }
         setLoading(false);
       });
   }
