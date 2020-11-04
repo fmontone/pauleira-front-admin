@@ -50,7 +50,7 @@ function ImageUploader() {
 
     const uploads = files.map(async (file, index) => {
       const options = {
-        maxSizeMB: 2,
+        maxSizeMB: 5,
         maxWidthOrHeight: 1920,
         useWebWorker: true,
       };
