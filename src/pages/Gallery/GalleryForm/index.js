@@ -74,9 +74,16 @@ function GalleryForm({ editGallery }) {
   }, [dataChanged, gallery, editGallery]);
 
   function handleCancel() {
-    if (window.confirm('Ao cancelar você perderá suas alterações. Você tem certeza que quer cancelar?')) { /* eslint-disable-line */
+    if (dataChanged === null) {
       history.push('/galleries');
+
+      return;
     }
+
+    confirm(
+      'Ao cancelar você perderá suas alterações. Você tem certeza que quer cancelar?',
+      () => () => history.push('/galleries')
+    );
   }
 
   async function handleDataSubmit(data) {
@@ -120,8 +127,6 @@ function GalleryForm({ editGallery }) {
 
     try {
       await api.put(`/galleries/${id}`, { status });
-
-      // setGalleryData({ ...galleryData, status });
 
       if (status === 'Public') {
         addToast({
@@ -196,7 +201,7 @@ function GalleryForm({ editGallery }) {
         </MainButtonWrapper>
       </form>
 
-      {gallery && (
+      {gallery && gallery.images && gallery.images.length >= 1 && (
         <form onChange={(e) => handleUpdateStatus(e)}>
           <ToggleWrapper>
             <Toggler
@@ -204,7 +209,6 @@ function GalleryForm({ editGallery }) {
               toggleValue={published}
               textOn="Galeria Publicada"
               textOff="Publicar Galeria"
-              // active={galleryData && !!galleryData.images.length}
               toggleRef={toggleRef}
             />
           </ToggleWrapper>
