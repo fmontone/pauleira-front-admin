@@ -42,19 +42,34 @@ const Container = styled.div`
 `;
 
 export const ContainerIdle = styled(Container)`
-  padding: 0 32px;
+  padding: 0 8px;
+
+  @media ${device.tabletLs} {
+    padding: 0 32px;
+  }
 
   svg {
-    margin-bottom: 16px;
+    margin-bottom: 8px;
+
+    @media ${device.tabletLs} {
+      margin-bottom: 16px;
+    }
   }
 
   h3 {
-    margin-bottom: 16px;
+    margin-bottom: 8px;
+
+    @media ${device.tabletLs} {
+      margin-bottom: 16px;
+    }
   }
 
   span {
     text-align: center;
-    max-width: 60%;
+
+    @media ${device.tabletLs} {
+      max-width: 60%;
+    }
   }
 `;
 
