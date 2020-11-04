@@ -16,6 +16,8 @@ function GalleriesAdmProvider({ children }) {
       { title: 'Mais Curtidas', property: 'likes', order: 'desc' },
       { title: 'A-z', property: 'name', order: 'asc' },
       { title: 'z-A', property: 'name', order: 'desc' },
+      { title: 'Publicadas', property: 'status', order: 'desc' },
+      { title: 'Rascunho', property: 'status', order: 'asc' },
     ],
     []
   );
