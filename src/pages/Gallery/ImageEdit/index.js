@@ -111,12 +111,7 @@ function ImageEdit({ imageId, closeModal }) {
           if (Number(image.position) > deletePosition) {
             try {
               await api.put(`/galleries/images/${2}/${image.id}`, {
-                position: Number(image.position - 1),
-              });
-
-              addToast({
-                type: 'info',
-                message: 'Imagem reposicionada',
+                position: Number(image.position) - 1,
               });
             } catch (error) {
               if (error)
@@ -126,6 +121,11 @@ function ImageEdit({ imageId, closeModal }) {
                 });
             }
           }
+        });
+
+        addToast({
+          type: 'info',
+          message: 'Imagens Reposicionadas',
         });
       }
 

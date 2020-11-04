@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useDropzone } from 'react-dropzone';
-import { uniqueId } from 'lodash';
 import axios from 'axios';
 import imageCompression from 'browser-image-compression';
 
@@ -49,7 +48,7 @@ function ImageUploader() {
   function onDrop(files) {
     setLoading(true);
 
-    const uploads = files.map(async (file) => {
+    const uploads = files.map(async (file, index) => {
       const options = {
         maxSizeMB: 2,
         maxWidthOrHeight: 1920,
@@ -70,17 +69,16 @@ function ImageUploader() {
 
       // Position
       const position =
-        gallery && !!gallery.images && gallery.images.length > 0
-          ? parseInt(uniqueId(), 10) + parseInt(gallery.images.length, 10)
-          : parseInt(uniqueId(), 10);
+        gallery && gallery.images.length > 0
+          ? gallery.images.length + index + 1
+          : 1;
 
       return api.post(`/galleries/add-img/${id}/${position}`, formData);
     });
 
     axios
       .all(uploads)
-      .catch((error) => {
-        console.log('ERRO', error);
+      .catch(() => {
         addToast({
           type: 'error',
           message: 'Erro ao fazer upload',
@@ -106,7 +104,6 @@ function ImageUploader() {
     accept: 'image/*',
     maxSize: 2097152,
     onDrop,
-    onDropRejected: () => console.log('ERROR UPLOADING FILE'),
     noDrag: stopDrag,
   });
 
@@ -137,7 +134,7 @@ function ImageUploader() {
       `}
         src={
           gallery && !!gallery.images && !!gallery.images.length
-            ? gallery.images[0].url
+            ? gallery.images.find((el) => el.position === '1').url
             : ''
         }
       >
@@ -185,18 +182,20 @@ function ImageUploader() {
           {gallery &&
             gallery.images &&
             gallery.images.length > 1 &&
-            gallery.images.map((image, index) => {
-              if (index > 0)
-                return (
-                  <Thumbnail key={String(image.id)} src={image.url}>
-                    <EditImageButton
-                      onClick={(e) => handleEditImage(e, image.id)}
-                    />
-                  </Thumbnail>
-                );
+            gallery.images
+              .sort((a, b) => a.position - b.position)
+              .map((image) => {
+                if (image.position !== '1')
+                  return (
+                    <Thumbnail key={String(image.id)} src={image.url}>
+                      <EditImageButton
+                        onClick={(e) => handleEditImage(e, image.id)}
+                      />
+                    </Thumbnail>
+                  );
 
-              return null;
-            })}
+                return null;
+              })}
 
           {gallery && gallery.images && !!gallery.images.length && (
             <ThumbAdd>
