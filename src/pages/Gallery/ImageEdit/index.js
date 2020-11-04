@@ -19,9 +19,12 @@ import {
   ImageWrapper,
   Image,
   ButtonFullScreen,
+  Form,
   InputTitle,
   InputDescription,
+  ButtonsWrapper,
   ButtonSubmit,
+  ButtonCloseImage,
   ButtonDeleteImage,
 } from './styles';
 
@@ -77,7 +80,12 @@ function ImageEdit({ imageId, closeModal }) {
       try {
         await api.put(`/galleries/images/${id}/${imageData.id}`, dataChanged);
 
-        window.location.reload();
+        setDataChanged(null);
+        setActiveSubmit(false);
+        addToast({
+          type: 'success',
+          message: 'Dados atualizados!',
+        });
       } catch (err) {
         if (err)
           addToast({
@@ -85,12 +93,6 @@ function ImageEdit({ imageId, closeModal }) {
             message: 'Erro ao alterar dados da imagem',
           });
       }
-      setDataChanged(null);
-      setActiveSubmit(false);
-      addToast({
-        type: 'success',
-        message: 'Imagem salva com sucesso',
-      });
     }
   }
 
@@ -189,19 +191,26 @@ function ImageEdit({ imageId, closeModal }) {
           {fullScreen && <Image src={imageData.url} />}
         </ImageWrapper>
 
-        <form onSubmit={handleSubmit(handleDataSubmit)} onChange={handleChange}>
+        <Form onSubmit={handleSubmit(handleDataSubmit)} onChange={handleChange}>
           <InputTitle name="title" label="Título" ref={register} />
           <InputDescription
             name="description"
             label="Descrição"
             ref={register}
           />
-          <ButtonSubmit disabled={!activeSubmit}>Salvar</ButtonSubmit>
-        </form>
 
-        <ButtonDeleteImage onClick={handleDeleteImage}>
-          Excluir Imagem
-        </ButtonDeleteImage>
+          <ButtonsWrapper>
+            <ButtonSubmit disabled={!activeSubmit}>Salvar</ButtonSubmit>
+
+            <ButtonCloseImage onClick={() => closeModal()}>
+              Fechar Imagem
+            </ButtonCloseImage>
+
+            <ButtonDeleteImage onClick={handleDeleteImage}>
+              Excluir Imagem
+            </ButtonDeleteImage>
+          </ButtonsWrapper>
+        </Form>
       </Container>
     </Wrapper>
   );

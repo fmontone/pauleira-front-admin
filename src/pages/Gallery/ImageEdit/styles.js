@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import { transparentize } from 'polished';
 
 import colors from '~/styles/colors';
+import { device } from '~/styles/queries';
 
 import Card from '~/components/Card';
 import { Input, TextArea } from '~/components/Form';
@@ -97,7 +98,6 @@ export const ButtonFullScreen = styled.div`
   height: 32px;
 
   display: flex;
-  align-items: center;
   justify-content: center;
 
   border-radius: 6px;
@@ -105,6 +105,17 @@ export const ButtonFullScreen = styled.div`
   background-color: ${transparentize(0.4, colors.blackDeep)};
 
   z-index: 1;
+`;
+
+export const Form = styled.form`
+  display: block;
+  width: 100%;
+  max-width: 600px;
+  flex: 1;
+
+  @media ${device.tabletLs} {
+    align-self: center;
+  }
 `;
 
 export const InputTitle = styled(Input)`
@@ -116,16 +127,53 @@ export const InputDescription = styled(TextArea)`
   height: 80px;
 `;
 
+export const ButtonsWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+
+  @media ${device.tabletLs} {
+    padding-bottom: 32px;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+    align-items: center;
+  }
+`;
+
 export const ButtonSubmit = styled(ButtonCustom).attrs({
   type: 'submit',
   color: colors.statusSuccess,
 })`
   width: 100%;
   margin-bottom: 16px;
+
+  @media ${device.tabletLs} {
+    width: auto;
+    margin-bottom: unset;
+  }
+`;
+
+export const ButtonCloseImage = styled(ButtonCustom).attrs({
+  color: colors.grey,
+  model: 'outline',
+  size: 'small',
+})`
+  width: 100%;
+  margin-bottom: 16px;
+
+  @media ${device.tabletLs} {
+    width: auto;
+    margin-bottom: unset;
+  }
 `;
 
 export const ButtonDeleteImage = styled(ButtonCustom).attrs({
   model: 'outline',
   size: 'small',
   color: colors.statusDanger,
-})``;
+})`
+  width: 100%;
+
+  @media ${device.tabletLs} {
+    width: auto !important;
+  }
+`;
