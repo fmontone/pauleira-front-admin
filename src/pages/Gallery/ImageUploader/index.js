@@ -67,7 +67,7 @@ function ImageUploader() {
       const position =
         gallery && gallery.images.length > 0
           ? gallery.images.length + index + 1
-          : 1;
+          : index + 1;
 
       return api.post(`/galleries/add-img/${id}/${position}`, formData);
     });
@@ -184,10 +184,12 @@ function ImageUploader() {
         )}
       </Wrapper>
 
-      {gallery && gallery.images && gallery.images.length > 1 && (
-        <ThumbsWrapper>
-          <ThumbsList>
-            {gallery.images
+      <ThumbsWrapper>
+        <ThumbsList>
+          {gallery &&
+            gallery.images &&
+            gallery.images.length > 1 &&
+            gallery.images
               .sort((a, b) => a.position - b.position)
               .map((image) => {
                 if (image.position !== '1')
@@ -202,16 +204,15 @@ function ImageUploader() {
                 return null;
               })}
 
-            {gallery && gallery.images && !!gallery.images.length && (
-              <ThumbAdd>
-                <button onClick={open} type="button">
-                  <MdCloudUpload size={32} color={colors.terceary} />
-                </button>
-              </ThumbAdd>
-            )}
-          </ThumbsList>
-        </ThumbsWrapper>
-      )}
+          {gallery && gallery.images && !!gallery.images.length && (
+            <ThumbAdd>
+              <button onClick={open} type="button">
+                <MdCloudUpload size={32} color={colors.terceary} />
+              </button>
+            </ThumbAdd>
+          )}
+        </ThumbsList>
+      </ThumbsWrapper>
 
       {editImage && (
         <ImageEdit
