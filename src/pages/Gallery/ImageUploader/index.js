@@ -56,13 +56,7 @@ function ImageUploader() {
         useWebWorker: true,
       };
 
-      let compressedBlob;
-
-      try {
-        compressedBlob = await imageCompression(file, options);
-      } catch (error) {
-        console.log('error compressing', error);
-      }
+      const compressedBlob = await imageCompression(file, options);
 
       const convertedBlobFile = new File([compressedBlob], file.name, {
         type: file.type,
@@ -94,7 +88,6 @@ function ImageUploader() {
       .then(async () => {
         try {
           const { data } = await api.get(`/galleries/${id}`);
-          console.log(data);
           setGallery(data);
         } catch (error) {
           if (error) window.location.reload();
@@ -111,7 +104,7 @@ function ImageUploader() {
     open,
   } = useDropzone({
     accept: 'image/*',
-    maxSize: 5242880,
+    maxSize: 2097152,
     onDrop,
     onDropRejected: () => console.log('ERROR UPLOADING FILE'),
     noDrag: stopDrag,
