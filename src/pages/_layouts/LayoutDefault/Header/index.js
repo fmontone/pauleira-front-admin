@@ -108,7 +108,7 @@ function Header() {
               to="/settings"
               className="header__profile"
             >
-              <ProfilePic src={user.profile_image || ProfilePlaceholder} />
+              <ProfilePic src={user.profile_image.url || ProfilePlaceholder} />
             </NavLink>
           </ButtonWrapper>
         )}
@@ -147,7 +147,7 @@ function Header() {
                     to="/settings"
                   >
                     <ProfilePic
-                      src={user.profile_image || ProfilePlaceholder}
+                      src={user.profile_image.url || ProfilePlaceholder}
                     />
                   </NavLink>
                   <NavLink
