@@ -45,13 +45,12 @@ function ImageUploader() {
 
   const { addToast } = useToast();
 
-  function onDrop(files) {
+  async function onDrop(files) {
     setLoading(true);
 
     const uploads = files.map(async (file, index) => {
       const options = {
         maxSizeMB: 5,
-        maxWidthOrHeight: 1920,
         useWebWorker: true,
       };
 
@@ -76,13 +75,24 @@ function ImageUploader() {
       return api.post(`/galleries/add-img/${id}/${position}`, formData);
     });
 
-    axios
+    await axios
       .all(uploads)
-      .catch(() => {
-        addToast({
-          type: 'error',
-          message: 'Erro ao fazer upload',
-      })}) /*eslint-disable-line*/
+      .catch(function throwError(error) {
+        if (error.response) {
+          // Request made and server responded
+          throw new Error(
+            'Server responded with an error on response. Contact the administrator.'
+          );
+        } else if (error.request) {
+          // The request was made but no response was received
+          throw new Error(
+            'Server responded with an error on request. Contact the administrator.'
+          );
+        } else {
+          // Something happened in setting up the request that triggered an Error
+          throw new Error('Server error. Contact the administrator.');
+        }
+      })
       .then(async () => {
         try {
           const { data } = await api.get(`/galleries/${id}`);
