@@ -64,7 +64,7 @@ function Header() {
   }, [pathLenght]);
 
   return (
-    <Wrapper>
+    <Wrapper className={subPage ? 'subpage__bg--black' : ''}>
       <Container className={subPage ? 'single__button' : ''}>
         {!subPage && (
           <LogoWrapper>
@@ -76,7 +76,12 @@ function Header() {
         )}
 
         {subPage && (
-          <ButtonBack type="button" onClick={() => history.goBack()}>
+          <ButtonBack
+            type="button"
+            onClick={() =>
+              history.push(`/${history.location.pathname.split('/')[1]}`)
+            }
+          >
             <IoMdArrowRoundBack color={colors.grey} size="20" /> Voltar
           </ButtonBack>
         )}

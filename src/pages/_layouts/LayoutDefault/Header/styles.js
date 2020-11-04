@@ -12,6 +12,10 @@ export const Wrapper = styled.header`
   display: flex;
   justify-content: center;
   border-bottom: 1px solid ${colors.greyLight};
+
+  &.subpage__bg--black {
+    background-color: ${colors.blackDeep};
+  }
 `;
 
 export const Container = styled(ContainerCustom)`
@@ -27,8 +31,7 @@ export const Container = styled(ContainerCustom)`
   }
 
   &.single__button {
-    background-color: ${colors.blackDeep};
-    flex-direction: row !important;
+    justify-content: center;
   }
 `;
 
