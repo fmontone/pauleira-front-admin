@@ -102,7 +102,7 @@ function ImageUploader() {
     open,
   } = useDropzone({
     accept: 'image/*',
-    maxSize: 2097152,
+    maxSize: 5242880,
     onDrop,
     noDrag: stopDrag,
   });
