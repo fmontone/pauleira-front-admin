@@ -8,7 +8,6 @@ import { MdCloudUpload, MdEdit } from 'react-icons/md';
 
 import api from '~/services/api';
 import { useGallery } from '~/hooks/GalleryContext';
-import { useToast } from '~/hooks/ToastContext';
 
 import LoadingCircle from '~/components/LoadingCircle';
 import ImageEdit from '../ImageEdit';
@@ -42,8 +41,6 @@ function ImageUploader() {
       setStopDrag(true);
     }
   }, [gallery]);
-
-  const { addToast } = useToast();
 
   async function onDrop(files) {
     setLoading(true);
