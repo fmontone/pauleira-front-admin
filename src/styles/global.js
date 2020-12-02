@@ -35,7 +35,10 @@ export default createGlobalStyle`
 
  /* HEADINGS ~ TITLES */
 
- h1, h2, h3, h4, h5, h6 {font-weight: 500;}
+ h1, h2, h3, h4, h5, h6 {
+    font-family: 'Fira Sans', Arial, Helvetica, sans-serif;
+    font-weight: 900;
+ }
 
  h1 {
   font-size: 40px;

@@ -8,6 +8,7 @@ export const Wrapper = styled(PageWrapper)`
 `;
 
 export const Container = styled(ContainerCustom)`
+  height: auto;
   display: flex;
   flex-direction: column;
   flex: 1;
